@@ -68,11 +68,11 @@ function Lobby() {
 
   return (
     <div className="relative h-full bg-white">
-      <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar">
+      <div className="relative h-full overflow-y-auto pb-10 text-foreground no-scrollbar">
         {/* HEADER */}
         <section className="relative h-[18vh] min-h-[140px] w-full overflow-hidden">
           <img src={heroImg} alt="画堂春" className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.55) 75%, #ffffff 100%)" }} />
+          <div className="absolute inset-0 bg-black/25" />
 
           <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-5 pt-12">
             <button
@@ -244,26 +244,26 @@ function Lobby() {
               确认角色后将直接进入匹配大厅
             </p>
           )}
-        </section>
-      </div>
 
-      {/* CTA */}
-      <div className="absolute inset-x-5 bottom-6 z-30">
-        <button
-          disabled={!canStart}
-          onClick={handleStart}
-          className={`flex h-14 w-full items-center justify-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98] ${
-            canStart ? "" : "opacity-40"
-          }`}
-          style={{ background: "var(--gradient-rouge)" }}
-        >
-          <span className="font-brush text-lg tracking-wider">
-            {mode === "solo" ? "进入匹配大厅" : "组队入梦"}
-          </span>
-        </button>
-        {!charId && (
-          <p className="mt-2 text-center text-[11px] text-neutral-400">请先选择一位角色</p>
-        )}
+          {/* CTA */}
+          <div className="mt-6">
+            <button
+              disabled={!canStart}
+              onClick={handleStart}
+              className={`flex h-14 w-full items-center justify-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98] ${
+                canStart ? "" : "opacity-40"
+              }`}
+              style={{ background: "var(--gradient-rouge)" }}
+            >
+              <span className="font-brush text-lg tracking-wider">
+                {mode === "solo" ? "进入匹配大厅" : "组队入梦"}
+              </span>
+            </button>
+            {!charId && (
+              <p className="mt-2 text-center text-[11px] text-neutral-400">请先选择一位角色</p>
+            )}
+          </div>
+        </section>
       </div>
 
       {/* Paywall sheet */}
