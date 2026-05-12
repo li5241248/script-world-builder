@@ -204,12 +204,12 @@ function HuatangChun() {
 
       {/* AI feature strip */}
       <section className="mt-8 px-6">
-        <div className="rounded-2xl border border-border/60 p-4" style={{ background: "var(--paper-warm)" }}>
+        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-sm">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4" style={{ color: "var(--rouge)" }} />
-            <span className="text-[12px] font-medium text-foreground">AI 动态剧情</span>
+            <span className="text-[12px] font-medium text-white/90">AI 动态剧情</span>
           </div>
-          <p className="mt-2 text-[12px] leading-6 text-muted-foreground">
+          <p className="mt-2 text-[12px] leading-6 text-white/65">
             你的每一个选择，都将由 AI 实时改写，与他人的故事彼此交错——同一卷《画堂春》，没有两场相同的结局。
           </p>
         </div>
