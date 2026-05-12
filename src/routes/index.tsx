@@ -97,7 +97,7 @@ function HuatangChun() {
       </section>
 
       {/* CHARACTER CAROUSEL */}
-      <section className="relative -mt-[400px] z-20">
+      <section className="relative -mt-[320px] z-20">
         <div className="px-5 pb-2 text-center">
           <h2 className="font-brush text-2xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">人物角色</h2>
         </div>
