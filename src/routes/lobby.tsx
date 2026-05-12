@@ -71,7 +71,6 @@ function Lobby() {
   const canStart = !!charId && scripts.length > 0;
 
   const handleStart = () => {
-    if (!canStart) return;
     navigate({ to: "/matching" });
   };
 
@@ -283,11 +282,8 @@ function Lobby() {
                 邀请好友
               </button>
               <button
-                disabled={!canStart}
                 onClick={handleStart}
-                className={`flex h-14 flex-1 items-center justify-center gap-1.5 rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98] ${
-                  canStart ? "" : "opacity-40"
-                }`}
+                className="flex h-14 flex-1 items-center justify-center gap-1.5 rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98]"
                 style={{ background: "var(--gradient-rouge)" }}
               >
                 <Sparkles className="h-4 w-4" />
@@ -304,11 +300,8 @@ function Lobby() {
               </p>
               <div className="mt-6">
                 <button
-                  disabled={!canStart}
                   onClick={handleStart}
-                  className={`flex h-14 w-full items-center justify-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98] ${
-                    canStart ? "" : "opacity-40"
-                  }`}
+                  className="flex h-14 w-full items-center justify-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98]"
                   style={{ background: "var(--gradient-rouge)" }}
                 >
                   <span className="font-brush text-lg tracking-wider">进入匹配大厅</span>
