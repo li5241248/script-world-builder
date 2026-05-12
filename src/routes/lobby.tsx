@@ -68,7 +68,7 @@ function Lobby() {
 
   return (
     <div className="relative h-full bg-white">
-      <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar">
+      <div className="relative h-full overflow-y-auto pb-10 text-foreground no-scrollbar">
         {/* HEADER */}
         <section className="relative h-[18vh] min-h-[140px] w-full overflow-hidden">
           <img src={heroImg} alt="画堂春" className="absolute inset-0 h-full w-full object-cover" />
