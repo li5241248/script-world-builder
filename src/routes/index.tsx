@@ -168,13 +168,6 @@ function HuatangChun() {
           ))}
         </div>
 
-        {/* Tap-for-detail hint */}
-        <div className="mt-3 flex justify-center">
-          <button className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[11px] text-white/80 backdrop-blur-sm">
-            查看「{CHARACTERS[active].name}」角色档案
-            <ChevronDown className="h-3 w-3 -rotate-90" />
-          </button>
-        </div>
       </section>
 
       {/* STORY BACKGROUND */}
@@ -185,20 +178,33 @@ function HuatangChun() {
         </div>
 
         <div className="mt-4 space-y-3">
-          {STORY_CHAPTERS.map((ch, i) => (
-            <button
-              key={i}
-              className="flex w-full items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-left backdrop-blur-sm transition active:scale-[0.99]"
-            >
-              <div className="flex items-center gap-3">
-                <span className="font-display text-[11px] tracking-widest text-white/40">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="font-display text-[15px] text-white/90">{ch.title}</span>
+          {STORY_CHAPTERS.map((ch, i) => {
+            const open = i === openChapter;
+            return (
+              <div
+                key={i}
+                className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all"
+              >
+                <button
+                  onClick={() => setOpenChapter(open ? -1 : i)}
+                  className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="font-display text-[11px] tracking-widest text-white/40">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-display text-[15px] text-white/90">{ch.title}</span>
+                  </div>
+                  <ChevronDown className={`h-4 w-4 text-white/50 transition-transform ${open ? "rotate-180" : ""}`} />
+                </button>
+                {open && (
+                  <div className="animate-fade-up px-4 pb-4">
+                    <p className="text-[13px] leading-7 text-white/65">{ch.body}</p>
+                  </div>
+                )}
               </div>
-              <ChevronDown className="h-4 w-4 -rotate-90 text-white/50" />
-            </button>
-          ))}
+            );
+          })}
         </div>
       </section>
 
