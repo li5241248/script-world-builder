@@ -10,7 +10,7 @@ import mama from "@/assets/char-mama.jpg";
 import empress from "@/assets/char-empress.jpg";
 
 export const Route = createFileRoute("/")({
-  component: HuatangChun,
+  component: PhoneMockup,
   head: () => ({
     meta: [
       { title: "画堂春 · 知乎剧本杀文游" },
