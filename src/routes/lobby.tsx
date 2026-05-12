@@ -71,7 +71,6 @@ function Lobby() {
   const canStart = !!charId && scripts.length > 0;
 
   const handleStart = () => {
-    if (!canStart) return;
     navigate({ to: "/matching" });
   };
 
