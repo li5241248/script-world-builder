@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen } from "lucide-react";
+import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import bg from "@/assets/matching-bg.png";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
@@ -19,6 +19,7 @@ type Msg =
   | { kind: "narration"; text: string }
   | { kind: "dialog"; charId: string; text: string }
   | { kind: "action"; charId: string; text: string }
+  | { kind: "prompt"; text: string }
   | { kind: "me"; text: string; mode: "say" | "do" };
 
 const INITIAL: Msg[] = [
@@ -28,6 +29,7 @@ const INITIAL: Msg[] = [
   },
   { kind: "dialog", charId: "mama", text: "贵人，仇公公来了，说……说陛下今夜要翻您的牌子。" },
   { kind: "dialog", charId: "peirong", text: "朕问你，想不想抚育三皇子琰儿？" },
+  { kind: "prompt", text: "听到这个消息，你心里……" },
 ];
 
 function Scene() {
@@ -198,6 +200,27 @@ function Bubble({ m }: { m: Msg }) {
           )}
         </div>
         <img src={me.img} alt={me.name} className="h-8 w-8 flex-shrink-0 rounded-full object-cover ring-1 ring-white/30" />
+      </div>
+    );
+  }
+
+  if (m.kind === "prompt") {
+    return (
+      <div className="mx-auto my-3 max-w-[90%] animate-fade-up">
+        <div className="relative overflow-hidden rounded-2xl border border-amber-200/30 bg-gradient-to-br from-amber-300/10 via-rose-300/5 to-transparent px-4 py-3 backdrop-blur">
+          <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-amber-300/10 blur-2xl" />
+          <div className="mb-1.5 flex items-center gap-1.5">
+            <Feather size={11} className="text-amber-200" />
+            <span className="text-[10px] tracking-[0.3em] text-amber-200/80">剧 情 提 示</span>
+            <div className="ml-1 h-px flex-1 bg-gradient-to-r from-amber-200/40 to-transparent" />
+          </div>
+          <p className="font-brush text-[14px] leading-relaxed tracking-wide text-amber-50/95">
+            {m.text}
+          </p>
+          <div className="mt-2 text-[10px] text-amber-100/50">
+            提示：可切换「说 / 动作」回应这一刻
+          </div>
+        </div>
       </div>
     );
   }
