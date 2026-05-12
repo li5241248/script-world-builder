@@ -95,7 +95,7 @@ function Lobby() {
         </section>
 
         {/* 1. SCRIPT SELECTION */}
-        <section className="-mt-2 px-5">
+        <section className="mt-4 px-5">
           <SectionTitle index="01" title="剧情选择" />
 
           {/* Original script — default */}
