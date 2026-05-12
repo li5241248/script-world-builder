@@ -102,7 +102,7 @@ function Scene() {
         className="relative z-10 flex-1 overflow-y-auto px-4 pb-32"
         style={{ height: "calc(100% - 200px)" }}
       >
-        <div className="space-y-3 py-2">
+        <div className="space-y-6 py-2">
           {messages.map((m, i) => (
             <Bubble key={i} m={m} />
           ))}
@@ -220,12 +220,12 @@ function Bubble({ m }: { m: Msg }) {
       { title: "平静，这只是意外", hint: "皇帝对你的淡然有些意外" },
     ];
     return (
-      <div className="-mx-4 my-3 animate-fade-up">
+      <div className="-mx-4 my-5 animate-fade-up">
         <div className="relative w-full overflow-hidden bg-black/55 backdrop-blur-md">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/10" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/10" />
 
-          <div className="relative z-10 flex items-center gap-3 px-5 py-4">
+          <div className="relative z-10 flex items-center gap-3 px-5 py-7">
             <div className="flex-1">
               <div className="mb-1.5 flex items-center gap-1.5">
                 <Feather size={10} className="text-amber-200/90" />
