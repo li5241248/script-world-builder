@@ -133,7 +133,7 @@ function Lobby() {
           </button>
 
           {/* Custom tags */}
-          <div className="mt-3 rounded-2xl border border-black/10 bg-gradient-to-br from-amber-50/60 to-rose-50/60 p-4">
+          <div className="mt-3 rounded-2xl border border-black/10 bg-neutral-50 p-4">
             <div className="flex items-center gap-2">
               <Crown className="h-3.5 w-3.5" style={{ color: "var(--rouge)" }} />
               <span className="text-[12px] font-medium text-neutral-900">标签定制剧情</span>
