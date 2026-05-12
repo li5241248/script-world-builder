@@ -15,10 +15,9 @@ export const Route = createFileRoute("/invite")({
 
 function Invite() {
   const navigate = useNavigate();
-  // demo: you + one ready teammate
-  const you = CHARACTERS.find((c) => c.id === "peiyan")!;
-  const mate = CHARACTERS.find((c) => c.id === "wentang")!;
-  const empty = [3, 4, 5, 6];
+  // current user only — picked character from lobby (demo: 温棠)
+  const me = CHARACTERS.find((c) => c.id === "wentang")!;
+  const empty = [2, 3, 4, 5, 6];
 
   return (
     <div className="relative h-full overflow-y-auto bg-white px-6 pt-12 pb-6 no-scrollbar">
@@ -27,8 +26,7 @@ function Invite() {
 
       {/* Slots */}
       <div className="mt-6 grid grid-cols-3 gap-3">
-        <SlotFilled char={you} label="你" badge="剧本总新手" />
-        <SlotFilled char={mate} label={mate.name} badge="已准备" badgeTone="ready" />
+        <SlotFilled char={me} />
         {empty.map((n) => (
           <EmptySlot key={n} index={n} />
         ))}
