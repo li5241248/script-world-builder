@@ -191,6 +191,7 @@ function CharacterDetail() {
       {/* CTA — fixed to phone screen */}
       <div className="absolute bottom-6 right-5 z-30">
         <button
+          onClick={() => navigate({ to: "/lobby", search: { char: c.id } })}
           className="grid h-20 w-20 place-items-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-95"
           style={{ background: "var(--gradient-rouge)" }}
         >
