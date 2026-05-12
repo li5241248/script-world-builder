@@ -28,7 +28,7 @@ const INITIAL: Msg[] = [
   },
   { kind: "action", charId: "mama", text: "替温棠披上一件石青色的披风，低声叮嘱。" },
   { kind: "dialog", charId: "mama", text: "姑娘，今夜万事小心。皇上召见，怕是为了二十年前那桩旧事。" },
-  { kind: "dialog", charId: "peirong", text: "温棠，你来了。坐吧——朕有话问你。" },
+  { kind: "dialog", charId: "peirong", text: "朕问你，想不想抚育三皇子琰儿？" },
 ];
 
 function Scene() {
