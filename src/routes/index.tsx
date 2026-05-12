@@ -78,7 +78,7 @@ function HuatangChun() {
     <div className="relative h-full bg-white">
     <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar">
       {/* HERO */}
-      <section className="relative h-[78vh] min-h-[680px] w-full overflow-hidden">
+      <section className="relative h-[68vh] min-h-[600px] w-full overflow-hidden">
         <img src={heroImg} alt="画堂春世界" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 88%, #ffffff 100%)" }} />
 
@@ -124,7 +124,7 @@ function HuatangChun() {
       </section>
 
       {/* CHARACTER CAROUSEL */}
-      <section className="relative -mt-[320px] z-20">
+      <section className="relative -mt-[260px] z-20">
         <div className="px-5 pb-2 text-center">
           <h2 className="font-brush text-2xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">人物角色</h2>
         </div>
