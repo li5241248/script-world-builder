@@ -1,16 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, Share2, Bookmark, ChevronDown, Sparkles, Users, Clock } from "lucide-react";
 import heroImg from "@/assets/hero-huatangchun.jpg";
-import wentang from "@/assets/char-wentang.jpg";
-import peirong from "@/assets/char-peirong.jpg";
-import peiyan from "@/assets/char-peiyan.jpg";
-import peiyu from "@/assets/char-peiyu.jpg";
-import mama from "@/assets/char-mama.jpg";
-import empress from "@/assets/char-empress.jpg";
+import { CHARACTERS } from "@/lib/characters";
+import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/")({
-  component: PhoneMockup,
+  component: HomePage,
   head: () => ({
     meta: [
       { title: "画堂春 · 知乎剧本杀文游" },
@@ -19,33 +15,6 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-type Character = {
-  id: string;
-  name: string;
-  role: string;
-  gender: "女" | "男";
-  age: number;
-  tag: string;
-  img: string;
-  desc: string;
-  played: number;
-};
-
-const CHARACTERS: Character[] = [
-  { id: "peiyan", name: "裴琰", role: "皇子", gender: "男", age: 12, tag: "皇子", img: peiyan, played: 9821,
-    desc: "母族倾覆后隐忍多年，剑藏鞘中，谋定后动。与温棠之间，是宿命，也是劫数。" },
-  { id: "wentang", name: "温棠", role: "女主 · 妃子", gender: "女", age: 21, tag: "贵妃", img: wentang, played: 12483,
-    desc: "出身画堂世家，入宫为妃。表面温婉，心中藏着一段不能告人的旧情与一桩待雪的冤案。" },
-  { id: "peirong", name: "裴容", role: "皇上", gender: "男", age: 45, tag: "九五至尊", img: peirong, played: 4216,
-    desc: "在位二十载，多疑而念旧。爱江山，亦爱画堂。一念之间，便是生死。" },
-  { id: "peiyu", name: "裴瑜", role: "二皇子", gender: "男", age: 24, tag: "贤王", img: peiyu, played: 3580,
-    desc: "温润如玉的世家公子，朝堂上以礼相待，私下却握着最锋利的那把刀。" },
-  { id: "empress", name: "皇后", role: "中宫之主", gender: "女", age: 38, tag: "凤仪", img: empress, played: 2914,
-    desc: "六宫之首，端坐凤位十余年。她从不动声色，却让每一位新妃都活在她的影子里。" },
-  { id: "mama", name: "陈嬷嬷", role: "温棠的嬷嬷", gender: "女", age: 56, tag: "心腹", img: mama, played: 1207,
-    desc: "自温棠幼时便在身侧，知她所有秘密。在这深宫之中，是她唯一可信之人。" },
-];
-
 const STORY_CHAPTERS = [
   { title: "大梁年间，风雨飘摇", body: "大梁朝堂内外暗流涌动。江南画堂名动京城，一起离奇命案打破了画堂的平静，众人各怀心思，真相却扑朔迷离……" },
   { title: "画堂之中，暗藏玄机", body: "一幅未完成的春景图，竟牵出二十年前的旧案。每一笔颜料，都浸着不能言说的过往。" },
@@ -53,6 +22,7 @@ const STORY_CHAPTERS = [
 ];
 
 function HuatangChun() {
+  const navigate = useNavigate();
   const [active, setActive] = useState(1);
   const [openChapter, setOpenChapter] = useState(0);
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -139,7 +109,13 @@ function HuatangChun() {
               <button
                 key={c.id}
                 ref={(el) => { cardRefs.current[i] = el; }}
-                onClick={() => setActiveSafe(i)}
+                onClick={() => {
+                  if (i === active) {
+                    navigate({ to: "/character/$id", params: { id: c.id } });
+                  } else {
+                    setActiveSafe(i);
+                  }
+                }}
                 className={`relative shrink-0 snap-center overflow-hidden rounded-2xl border transition-all duration-500 ${
                   isActive
                     ? "h-[330px] w-[200px] -translate-y-2 border-white/30 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.55)]"
@@ -239,42 +215,10 @@ function HuatangChun() {
   );
 }
 
-function PhoneMockup() {
+function HomePage() {
   return (
-    <div
-      className="min-h-screen w-full flex items-center justify-center p-6"
-      style={{
-        background:
-          "radial-gradient(1200px 600px at 20% 10%, oklch(0.92 0.04 30 / 0.7), transparent 60%), radial-gradient(900px 600px at 90% 90%, oklch(0.88 0.06 20 / 0.6), transparent 60%), oklch(0.18 0.02 30)",
-      }}
-    >
-      <div className="relative" style={{ width: 390, height: 844 }}>
-        {/* Phone frame */}
-        <div
-          className="absolute inset-0 rounded-[56px] bg-neutral-900"
-          style={{
-            boxShadow:
-              "0 50px 120px -20px rgba(0,0,0,0.6), 0 0 0 2px rgba(255,255,255,0.06) inset, 0 0 0 12px #0a0a0a",
-          }}
-        />
-        {/* Screen */}
-        <div className="absolute inset-[12px] overflow-hidden rounded-[46px] bg-white">
-          {/* Dynamic island */}
-          <div className="pointer-events-none absolute left-1/2 top-2 z-50 h-[30px] w-[110px] -translate-x-1/2 rounded-full bg-black" />
-          {/* Status bar */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-40 flex items-center justify-between px-7 pt-3 text-[12px] font-semibold text-white mix-blend-difference">
-            <span>9:41</span>
-            <span className="opacity-0">·</span>
-            <span>􀋙 􀛨 􀛪</span>
-          </div>
-          <HuatangChun />
-        </div>
-        {/* Side buttons */}
-        <div className="absolute -left-[3px] top-[120px] h-[32px] w-[3px] rounded-l bg-neutral-800" />
-        <div className="absolute -left-[3px] top-[180px] h-[60px] w-[3px] rounded-l bg-neutral-800" />
-        <div className="absolute -left-[3px] top-[260px] h-[60px] w-[3px] rounded-l bg-neutral-800" />
-        <div className="absolute -right-[3px] top-[200px] h-[100px] w-[3px] rounded-r bg-neutral-800" />
-      </div>
-    </div>
+    <PhoneMockup>
+      <HuatangChun />
+    </PhoneMockup>
   );
 }
