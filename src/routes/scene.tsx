@@ -107,16 +107,6 @@ function Scene() {
             <Bubble key={i} m={m} />
           ))}
 
-          {/* AI 玩法 pill */}
-          <div className="flex justify-center pt-1">
-            <button className="flex items-center gap-1.5 rounded-full bg-black/45 px-3 py-1.5 text-[11px] text-white/90 backdrop-blur-md active:scale-95">
-              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-200/90 text-[9px] text-neutral-900">
-                ☺
-              </span>
-              更多 AI 玩法，限时体验～
-              <ChevronRight size={12} className="opacity-70" />
-            </button>
-          </div>
         </div>
       </div>
 
