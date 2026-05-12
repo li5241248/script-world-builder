@@ -1,16 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, Share2, Bookmark, ChevronDown, Sparkles, Users, Clock } from "lucide-react";
 import heroImg from "@/assets/hero-huatangchun.jpg";
-import wentang from "@/assets/char-wentang.jpg";
-import peirong from "@/assets/char-peirong.jpg";
-import peiyan from "@/assets/char-peiyan.jpg";
-import peiyu from "@/assets/char-peiyu.jpg";
-import mama from "@/assets/char-mama.jpg";
-import empress from "@/assets/char-empress.jpg";
+import { CHARACTERS } from "@/lib/characters";
+import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/")({
-  component: PhoneMockup,
+  component: HomePage,
   head: () => ({
     meta: [
       { title: "画堂春 · 知乎剧本杀文游" },
@@ -18,33 +14,6 @@ export const Route = createFileRoute("/")({
     ],
   }),
 });
-
-type Character = {
-  id: string;
-  name: string;
-  role: string;
-  gender: "女" | "男";
-  age: number;
-  tag: string;
-  img: string;
-  desc: string;
-  played: number;
-};
-
-const CHARACTERS: Character[] = [
-  { id: "peiyan", name: "裴琰", role: "皇子", gender: "男", age: 12, tag: "皇子", img: peiyan, played: 9821,
-    desc: "母族倾覆后隐忍多年，剑藏鞘中，谋定后动。与温棠之间，是宿命，也是劫数。" },
-  { id: "wentang", name: "温棠", role: "女主 · 妃子", gender: "女", age: 21, tag: "贵妃", img: wentang, played: 12483,
-    desc: "出身画堂世家，入宫为妃。表面温婉，心中藏着一段不能告人的旧情与一桩待雪的冤案。" },
-  { id: "peirong", name: "裴容", role: "皇上", gender: "男", age: 45, tag: "九五至尊", img: peirong, played: 4216,
-    desc: "在位二十载，多疑而念旧。爱江山，亦爱画堂。一念之间，便是生死。" },
-  { id: "peiyu", name: "裴瑜", role: "二皇子", gender: "男", age: 24, tag: "贤王", img: peiyu, played: 3580,
-    desc: "温润如玉的世家公子，朝堂上以礼相待，私下却握着最锋利的那把刀。" },
-  { id: "empress", name: "皇后", role: "中宫之主", gender: "女", age: 38, tag: "凤仪", img: empress, played: 2914,
-    desc: "六宫之首，端坐凤位十余年。她从不动声色，却让每一位新妃都活在她的影子里。" },
-  { id: "mama", name: "陈嬷嬷", role: "温棠的嬷嬷", gender: "女", age: 56, tag: "心腹", img: mama, played: 1207,
-    desc: "自温棠幼时便在身侧，知她所有秘密。在这深宫之中，是她唯一可信之人。" },
-];
 
 const STORY_CHAPTERS = [
   { title: "大梁年间，风雨飘摇", body: "大梁朝堂内外暗流涌动。江南画堂名动京城，一起离奇命案打破了画堂的平静，众人各怀心思，真相却扑朔迷离……" },
