@@ -41,6 +41,8 @@ function Lobby() {
 
   const [scripts, setScripts] = useState<string[]>([ORIGINAL_SCRIPT.id]);
   const [tags, setTags] = useState<string[]>([]);
+  const [customTags, setCustomTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState("");
   const [showPaywall, setShowPaywall] = useState(false);
   const [charId, setCharId] = useState<string | undefined>(preselected);
   const [mode, setMode] = useState<Mode>("multi");
@@ -49,9 +51,18 @@ function Lobby() {
     setScripts((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   };
   const toggleTag = (id: string) => {
-    // Custom tags are a paid feature
-    setShowPaywall(true);
-    void id;
+    setTags((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]));
+  };
+  const addCustomTag = () => {
+    const v = tagInput.trim();
+    if (!v) return;
+    if (!customTags.includes(v)) setCustomTags((c) => [...c, v]);
+    if (!tags.includes(v)) setTags((t) => [...t, v]);
+    setTagInput("");
+  };
+  const removeCustomTag = (v: string) => {
+    setCustomTags((c) => c.filter((x) => x !== v));
+    setTags((t) => t.filter((x) => x !== v));
   };
   const confirmTag = (id: string) => {
     setTags((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]));
