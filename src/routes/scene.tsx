@@ -166,13 +166,13 @@ function Scene() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
-              placeholder="以温棠的身份开口，或点 ✱ 输入动作"
+              placeholder="以温棠的身份开口，或点（）输入动作"
               className="flex-1 bg-transparent text-[13px] outline-none placeholder:text-white/50"
             />
             <button
               onClick={insertActionMarkers}
               aria-label="输入动作"
-              title="输入动作（包在 ** 之间）"
+              title="输入动作（包在（）之间）"
               className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white/70 hover:text-white active:scale-95"
             >
               <Asterisk size={15} />
