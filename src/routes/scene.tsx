@@ -147,6 +147,25 @@ function Scene() {
         </button>
       </div>
 
+      {/* 剩余时间 */}
+      <div className="relative z-10 mx-4 mb-2 flex items-center justify-center">
+        <div
+          className={`flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1 text-[11px] backdrop-blur-md drop-shadow ${
+            lowTime ? "text-rose-300" : "text-white/85"
+          }`}
+          title="单人无时间限制；双人 / 多人每幕 ≤ 20 分钟"
+        >
+          <Clock size={11} />
+          {mode === "solo" ? (
+            <span>本幕剩余　不限时</span>
+          ) : (
+            <span>
+              本幕剩余 <span className="font-mono tabular-nums">{mm}:{ss}</span>
+            </span>
+          )}
+        </div>
+      </div>
+
       {/* progress */}
       <div className="relative z-10 mx-4 mb-2 flex items-center gap-2 text-[10px] text-white/80 drop-shadow">
         <BookOpen size={12} />
