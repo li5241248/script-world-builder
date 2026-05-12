@@ -11,8 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MatchingRouteImport } from './routes/matching'
 import { Route as LobbyRouteImport } from './routes/lobby'
-import { Route as InviteRouteImport } from './routes/invite'
-import { Route as ConfirmRouteImport } from './routes/confirm'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CharacterIdRouteImport } from './routes/character.$id'
 
@@ -24,16 +22,6 @@ const MatchingRoute = MatchingRouteImport.update({
 const LobbyRoute = LobbyRouteImport.update({
   id: '/lobby',
   path: '/lobby',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InviteRoute = InviteRouteImport.update({
-  id: '/invite',
-  path: '/invite',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConfirmRoute = ConfirmRouteImport.update({
-  id: '/confirm',
-  path: '/confirm',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,16 +37,12 @@ const CharacterIdRoute = CharacterIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/confirm': typeof ConfirmRoute
-  '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
   '/character/$id': typeof CharacterIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/confirm': typeof ConfirmRoute
-  '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
   '/character/$id': typeof CharacterIdRoute
@@ -66,37 +50,20 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/confirm': typeof ConfirmRoute
-  '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
   '/character/$id': typeof CharacterIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/confirm'
-    | '/invite'
-    | '/lobby'
-    | '/matching'
-    | '/character/$id'
+  fullPaths: '/' | '/lobby' | '/matching' | '/character/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/confirm' | '/invite' | '/lobby' | '/matching' | '/character/$id'
-  id:
-    | '__root__'
-    | '/'
-    | '/confirm'
-    | '/invite'
-    | '/lobby'
-    | '/matching'
-    | '/character/$id'
+  to: '/' | '/lobby' | '/matching' | '/character/$id'
+  id: '__root__' | '/' | '/lobby' | '/matching' | '/character/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ConfirmRoute: typeof ConfirmRoute
-  InviteRoute: typeof InviteRoute
   LobbyRoute: typeof LobbyRoute
   MatchingRoute: typeof MatchingRoute
   CharacterIdRoute: typeof CharacterIdRoute
@@ -118,20 +85,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LobbyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/invite': {
-      id: '/invite'
-      path: '/invite'
-      fullPath: '/invite'
-      preLoaderRoute: typeof InviteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/confirm': {
-      id: '/confirm'
-      path: '/confirm'
-      fullPath: '/confirm'
-      preLoaderRoute: typeof ConfirmRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -151,8 +104,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ConfirmRoute: ConfirmRoute,
-  InviteRoute: InviteRoute,
   LobbyRoute: LobbyRoute,
   MatchingRoute: MatchingRoute,
   CharacterIdRoute: CharacterIdRoute,
