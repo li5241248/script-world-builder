@@ -131,7 +131,7 @@ function HuatangChun() {
           <h2 className="font-brush text-2xl text-white drop-shadow">人物角色</h2>
         </div>
 
-        <div className="no-scrollbar mt-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[22%] pb-6 pt-4">
+        <div ref={trackRef} className="no-scrollbar mt-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[22%] pb-6 pt-4">
           {CHARACTERS.map((c, i) => {
             const isActive = i === active;
             return (
