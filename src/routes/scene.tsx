@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb, Volume2, ChevronRight } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
+import sceneBg from "@/assets/scene-huatang.jpg";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
 
 export const Route = createFileRoute("/scene")({
@@ -37,7 +38,7 @@ function Scene() {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"say" | "do">("say");
   const scrollRef = useRef<HTMLDivElement>(null);
-  const sceneBg = getCharacter("wentang")!.img;
+  // scene background image
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
