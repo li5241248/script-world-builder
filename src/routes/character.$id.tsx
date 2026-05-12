@@ -141,6 +141,28 @@ function CharacterDetail() {
         </div>
       </section>
 
+      {/* Personality fusion CTA */}
+      <section className="mt-4 px-5">
+        <button
+          onClick={() => setFusionOpen(true)}
+          className="group flex w-full items-center justify-between rounded-2xl border border-black/5 bg-white/85 px-4 py-3.5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.2)] backdrop-blur-sm transition active:scale-[0.99]"
+        >
+          <span className="flex items-center gap-3">
+            <span
+              className="grid h-9 w-9 place-items-center rounded-full text-white"
+              style={{ background: "var(--gradient-rouge)" }}
+            >
+              <Wand2 className="h-4 w-4" />
+            </span>
+            <span className="flex flex-col items-start">
+              <span className="text-[14px] font-medium text-neutral-900">个人性格融入</span>
+              <span className="text-[11px] text-neutral-500">将你的人设融入「{c.name}」，演出更像你</span>
+            </span>
+          </span>
+          <span className="text-[11px] text-neutral-400">去定制 ›</span>
+        </button>
+      </section>
+
       {/* Relations */}
       <section className="mt-8 px-5">
         <div className="flex items-center gap-2 px-1">
