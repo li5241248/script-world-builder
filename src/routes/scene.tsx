@@ -36,18 +36,42 @@ function Scene() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Msg[]>(INITIAL);
   const [input, setInput] = useState("");
-  const [mode, setMode] = useState<"say" | "do">("say");
   const scrollRef = useRef<HTMLDivElement>(null);
-  // scene background image
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
+  // Detect action mode from `**text**` wrapping
+  const detectMode = (raw: string): { mode: "say" | "do"; text: string } => {
+    const t = raw.trim();
+    const m = t.match(/^\*\*([\s\S]+)\*\*$/);
+    if (m) return { mode: "do", text: m[1].trim() };
+    return { mode: "say", text: t };
+  };
+
+  const insertActionMarkers = () => {
+    const el = inputRef.current;
+    if (!el) return;
+    const start = el.selectionStart ?? input.length;
+    const end = el.selectionEnd ?? input.length;
+    const before = input.slice(0, start);
+    const selected = input.slice(start, end);
+    const after = input.slice(end);
+    const next = `${before}**${selected}**${after}`;
+    setInput(next);
+    requestAnimationFrame(() => {
+      el.focus();
+      const pos = before.length + 2 + selected.length;
+      el.setSelectionRange(pos, pos);
+    });
+  };
+
   const send = () => {
-    const t = input.trim();
-    if (!t) return;
-    setMessages((m) => [...m, { kind: "me", text: t, mode }]);
+    const { mode, text } = detectMode(input);
+    if (!text) return;
+    setMessages((m) => [...m, { kind: "me", text, mode }]);
     setInput("");
     setTimeout(() => {
       setMessages((m) => [
@@ -56,6 +80,7 @@ function Scene() {
       ]);
     }, 900);
   };
+
 
   return (
     <div className="relative h-full overflow-hidden bg-neutral-900 text-white">
