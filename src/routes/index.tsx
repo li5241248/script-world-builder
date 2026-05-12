@@ -78,7 +78,8 @@ function HuatangChun() {
   };
 
   return (
-    <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar" style={{ background: "oklch(0.22 0.02 30)" }}>
+    <div className="relative h-full" style={{ background: "oklch(0.22 0.02 30)" }}>
+    <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar">
       {/* HERO */}
       <section className="relative h-[46vh] min-h-[360px] w-full overflow-hidden">
         <img src={heroImg} alt="画堂春世界" className="absolute inset-0 h-full w-full object-cover" />
@@ -221,7 +222,9 @@ function HuatangChun() {
         </div>
       </section>
 
-      {/* CTA */}
+    </div>
+
+      {/* CTA — fixed to phone screen */}
       <div className="absolute bottom-6 right-5 z-30">
         <button
           className="grid h-20 w-20 place-items-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-95"
