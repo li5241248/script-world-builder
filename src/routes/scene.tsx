@@ -204,6 +204,27 @@ function Bubble({ m }: { m: Msg }) {
     );
   }
 
+  if (m.kind === "prompt") {
+    return (
+      <div className="mx-auto my-3 max-w-[90%] animate-fade-up">
+        <div className="relative overflow-hidden rounded-2xl border border-amber-200/30 bg-gradient-to-br from-amber-300/10 via-rose-300/5 to-transparent px-4 py-3 backdrop-blur">
+          <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-amber-300/10 blur-2xl" />
+          <div className="mb-1.5 flex items-center gap-1.5">
+            <Feather size={11} className="text-amber-200" />
+            <span className="text-[10px] tracking-[0.3em] text-amber-200/80">剧 情 提 示</span>
+            <div className="ml-1 h-px flex-1 bg-gradient-to-r from-amber-200/40 to-transparent" />
+          </div>
+          <p className="font-brush text-[14px] leading-relaxed tracking-wide text-amber-50/95">
+            {m.text}
+          </p>
+          <div className="mt-2 text-[10px] text-amber-100/50">
+            提示：可切换「说 / 动作」回应这一刻
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const c = getCharacter(m.charId) ?? CHARACTERS[0];
   if (m.kind === "action") {
     return (
