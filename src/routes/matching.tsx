@@ -47,11 +47,19 @@ function Matching() {
 
       {/* close */}
       <button
-        onClick={() => navigate({ to: "/lobby" })}
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate({ to: "/lobby" });
+        }}
         className="absolute right-5 top-12 z-20 text-[12px] text-white/80 transition active:scale-95"
       >
         取消
       </button>
+
+      {/* tap hint */}
+      <div className="absolute bottom-10 left-0 right-0 z-20 text-center text-[11px] tracking-[0.3em] text-white/60 animate-pulse">
+        点击屏幕进入
+      </div>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-8">
         {/* Brush title - rendered as white via CSS mask */}
