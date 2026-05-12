@@ -49,7 +49,7 @@ function Matching() {
 
       {/* close */}
       <button
-        onClick={() => navigate({ to: "/lobby" })}
+        onClick={(e) => { e.stopPropagation(); navigate({ to: "/lobby" }); }}
         className="absolute right-5 top-12 z-20 text-[12px] text-white/80 transition active:scale-95"
       >
         取消
