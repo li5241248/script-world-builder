@@ -60,6 +60,7 @@ function CharacterDetail() {
   const bottom = others.slice(2, 4);
 
   return (
+    <div className="relative h-full bg-white text-neutral-900">
     <div className="relative h-full overflow-y-auto bg-white text-neutral-900 no-scrollbar">
       {/* HERO portrait */}
       <section className="relative h-[55vh] min-h-[460px] w-full overflow-hidden">
@@ -185,8 +186,9 @@ function CharacterDetail() {
           ))}
         </div>
       </section>
+    </div>
 
-      {/* CTA */}
+      {/* CTA — fixed to phone screen */}
       <div className="absolute bottom-6 right-5 z-30">
         <button
           className="grid h-20 w-20 place-items-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-95"
