@@ -43,6 +43,30 @@ export const Route = createFileRoute("/character/$id")({
 function CharacterDetail() {
   const navigate = useNavigate();
   const c = Route.useLoaderData();
+  const [fusionOpen, setFusionOpen] = useState(false);
+  const [fusionStep, setFusionStep] = useState<"choose" | "analyzing" | "done">("choose");
+  const [zhihuId, setZhihuId] = useState("");
+  const [persona, setPersona] = useState("");
+
+  const startAnalyze = () => {
+    if (!zhihuId.trim()) return;
+    setFusionStep("analyzing");
+    setTimeout(() => {
+      setPersona(
+        "理性细腻 · 偏好长文输出 · 关注历史与人文。习惯用克制的语气表达观点，遇冲突倾向先观察后回应。"
+      );
+      setFusionStep("done");
+    }, 1600);
+  };
+
+  const closeFusion = () => {
+    setFusionOpen(false);
+    setTimeout(() => {
+      setFusionStep("choose");
+      setZhihuId("");
+      setPersona("");
+    }, 200);
+  };
 
   const attrs = [
     { icon: Calendar, label: "年龄", value: `${c.age} 岁` },
