@@ -41,6 +41,33 @@ function HuatangChun() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Sync active card with scroll position (for swipe gestures)
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let nearest = 0;
+        let min = Infinity;
+        cardRefs.current.forEach((card, i) => {
+          if (!card) return;
+          const c = card.offsetLeft + card.clientWidth / 2;
+          const d = Math.abs(c - center);
+          if (d < min) { min = d; nearest = i; }
+        });
+        setActive((prev) => (prev === nearest ? prev : nearest));
+      });
+    };
+    track.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      track.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   const setActiveSafe = (i: number) => {
     const idx = Math.max(0, Math.min(CHARACTERS.length - 1, i));
     setActive(idx);
