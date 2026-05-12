@@ -175,7 +175,7 @@ function HuatangChun() {
       <section className="mt-10 px-6">
         <div className="flex items-center gap-2">
           <span className="font-brush" style={{ color: "var(--rouge)" }}>❀</span>
-          <h2 className="font-brush text-xl text-white">故事背景</h2>
+          <h2 className="font-brush text-xl text-neutral-900">故事背景</h2>
         </div>
 
         <div className="mt-4 space-y-3">
@@ -184,23 +184,23 @@ function HuatangChun() {
             return (
               <div
                 key={i}
-                className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all"
+                className="overflow-hidden rounded-2xl border border-black/10 bg-black/[0.03] transition-all"
               >
                 <button
                   onClick={() => setOpenChapter(open ? -1 : i)}
                   className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-display text-[11px] tracking-widest text-white/40">
+                    <span className="font-display text-[11px] tracking-widest text-neutral-400">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="font-display text-[15px] text-white/90">{ch.title}</span>
+                    <span className="font-display text-[15px] text-neutral-900">{ch.title}</span>
                   </div>
-                  <ChevronDown className={`h-4 w-4 text-white/50 transition-transform ${open ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`h-4 w-4 text-neutral-400 transition-transform ${open ? "rotate-180" : ""}`} />
                 </button>
                 {open && (
                   <div className="animate-fade-up px-4 pb-4">
-                    <p className="text-[13px] leading-7 text-white/65">{ch.body}</p>
+                    <p className="text-[13px] leading-7 text-neutral-600">{ch.body}</p>
                   </div>
                 )}
               </div>
@@ -211,12 +211,12 @@ function HuatangChun() {
 
       {/* AI feature strip */}
       <section className="mt-8 px-6">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-sm">
+        <div className="rounded-2xl border border-black/10 bg-black/[0.03] p-4">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4" style={{ color: "var(--rouge)" }} />
-            <span className="text-[12px] font-medium text-white/90">AI 动态剧情</span>
+            <span className="text-[12px] font-medium text-neutral-900">AI 动态剧情</span>
           </div>
-          <p className="mt-2 text-[12px] leading-6 text-white/65">
+          <p className="mt-2 text-[12px] leading-6 text-neutral-600">
             你的每一个选择，都将由 AI 实时改写，与他人的故事彼此交错——同一卷《画堂春》，没有两场相同的结局。
           </p>
         </div>
