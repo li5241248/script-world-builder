@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PhoneMockup } from "@/components/PhoneMockup";
+import goldRing from "@/assets/gold-ring.png";
 
 export const Route = createFileRoute("/matching")({
   component: MatchingPage,
