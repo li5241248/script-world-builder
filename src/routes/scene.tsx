@@ -279,7 +279,7 @@ function Bubble({ m, picked, onPickHint }: { m: Msg; picked?: boolean; onPickHin
             </button>
           </div>
         </div>
-        {open && (
+        {open && !picked && (
           <div className="mt-3 space-y-2 px-4 animate-fade-up">
             {hints.map((title) => (
               <button
