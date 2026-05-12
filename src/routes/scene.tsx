@@ -81,6 +81,21 @@ function Scene() {
     }, 900);
   };
 
+  const pickHint = (promptIndex: number, text: string) => {
+    setMessages((prev) => {
+      // remove the prompt (and any earlier prompts) and append the chosen reply
+      const next = prev.filter((m, i) => !(m.kind === "prompt" && i <= promptIndex));
+      return [...next, { kind: "me", text, mode: "do" }];
+    });
+    setTimeout(() => {
+      setMessages((m) => [
+        ...m,
+        { kind: "dialog", charId: "peirong", text: "嗯……你倒是比朕想的更沉得住气。" },
+      ]);
+    }, 900);
+  };
+
+
 
   return (
     <div className="relative h-full overflow-hidden bg-neutral-900 text-white">
