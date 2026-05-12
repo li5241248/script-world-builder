@@ -60,19 +60,19 @@ function Scene() {
   };
 
   return (
-    <div
-      className="relative h-full overflow-hidden text-neutral-800"
-      style={{
-        background:
-          "linear-gradient(180deg, #f7f1e8 0%, #f3ece1 40%, #ede3d4 100%)",
-      }}
-    >
-      {/* subtle paper texture via radial accents */}
+    <div className="relative h-full overflow-hidden text-neutral-800">
+      {/* scene background image */}
+      <img
+        src={sceneBg}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      {/* cream wash to keep a light, readable feel */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-50"
+        className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 40% at 80% 0%, rgba(212,165,116,0.18) 0%, transparent 60%), radial-gradient(50% 35% at 0% 100%, rgba(190,120,120,0.12) 0%, transparent 60%)",
+            "linear-gradient(180deg, rgba(247,241,232,0.78) 0%, rgba(243,236,225,0.85) 45%, rgba(237,227,212,0.92) 100%)",
         }}
       />
 
