@@ -41,7 +41,7 @@ function Scene() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   // 剩余时间：单人无限制，双人/多人每幕 ≤ 20 分钟
-  const mode: "solo" | "multi" = "multi";
+  const mode = "multi" as "solo" | "multi";
   const ACT_SECONDS = 20 * 60;
   const [remaining, setRemaining] = useState(ACT_SECONDS);
   useEffect(() => {
