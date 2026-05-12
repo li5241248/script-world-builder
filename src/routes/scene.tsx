@@ -43,10 +43,10 @@ function Scene() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
-  // Detect action mode from `**text**` wrapping
+  // Detect action mode from `（…）` wrapping
   const detectMode = (raw: string): { mode: "say" | "do"; text: string } => {
     const t = raw.trim();
-    const m = t.match(/^\*\*([\s\S]+)\*\*$/);
+    const m = t.match(/^（([\s\S]+)）$/);
     if (m) return { mode: "do", text: m[1].trim() };
     return { mode: "say", text: t };
   };
@@ -59,11 +59,11 @@ function Scene() {
     const before = input.slice(0, start);
     const selected = input.slice(start, end);
     const after = input.slice(end);
-    const next = `${before}**${selected}**${after}`;
+    const next = `${before}（${selected}）${after}`;
     setInput(next);
     requestAnimationFrame(() => {
       el.focus();
-      const pos = before.length + 2 + selected.length;
+      const pos = before.length + 1 + selected.length;
       el.setSelectionRange(pos, pos);
     });
   };
