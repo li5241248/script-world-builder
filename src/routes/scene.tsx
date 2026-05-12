@@ -102,7 +102,7 @@ function Scene() {
         className="relative z-10 flex-1 overflow-y-auto px-4 pb-32"
         style={{ height: "calc(100% - 200px)" }}
       >
-        <div className="space-y-3 py-2">
+        <div className="space-y-6 py-2">
           {messages.map((m, i) => (
             <Bubble key={i} m={m} />
           ))}
