@@ -59,11 +59,11 @@ function HuatangChun() {
   const setActiveSafe = (i: number) => setActive(Math.max(0, Math.min(CHARACTERS.length - 1, i)));
 
   return (
-    <div className="relative h-full overflow-y-auto bg-background pb-32 text-foreground no-scrollbar">
+    <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar" style={{ background: "oklch(0.22 0.02 30)" }}>
       {/* HERO */}
-      <section className="relative h-[58vh] min-h-[440px] w-full overflow-hidden">
+      <section className="relative h-[46vh] min-h-[360px] w-full overflow-hidden">
         <img src={heroImg} alt="画堂春世界" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 40%, oklch(0.22 0.02 30) 100%)" }} />
 
         {/* Top bar */}
         <div className="relative z-10 flex items-center justify-between px-5 pt-12">
