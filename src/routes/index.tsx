@@ -178,7 +178,7 @@ function HuatangChun() {
       <section className="mt-10 px-6">
         <div className="flex items-center gap-2">
           <span className="font-brush" style={{ color: "var(--rouge)" }}>❀</span>
-          <h2 className="font-brush text-xl text-neutral-900">故事背景</h2>
+          <h2 className="font-brush text-xl text-neutral-900">剧情分幕</h2>
         </div>
 
         <div className="mt-4 space-y-3">
