@@ -10,7 +10,7 @@ import mama from "@/assets/char-mama.jpg";
 import empress from "@/assets/char-empress.jpg";
 
 export const Route = createFileRoute("/")({
-  component: HuatangChun,
+  component: PhoneMockup,
   head: () => ({
     meta: [
       { title: "画堂春 · 知乎剧本杀文游" },
@@ -59,7 +59,7 @@ function HuatangChun() {
   const setActiveSafe = (i: number) => setActive(Math.max(0, Math.min(CHARACTERS.length - 1, i)));
 
   return (
-    <div className="min-h-screen bg-background pb-32 text-foreground">
+    <div className="relative h-full overflow-y-auto bg-background pb-32 text-foreground no-scrollbar">
       {/* HERO */}
       <section className="relative h-[78vh] min-h-[560px] w-full overflow-hidden">
         <img src={heroImg} alt="画堂春世界" className="absolute inset-0 h-full w-full object-cover" />
@@ -227,7 +227,7 @@ function HuatangChun() {
       </section>
 
       {/* CTA */}
-      <div className="fixed bottom-6 right-5 z-30">
+      <div className="absolute bottom-6 right-5 z-30">
         <button
           className="grid h-20 w-20 place-items-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-95"
           style={{ background: "var(--gradient-rouge)" }}
@@ -236,6 +236,46 @@ function HuatangChun() {
             开始<br/>游戏
           </span>
         </button>
+      </div>
+    </div>
+  );
+}
+
+function PhoneMockup() {
+  return (
+    <div
+      className="min-h-screen w-full flex items-center justify-center p-6"
+      style={{
+        background:
+          "radial-gradient(1200px 600px at 20% 10%, oklch(0.92 0.04 30 / 0.7), transparent 60%), radial-gradient(900px 600px at 90% 90%, oklch(0.88 0.06 20 / 0.6), transparent 60%), oklch(0.18 0.02 30)",
+      }}
+    >
+      <div className="relative" style={{ width: 390, height: 844 }}>
+        {/* Phone frame */}
+        <div
+          className="absolute inset-0 rounded-[56px] bg-neutral-900"
+          style={{
+            boxShadow:
+              "0 50px 120px -20px rgba(0,0,0,0.6), 0 0 0 2px rgba(255,255,255,0.06) inset, 0 0 0 12px #0a0a0a",
+          }}
+        />
+        {/* Screen */}
+        <div className="absolute inset-[12px] overflow-hidden rounded-[46px] bg-background">
+          {/* Dynamic island */}
+          <div className="pointer-events-none absolute left-1/2 top-2 z-50 h-[30px] w-[110px] -translate-x-1/2 rounded-full bg-black" />
+          {/* Status bar */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-40 flex items-center justify-between px-7 pt-3 text-[12px] font-semibold text-white mix-blend-difference">
+            <span>9:41</span>
+            <span className="opacity-0">·</span>
+            <span>􀋙 􀛨 􀛪</span>
+          </div>
+          <HuatangChun />
+        </div>
+        {/* Side buttons */}
+        <div className="absolute -left-[3px] top-[120px] h-[32px] w-[3px] rounded-l bg-neutral-800" />
+        <div className="absolute -left-[3px] top-[180px] h-[60px] w-[3px] rounded-l bg-neutral-800" />
+        <div className="absolute -left-[3px] top-[260px] h-[60px] w-[3px] rounded-l bg-neutral-800" />
+        <div className="absolute -right-[3px] top-[200px] h-[100px] w-[3px] rounded-r bg-neutral-800" />
       </div>
     </div>
   );
