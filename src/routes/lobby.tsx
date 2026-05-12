@@ -41,6 +41,8 @@ function Lobby() {
 
   const [scripts, setScripts] = useState<string[]>([ORIGINAL_SCRIPT.id]);
   const [tags, setTags] = useState<string[]>([]);
+  const [customTags, setCustomTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState("");
   const [showPaywall, setShowPaywall] = useState(false);
   const [charId, setCharId] = useState<string | undefined>(preselected);
   const [mode, setMode] = useState<Mode>("multi");
@@ -49,9 +51,18 @@ function Lobby() {
     setScripts((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   };
   const toggleTag = (id: string) => {
-    // Custom tags are a paid feature
-    setShowPaywall(true);
-    void id;
+    setTags((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]));
+  };
+  const addCustomTag = () => {
+    const v = tagInput.trim();
+    if (!v) return;
+    if (!customTags.includes(v)) setCustomTags((c) => [...c, v]);
+    if (!tags.includes(v)) setTags((t) => [...t, v]);
+    setTagInput("");
+  };
+  const removeCustomTag = (v: string) => {
+    setCustomTags((c) => c.filter((x) => x !== v));
+    setTags((t) => t.filter((x) => x !== v));
   };
   const confirmTag = (id: string) => {
     setTags((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]));
@@ -121,16 +132,11 @@ function Lobby() {
             </span>
           </button>
 
-          {/* Custom tags — premium */}
+          {/* Custom tags */}
           <div className="mt-3 rounded-2xl border border-black/10 bg-gradient-to-br from-amber-50/60 to-rose-50/60 p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Crown className="h-3.5 w-3.5" style={{ color: "var(--rouge)" }} />
-                <span className="text-[12px] font-medium text-neutral-900">标签定制剧情</span>
-                <span className="rounded-full px-2 py-0.5 text-[10px] text-white" style={{ background: "var(--gradient-rouge)" }}>
-                  会员
-                </span>
-              </div>
+            <div className="flex items-center gap-2">
+              <Crown className="h-3.5 w-3.5" style={{ color: "var(--rouge)" }} />
+              <span className="text-[12px] font-medium text-neutral-900">标签定制剧情</span>
             </div>
             <p className="mt-1.5 text-[11px] text-neutral-500">
               选择标签，AI 将基于原著为你重写一个独一无二的支线
@@ -153,6 +159,46 @@ function Lobby() {
                   </button>
                 );
               })}
+              {customTags.map((t) => (
+                <span
+                  key={t}
+                  className="inline-flex items-center gap-1 rounded-full border border-transparent px-3 py-1.5 text-[11px] text-white"
+                  style={{ background: "var(--gradient-rouge)" }}
+                >
+                  {t}
+                  <button
+                    onClick={() => removeCustomTag(t)}
+                    className="grid h-3.5 w-3.5 place-items-center rounded-full bg-white/25"
+                    aria-label="删除"
+                  >
+                    <X className="h-2.5 w-2.5" />
+                  </button>
+                </span>
+              ))}
+            </div>
+            <div className="mt-3 flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1.5">
+              <Plus className="h-3 w-3 text-neutral-400" />
+              <input
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addCustomTag();
+                  }
+                }}
+                placeholder="自定义标签，按回车添加"
+                className="flex-1 bg-transparent text-[11px] text-neutral-700 placeholder:text-neutral-400 focus:outline-none"
+              />
+              {tagInput.trim() && (
+                <button
+                  onClick={addCustomTag}
+                  className="rounded-full px-2.5 py-0.5 text-[10px] text-white"
+                  style={{ background: "var(--gradient-rouge)" }}
+                >
+                  添加
+                </button>
+              )}
             </div>
           </div>
         </section>
