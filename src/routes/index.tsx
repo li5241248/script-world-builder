@@ -56,15 +56,25 @@ function HuatangChun() {
   const [active, setActive] = useState(1);
   const [openChapter, setOpenChapter] = useState(0);
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+
+  const centerCard = (i: number, smooth = true) => {
+    const track = trackRef.current;
+    const card = cardRefs.current[i];
+    if (!track || !card) return;
+    const left = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
+    track.scrollTo({ left, behavior: smooth ? "smooth" : "auto" });
+  };
 
   useEffect(() => {
-    cardRefs.current[active]?.scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
+    centerCard(active, false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setActiveSafe = (i: number) => {
-    setActive(Math.max(0, Math.min(CHARACTERS.length - 1, i)));
-    cardRefs.current[i]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    const idx = Math.max(0, Math.min(CHARACTERS.length - 1, i));
+    setActive(idx);
+    centerCard(idx);
   };
 
   return (
