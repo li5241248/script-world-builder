@@ -53,8 +53,8 @@ function CharacterDetail() {
 
   // Layout: center node + up to 4 around
   const others = c.relations
-    .map((r) => ({ rel: r, char: getCharacter(r.id) }))
-    .filter((x) => x.char) as { rel: { id: string; label: string }; char: NonNullable<ReturnType<typeof getCharacter>> }[];
+    .map((r: { id: string; label: string }) => ({ rel: r, char: getCharacter(r.id) }))
+    .filter((x: { char: ReturnType<typeof getCharacter> }) => !!x.char) as { rel: { id: string; label: string }; char: NonNullable<ReturnType<typeof getCharacter>> }[];
 
   const top = others.slice(0, 2);
   const bottom = others.slice(2, 4);
