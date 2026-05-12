@@ -42,7 +42,6 @@ export const Route = createFileRoute("/character/$id")({
 function CharacterDetail() {
   const navigate = useNavigate();
   const c = Route.useLoaderData();
-  const navigate = useNavigate();
 
   const attrs = [
     { icon: Calendar, label: "年龄", value: `${c.age} 岁` },
