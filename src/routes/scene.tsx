@@ -152,29 +152,31 @@ function Scene() {
       {/* input bar */}
       <div className="absolute bottom-0 left-0 right-0 z-20 border-t border-white/10 bg-black/55 px-3 pb-6 pt-3 backdrop-blur-xl">
         <div className="flex items-center gap-2">
-          <div className="flex rounded-full bg-white/10 p-0.5 text-[11px]">
-            <button
-              onClick={() => setMode("say")}
-              className={`rounded-full px-2.5 py-1 transition ${mode === "say" ? "bg-white text-neutral-900" : "text-white/70"}`}
-            >
-              说
-            </button>
-            <button
-              onClick={() => setMode("do")}
-              className={`rounded-full px-2.5 py-1 transition ${mode === "do" ? "bg-white text-neutral-900" : "text-white/70"}`}
-            >
-              动作
-            </button>
-          </div>
+          {/* voice input button (replaces 说/动作 toggle) */}
+          <button
+            aria-label="语音输入"
+            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white/85 active:scale-95"
+          >
+            <Mic size={17} />
+          </button>
+
           <div className="flex flex-1 items-center gap-2 rounded-full bg-white/15 px-3 py-2">
             <input
+              ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
-              placeholder={mode === "say" ? "以温棠的身份开口…" : "描述一个动作，如：低头敛眸"}
+              placeholder="以温棠的身份开口，或点 ✱ 输入动作"
               className="flex-1 bg-transparent text-[13px] outline-none placeholder:text-white/50"
             />
-            <Mic size={16} className="text-white/60" />
+            <button
+              onClick={insertActionMarkers}
+              aria-label="输入动作"
+              title="输入动作（包在 ** 之间）"
+              className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white/70 hover:text-white active:scale-95"
+            >
+              <Asterisk size={15} />
+            </button>
           </div>
           <button
             onClick={send}
