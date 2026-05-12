@@ -41,14 +41,14 @@ function HuatangChun() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Sync active card with scroll position (for swipe gestures)
+  // Sync active card with scroll position (debounced — only after the user stops swiping)
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-    let raf = 0;
+    let timer: ReturnType<typeof setTimeout> | null = null;
     const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
         const center = track.scrollLeft + track.clientWidth / 2;
         let nearest = 0;
         let min = Infinity;
@@ -59,12 +59,12 @@ function HuatangChun() {
           if (d < min) { min = d; nearest = i; }
         });
         setActive((prev) => (prev === nearest ? prev : nearest));
-      });
+      }, 140);
     };
     track.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       track.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
+      if (timer) clearTimeout(timer);
     };
   }, []);
 
