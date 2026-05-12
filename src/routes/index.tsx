@@ -107,10 +107,9 @@ function HuatangChun() {
       </section>
 
       {/* CHARACTER CAROUSEL */}
-      <section className="relative -mt-40 z-20">
+      <section className="relative -mt-16 z-20">
         <div className="px-5 pb-2 text-center">
-          <p className="font-display text-[11px] tracking-[0.4em] text-white/70">SELECT · YOUR · ROLE</p>
-          <h2 className="mt-1 font-brush text-2xl text-white drop-shadow">入 局 · 择 一 角</h2>
+          <h2 className="font-brush text-2xl text-white drop-shadow">人物角色</h2>
         </div>
 
         <div className="no-scrollbar mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[22%] pb-6 pt-8">
