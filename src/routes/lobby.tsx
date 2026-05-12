@@ -1,59 +1,78 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronLeft, Share2, Copy, Sparkles, Bot, Plus, Check, Users } from "lucide-react";
+import { ChevronLeft, Share2, Sparkles, Crown, Check, Plus, X, User, Users, Bot } from "lucide-react";
 import heroImg from "@/assets/hero-huatangchun.jpg";
 import { CHARACTERS } from "@/lib/characters";
 import { PhoneMockup } from "@/components/PhoneMockup";
 
+type LobbySearch = { char?: string };
+
 export const Route = createFileRoute("/lobby")({
+  validateSearch: (s: Record<string, unknown>): LobbySearch => ({
+    char: typeof s.char === "string" ? s.char : undefined,
+  }),
   component: LobbyPage,
   head: () => ({
     meta: [
       { title: "组队入梦 · 画堂春" },
-      { name: "description", content: "邀请好友，共入画堂一梦。每个角色都将由真人或 AI 演绎。" },
+      { name: "description", content: "选剧情、选角色、选模式，开启属于你的画堂春。" },
     ],
   }),
 });
 
-type SlotState = {
-  charId: string;
-  player: { kind: "you" } | { kind: "friend"; name: string; avatar?: string } | { kind: "ai" } | { kind: "empty" };
-};
+const ORIGINAL_SCRIPT = { id: "origin", title: "原著剧本", desc: "忠于盐选原作，完整呈现", premium: false };
 
-const INITIAL_SLOTS: SlotState[] = [
-  { charId: "wentang", player: { kind: "you" } },
-  { charId: "peiyan", player: { kind: "friend", name: "阿瑜" } },
-  { charId: "peirong", player: { kind: "ai" } },
-  { charId: "peiyu", player: { kind: "empty" } },
-  { charId: "empress", player: { kind: "empty" } },
-  { charId: "mama", player: { kind: "ai" } },
+const TAGS = [
+  { id: "sweet", label: "甜宠" },
+  { id: "revenge", label: "复仇" },
+  { id: "court", label: "权谋" },
+  { id: "tragedy", label: "虐恋" },
+  { id: "comedy", label: "轻喜" },
+  { id: "mystery", label: "悬疑" },
+  { id: "rebirth", label: "重生" },
+  { id: "modern", label: "穿越" },
 ];
+
+type Mode = "solo" | "multi";
 
 function Lobby() {
   const navigate = useNavigate();
-  const [slots, setSlots] = useState<SlotState[]>(INITIAL_SLOTS);
-  const [copied, setCopied] = useState(false);
-  const roomCode = "HTC-2026";
+  const { char: preselected } = Route.useSearch();
 
-  const fillWithAI = (i: number) => {
-    setSlots((s) => s.map((v, idx) => (idx === i ? { ...v, player: { kind: "ai" } } : v)));
+  const [scripts, setScripts] = useState<string[]>([ORIGINAL_SCRIPT.id]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [charId, setCharId] = useState<string | undefined>(preselected);
+  const [mode, setMode] = useState<Mode>("multi");
+
+  const toggleScript = (id: string) => {
+    setScripts((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
+  };
+  const toggleTag = (id: string) => {
+    // Custom tags are a paid feature
+    setShowPaywall(true);
+    void id;
+  };
+  const confirmTag = (id: string) => {
+    setTags((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]));
   };
 
-  const copyCode = async () => {
-    try { await navigator.clipboard.writeText(roomCode); } catch {}
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+  const canStart = !!charId && scripts.length > 0;
+
+  const handleStart = () => {
+    if (!canStart) return;
+    // Both modes proceed to matching/team room — placeholder no-op for now
   };
 
-  const filled = slots.filter((s) => s.player.kind !== "empty").length;
+  const selectedChar = charId ? CHARACTERS.find((c) => c.id === charId) : undefined;
 
   return (
     <div className="relative h-full bg-white">
       <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar">
         {/* HEADER */}
-        <section className="relative h-[34vh] min-h-[260px] w-full overflow-hidden">
+        <section className="relative h-[28vh] min-h-[220px] w-full overflow-hidden">
           <img src={heroImg} alt="画堂春" className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 75%, #ffffff 100%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.55) 75%, #ffffff 100%)" }} />
 
           <div className="relative z-10 flex items-center justify-between px-5 pt-12">
             <button
@@ -67,114 +86,297 @@ function Lobby() {
             </button>
           </div>
 
-          <div className="relative z-10 mt-4 px-6">
-            <h1 className="font-brush text-[44px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+          <div className="relative z-10 mt-3 px-6">
+            <h1 className="font-brush text-[40px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
               组队入梦
             </h1>
-            <p className="mt-2 text-[12px] text-white/85">邀请好友共赴一场《画堂春》</p>
-            <div className="mt-3 flex items-center gap-1.5 text-[11px] text-white/85">
-              <Users className="h-3 w-3" />
-              <span>{filled} / {slots.length} 人已就位</span>
-            </div>
+            <p className="mt-2 text-[12px] text-white/85">三步开启你的画堂春</p>
           </div>
         </section>
 
-        {/* ROOM CODE */}
-        <section className="-mt-6 px-5">
-          <div className="relative z-10 flex items-center justify-between rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-[var(--shadow-card)]">
+        {/* 1. SCRIPT SELECTION */}
+        <section className="-mt-2 px-5">
+          <SectionTitle index="01" title="剧情选择" />
+
+          {/* Original script — default */}
+          <button
+            onClick={() => toggleScript(ORIGINAL_SCRIPT.id)}
+            className={`mt-3 flex w-full items-center justify-between rounded-2xl border p-4 text-left transition ${
+              scripts.includes(ORIGINAL_SCRIPT.id)
+                ? "border-transparent bg-black/[0.04] ring-2"
+                : "border-black/10 bg-white"
+            }`}
+            style={scripts.includes(ORIGINAL_SCRIPT.id) ? { boxShadow: "inset 0 0 0 2px var(--rouge)" } : undefined}
+          >
             <div>
-              <div className="text-[10px] tracking-widest text-neutral-400">房间号</div>
-              <div className="mt-0.5 font-display text-[18px] tracking-[0.18em] text-neutral-900">{roomCode}</div>
+              <div className="flex items-center gap-2">
+                <span className="font-brush text-[18px] text-neutral-900">{ORIGINAL_SCRIPT.title}</span>
+                <span className="rounded-full bg-black/[0.06] px-2 py-0.5 text-[10px] text-neutral-500">默认</span>
+              </div>
+              <div className="mt-1 text-[11px] text-neutral-500">{ORIGINAL_SCRIPT.desc}</div>
             </div>
-            <button
-              onClick={copyCode}
-              className="flex items-center gap-1.5 rounded-full bg-black/[0.06] px-3 py-2 text-[12px] text-neutral-700 transition active:scale-95"
+            <span
+              className={`grid h-6 w-6 place-items-center rounded-full transition ${
+                scripts.includes(ORIGINAL_SCRIPT.id) ? "text-white" : "bg-black/[0.06] text-transparent"
+              }`}
+              style={scripts.includes(ORIGINAL_SCRIPT.id) ? { background: "var(--gradient-rouge)" } : undefined}
             >
-              {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-              {copied ? "已复制" : "复制"}
-            </button>
-          </div>
-        </section>
-
-        {/* SLOTS */}
-        <section className="mt-6 px-5">
-          <div className="flex items-center gap-2">
-            <span className="font-brush" style={{ color: "var(--rouge)" }}>❀</span>
-            <h2 className="font-brush text-xl text-neutral-900">角色就位</h2>
-          </div>
-
-          <div className="mt-4 space-y-2.5">
-            {slots.map((slot, i) => {
-              const c = CHARACTERS.find((x) => x.id === slot.charId)!;
-              const p = slot.player;
-              return (
-                <div key={i} className="flex items-center gap-3 rounded-2xl border border-black/10 bg-black/[0.03] p-2.5">
-                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl">
-                    <img src={c.img} alt={c.name} className="h-full w-full object-cover" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="font-brush text-lg text-neutral-900">{c.name}</span>
-                      <span className="text-[10px] text-neutral-400">{c.gender} · {c.age}岁</span>
-                    </div>
-                    <div className="mt-0.5 truncate text-[11px] text-neutral-500">
-                      {p.kind === "you" && <span style={{ color: "var(--rouge)" }}>● 你饰演</span>}
-                      {p.kind === "friend" && <span className="text-neutral-700">● {p.name}（好友）</span>}
-                      {p.kind === "ai" && <span className="text-neutral-500"><Bot className="mr-1 inline h-3 w-3" />AI 演绎</span>}
-                      {p.kind === "empty" && <span className="text-neutral-400">等待加入…</span>}
-                    </div>
-                  </div>
-                  {p.kind === "empty" ? (
-                    <button
-                      onClick={() => fillWithAI(i)}
-                      className="rounded-full bg-black/[0.06] px-3 py-1.5 text-[11px] text-neutral-700 transition active:scale-95"
-                    >
-                      <Bot className="mr-1 inline h-3 w-3" />AI 顶替
-                    </button>
-                  ) : p.kind === "you" ? (
-                    <span className="rounded-full px-3 py-1.5 text-[11px] text-white" style={{ background: "var(--gradient-rouge)" }}>
-                      我
-                    </span>
-                  ) : (
-                    <span className="grid h-7 w-7 place-items-center rounded-full bg-black/[0.06] text-neutral-500">
-                      <Check className="h-3.5 w-3.5" />
-                    </span>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          <button className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-2xl border border-dashed border-black/15 bg-white py-3 text-[12px] text-neutral-500 transition active:scale-[0.98]">
-            <Plus className="h-3.5 w-3.5" />
-            邀请好友入梦
+              <Check className="h-3.5 w-3.5" />
+            </span>
           </button>
+
+          {/* Custom tags — premium */}
+          <div className="mt-3 rounded-2xl border border-black/10 bg-gradient-to-br from-amber-50/60 to-rose-50/60 p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Crown className="h-3.5 w-3.5" style={{ color: "var(--rouge)" }} />
+                <span className="text-[12px] font-medium text-neutral-900">标签定制剧情</span>
+                <span className="rounded-full px-2 py-0.5 text-[10px] text-white" style={{ background: "var(--gradient-rouge)" }}>
+                  会员
+                </span>
+              </div>
+            </div>
+            <p className="mt-1.5 text-[11px] text-neutral-500">
+              选择标签，AI 将基于原著为你重写一个独一无二的支线
+            </p>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {TAGS.map((t) => {
+                const on = tags.includes(t.id);
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => toggleTag(t.id)}
+                    className={`rounded-full border px-3 py-1.5 text-[11px] transition active:scale-95 ${
+                      on
+                        ? "border-transparent text-white"
+                        : "border-black/10 bg-white text-neutral-600"
+                    }`}
+                    style={on ? { background: "var(--gradient-rouge)" } : undefined}
+                  >
+                    {t.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </section>
 
-        {/* AI tip */}
-        <section className="mt-6 px-5">
-          <div className="rounded-2xl border border-black/10 bg-black/[0.03] p-4">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4" style={{ color: "var(--rouge)" }} />
-              <span className="text-[12px] font-medium text-neutral-900">AI 群像演绎</span>
+        {/* 2. CHARACTER SELECTION */}
+        <section className="mt-7 px-5">
+          <SectionTitle index="02" title="角色选择" />
+
+          {selectedChar ? (
+            <div className="mt-3 flex items-center gap-3 rounded-2xl border-2 p-3"
+              style={{ borderColor: "var(--rouge)", background: "color-mix(in oklab, var(--rouge) 4%, white)" }}
+            >
+              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl">
+                <img src={selectedChar.img} alt={selectedChar.name} className="h-full w-full object-cover" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-brush text-[20px] text-neutral-900">{selectedChar.name}</span>
+                  <span className="text-[10px] text-neutral-400">{selectedChar.gender} · {selectedChar.age}岁</span>
+                </div>
+                <div className="mt-0.5 truncate text-[11px] text-neutral-500">{selectedChar.tag} · {selectedChar.role}</div>
+              </div>
+              <button
+                onClick={() => setCharId(undefined)}
+                className="rounded-full bg-black/[0.06] px-3 py-1.5 text-[11px] text-neutral-600 transition active:scale-95"
+              >
+                更换
+              </button>
             </div>
-            <p className="mt-2 text-[12px] leading-6 text-neutral-600">
-              空缺的席位将由 AI 实时演绎，每个角色都拥有独立的性格与记忆，与真人玩家自然交织出独一无二的剧情。
-            </p>
+          ) : (
+            <>
+              <p className="mt-2 text-[11px] text-neutral-500">点选一位角色入梦</p>
+              <div className="mt-3 grid grid-cols-3 gap-2.5">
+                {CHARACTERS.map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => setCharId(c.id)}
+                    className="group relative aspect-[3/4] overflow-hidden rounded-xl border border-black/10 transition active:scale-95"
+                  >
+                    <img src={c.img} alt={c.name} className="absolute inset-0 h-full w-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-2 text-left">
+                      <div className="font-brush text-base text-white">{c.name}</div>
+                      <div className="text-[9px] text-white/70">{c.gender} · {c.age}岁</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+        </section>
+
+        {/* 3. MODE SELECTION */}
+        <section className="mt-7 px-5">
+          <SectionTitle index="03" title="游戏模式" />
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            <ModeCard
+              icon={<User className="h-5 w-5" />}
+              title="单人沉浸"
+              desc="独享一卷画堂春，AI 演绎众生"
+              active={mode === "solo"}
+              onClick={() => setMode("solo")}
+            />
+            <ModeCard
+              icon={<Users className="h-5 w-5" />}
+              title="多人互动"
+              desc="邀请好友 / 站内匹配"
+              active={mode === "multi"}
+              onClick={() => setMode("multi")}
+            />
           </div>
+
+          {mode === "multi" && (
+            <div className="animate-fade-up mt-3 flex gap-2">
+              <button className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-dashed border-black/15 bg-white py-3 text-[12px] text-neutral-700 transition active:scale-[0.98]">
+                <Plus className="h-3.5 w-3.5" />
+                邀请好友
+              </button>
+              <button className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-black/10 bg-black/[0.04] py-3 text-[12px] text-neutral-700 transition active:scale-[0.98]">
+                <Sparkles className="h-3.5 w-3.5" style={{ color: "var(--rouge)" }} />
+                站内匹配
+              </button>
+            </div>
+          )}
+
+          {mode === "solo" && (
+            <p className="animate-fade-up mt-3 flex items-center gap-1.5 px-1 text-[11px] text-neutral-500">
+              <Bot className="h-3 w-3" />
+              确认角色后将直接进入匹配大厅
+            </p>
+          )}
         </section>
       </div>
 
       {/* CTA */}
       <div className="absolute inset-x-5 bottom-6 z-30">
         <button
-          className="flex h-14 w-full items-center justify-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98]"
+          disabled={!canStart}
+          onClick={handleStart}
+          className={`flex h-14 w-full items-center justify-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98] ${
+            canStart ? "" : "opacity-40"
+          }`}
           style={{ background: "var(--gradient-rouge)" }}
         >
-          <span className="font-brush text-lg tracking-wider">入梦启幕</span>
+          <span className="font-brush text-lg tracking-wider">
+            {mode === "solo" ? "进入匹配大厅" : "组队入梦"}
+          </span>
         </button>
+        {!charId && (
+          <p className="mt-2 text-center text-[11px] text-neutral-400">请先选择一位角色</p>
+        )}
       </div>
+
+      {/* Paywall sheet */}
+      {showPaywall && (
+        <div className="absolute inset-0 z-40 flex items-end" onClick={() => setShowPaywall(false)}>
+          <div className="absolute inset-0 animate-fade-in bg-black/55 backdrop-blur-sm" />
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative z-10 w-full rounded-t-[28px] bg-white p-6 pb-10 shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.4)]"
+            style={{ animation: "fade-in 0.3s ease-out" }}
+          >
+            <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-neutral-300" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Crown className="h-4 w-4" style={{ color: "var(--rouge)" }} />
+                <h3 className="font-brush text-2xl text-neutral-900">解锁标签定制</h3>
+              </div>
+              <button
+                onClick={() => setShowPaywall(false)}
+                className="grid h-8 w-8 place-items-center rounded-full bg-black/[0.05] text-neutral-500"
+                aria-label="关闭"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <p className="mt-4 text-[13px] leading-7 text-neutral-600">
+              开通会员后，可自由选择「甜宠 / 复仇 / 权谋 / 虐恋」等标签，
+              AI 将基于原著为你实时改编出专属的支线剧情。
+            </p>
+
+            <div className="mt-4 rounded-2xl bg-black/[0.03] p-4">
+              <div className="flex items-baseline gap-1">
+                <span className="font-display text-3xl text-neutral-900">¥18</span>
+                <span className="text-[12px] text-neutral-400">/ 月</span>
+              </div>
+              <ul className="mt-2 space-y-1.5 text-[12px] text-neutral-600">
+                <li>· 解锁全部剧情标签定制</li>
+                <li>· 每月 30 次 AI 剧情重写</li>
+                <li>· 优先匹配真人玩家</li>
+              </ul>
+            </div>
+
+            <button
+              className="mt-5 flex h-12 w-full items-center justify-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98]"
+              style={{ background: "var(--gradient-rouge)" }}
+            >
+              <span className="font-brush text-base tracking-wider">立即开通</span>
+            </button>
+
+            {/* Sample preview tags (clickable for demo) */}
+            <div className="mt-4">
+              <div className="mb-2 text-[11px] text-neutral-400">体验试选（不会保存）</div>
+              <div className="flex flex-wrap gap-1.5">
+                {TAGS.slice(0, 4).map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => confirmTag(t.id)}
+                    className={`rounded-full border px-3 py-1.5 text-[11px] ${
+                      tags.includes(t.id)
+                        ? "border-transparent text-white"
+                        : "border-black/10 bg-white text-neutral-600"
+                    }`}
+                    style={tags.includes(t.id) ? { background: "var(--gradient-rouge)" } : undefined}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+function SectionTitle({ index, title }: { index: string; title: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="font-display text-[11px] tracking-widest text-neutral-400">{index}</span>
+      <span className="font-brush" style={{ color: "var(--rouge)" }}>❀</span>
+      <h2 className="font-brush text-xl text-neutral-900">{title}</h2>
+    </div>
+  );
+}
+
+function ModeCard({
+  icon, title, desc, active, onClick,
+}: { icon: React.ReactNode; title: string; desc: string; active: boolean; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`relative overflow-hidden rounded-2xl border p-4 text-left transition active:scale-[0.98] ${
+        active ? "border-transparent text-white" : "border-black/10 bg-white text-neutral-700"
+      }`}
+      style={active ? { background: "var(--gradient-rouge)" } : undefined}
+    >
+      <div className={`grid h-9 w-9 place-items-center rounded-full ${active ? "bg-white/20" : "bg-black/[0.05]"}`}>
+        {icon}
+      </div>
+      <div className="mt-3 font-brush text-lg">{title}</div>
+      <div className={`mt-1 text-[11px] ${active ? "text-white/80" : "text-neutral-500"}`}>{desc}</div>
+      {active && (
+        <span className="absolute right-3 top-3 grid h-6 w-6 place-items-center rounded-full bg-white/25">
+          <Check className="h-3.5 w-3.5" />
+        </span>
+      )}
+    </button>
   );
 }
 
