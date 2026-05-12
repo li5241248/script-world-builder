@@ -61,7 +61,7 @@ function HuatangChun() {
   return (
     <div className="relative h-full overflow-y-auto bg-background pb-32 text-foreground no-scrollbar">
       {/* HERO */}
-      <section className="relative h-[78vh] min-h-[560px] w-full overflow-hidden">
+      <section className="relative h-[58vh] min-h-[440px] w-full overflow-hidden">
         <img src={heroImg} alt="画堂春世界" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background" />
 
@@ -80,43 +80,17 @@ function HuatangChun() {
           </div>
         </div>
 
-        {/* Title block — staggered seal-script layout */}
-        <div className="relative z-10 mt-8 px-6">
-          <div className="relative h-[210px] w-[260px]">
-            {/* 画 - top left, largest */}
-            <span className="absolute left-0 top-0 font-brush text-[96px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)]">
-              画
-            </span>
-            {/* 堂 - middle right, slightly smaller */}
-            <span className="absolute left-[110px] top-[60px] font-brush text-[78px] leading-none text-white/95 drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)]">
-              堂
-            </span>
-            {/* 春 - bottom, offset */}
-            <span className="absolute left-[40px] top-[120px] font-brush text-[86px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)]">
-              春
-            </span>
-            {/* 剧本杀 vertical */}
-            <span
-              className="absolute right-[-6px] top-[78px] font-display text-[13px] tracking-[0.35em] text-white/85"
-              style={{ writingMode: "vertical-rl" }}
-            >
-              剧本杀
-            </span>
-            {/* Seal */}
-            <span
-              className="absolute right-[-2px] top-[170px] grid h-6 w-6 place-items-center rounded-[3px] shadow-md"
-              style={{ background: "var(--gradient-rouge)" }}
-            >
-              <span className="font-brush text-[10px] text-white">堂</span>
-            </span>
+        {/* Title block — horizontal */}
+        <div className="relative z-10 mt-6 px-6">
+          <h1 className="font-brush text-[72px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)] tracking-[0.05em]">
+            画堂春
+          </h1>
+
+          <div className="mt-4 space-y-1 text-[13px] leading-relaxed text-white/85">
+            <p>一卷画堂春，半阙血色词。</p>
           </div>
 
-          <div className="mt-6 space-y-1 text-[13px] leading-relaxed text-white/85">
-            <p>一卷画堂春，</p>
-            <p>半阙血色词。</p>
-          </div>
-
-          <div className="mt-5 flex items-center gap-3 text-[11px] text-white/80">
+          <div className="mt-4 flex items-center gap-3 text-[11px] text-white/80">
             <span className="flex items-center gap-1"><Users className="h-3 w-3" />34,221 人入梦</span>
             <span className="h-3 w-px bg-white/30" />
             <span className="flex items-center gap-1"><Clock className="h-3 w-3" />约 90 分钟</span>
