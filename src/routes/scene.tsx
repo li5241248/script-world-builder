@@ -213,7 +213,6 @@ function Bubble({ m }: { m: Msg }) {
   }
 
   if (m.kind === "prompt") {
-    const me = getCharacter("wentang")!;
     const [open, setOpen] = useState(false);
     const hints = [
       { title: "惊喜，连忙整理仪容", hint: "皇帝注意到你的慌乱与真诚" },
@@ -222,20 +221,10 @@ function Bubble({ m }: { m: Msg }) {
     ];
     return (
       <div className="-mx-4 my-3 animate-fade-up">
-        <div className="relative h-[110px] w-full overflow-hidden">
-          <img
-            src={me.img}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "center 30%" }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(20,16,24,0.7) 0%, rgba(20,16,24,0.3) 55%, rgba(20,16,24,0) 100%)",
-            }}
-          />
+        <div className="relative w-full overflow-hidden bg-black/55 backdrop-blur-md">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/10" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/10" />
+
           <div className="relative z-10 flex h-full items-center px-5">
             <div className="flex-1">
               <div className="mb-1.5 flex items-center gap-1.5">
