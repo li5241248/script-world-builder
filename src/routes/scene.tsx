@@ -129,7 +129,7 @@ function Scene() {
       >
         <div className="space-y-6 py-2">
           {messages.map((m, i) => (
-            <Bubble key={i} m={m} />
+            <Bubble key={i} m={m} onPickHint={(text) => pickHint(i, text)} />
           ))}
 
         </div>
