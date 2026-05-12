@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen } from "lucide-react";
+import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import bg from "@/assets/matching-bg.png";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
@@ -19,6 +19,7 @@ type Msg =
   | { kind: "narration"; text: string }
   | { kind: "dialog"; charId: string; text: string }
   | { kind: "action"; charId: string; text: string }
+  | { kind: "prompt"; text: string }
   | { kind: "me"; text: string; mode: "say" | "do" };
 
 const INITIAL: Msg[] = [
@@ -28,6 +29,7 @@ const INITIAL: Msg[] = [
   },
   { kind: "dialog", charId: "mama", text: "贵人，仇公公来了，说……说陛下今夜要翻您的牌子。" },
   { kind: "dialog", charId: "peirong", text: "朕问你，想不想抚育三皇子琰儿？" },
+  { kind: "prompt", text: "听到这个消息，你心里……" },
 ];
 
 function Scene() {
