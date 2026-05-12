@@ -16,9 +16,9 @@ export const Route = createFileRoute("/")({
 });
 
 const STORY_CHAPTERS = [
-  { title: "大梁年间，风雨飘摇", body: "大梁朝堂内外暗流涌动。江南画堂名动京城，一起离奇命案打破了画堂的平静，众人各怀心思，真相却扑朔迷离……" },
-  { title: "画堂之中，暗藏玄机", body: "一幅未完成的春景图，竟牵出二十年前的旧案。每一笔颜料，都浸着不能言说的过往。" },
-  { title: "血色之夜，真相难寻", body: "中秋夜宴，宫灯次第熄灭。当烛火重燃时，一个人倒在了温棠的脚边。" },
+  { title: "第 1 幕：雪夜承宠", body: "雪落长街，温棠提灯独行，与失母的小皇子裴琰擦肩而过，一眼便记住了那双怯生生的眼睛。当夜陛下翻牌至她的寝宫，烛影摇红之间，竟轻声问她：可愿替朕，抚育三皇子？" },
+  { title: "第 2 幕：抚育之诺", body: "翌日圣旨下达，温棠晋封采桑宫主位，奉旨抚育三皇子裴琰。小小的孩子伏在她膝前怯怯唤了一声「母妃」，殿外炭火正暖，她将他拥入怀中——从此宫深似海，她不再是孤身一人。" },
+  { title: "第 3 幕：帝临采桑", body: "雪后初晴，陛下裴容亲临采桑宫。她奉上一盏亲手熬煮的红豆甜汤，热气氤氲间，他眉眼微动，赞了一句「合朕心意」。宫人们交换着了然的眼神——封妃之兆，已在不言之中。" },
 ];
 
 function HuatangChun() {
@@ -178,7 +178,7 @@ function HuatangChun() {
       <section className="mt-10 px-6">
         <div className="flex items-center gap-2">
           <span className="font-brush" style={{ color: "var(--rouge)" }}>❀</span>
-          <h2 className="font-brush text-xl text-neutral-900">故事背景</h2>
+          <h2 className="font-brush text-xl text-neutral-900">剧情分幕</h2>
         </div>
 
         <div className="mt-4 space-y-3">
