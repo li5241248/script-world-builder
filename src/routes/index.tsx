@@ -59,7 +59,7 @@ function HuatangChun() {
   const setActiveSafe = (i: number) => setActive(Math.max(0, Math.min(CHARACTERS.length - 1, i)));
 
   return (
-    <div className="min-h-screen bg-background pb-32 text-foreground">
+    <div className="relative h-full overflow-y-auto bg-background pb-32 text-foreground no-scrollbar">
       {/* HERO */}
       <section className="relative h-[78vh] min-h-[560px] w-full overflow-hidden">
         <img src={heroImg} alt="画堂春世界" className="absolute inset-0 h-full w-full object-cover" />
