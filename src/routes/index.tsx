@@ -137,11 +137,7 @@ function HuatangChun() {
                 key={c.id}
                 ref={(el) => { cardRefs.current[i] = el; }}
                 onClick={() => {
-                  if (i === active) {
-                    navigate({ to: "/character/$id", params: { id: c.id } });
-                  } else {
-                    setActiveSafe(i);
-                  }
+                  navigate({ to: "/character/$id", params: { id: c.id } });
                 }}
                 className={`relative shrink-0 snap-center overflow-hidden rounded-2xl border transition-all duration-500 ${
                   isActive
