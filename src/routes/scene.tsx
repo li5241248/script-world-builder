@@ -43,10 +43,10 @@ function Scene() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
-  // Detect action mode from `**text**` wrapping
+  // Detect action mode from `（…）` wrapping
   const detectMode = (raw: string): { mode: "say" | "do"; text: string } => {
     const t = raw.trim();
-    const m = t.match(/^\*\*([\s\S]+)\*\*$/);
+    const m = t.match(/^（([\s\S]+)）$/);
     if (m) return { mode: "do", text: m[1].trim() };
     return { mode: "say", text: t };
   };
@@ -59,11 +59,11 @@ function Scene() {
     const before = input.slice(0, start);
     const selected = input.slice(start, end);
     const after = input.slice(end);
-    const next = `${before}**${selected}**${after}`;
+    const next = `${before}（${selected}）${after}`;
     setInput(next);
     requestAnimationFrame(() => {
       el.focus();
-      const pos = before.length + 2 + selected.length;
+      const pos = before.length + 1 + selected.length;
       el.setSelectionRange(pos, pos);
     });
   };
@@ -166,13 +166,13 @@ function Scene() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
-              placeholder="以温棠的身份开口，或点 ✱ 输入动作"
+              placeholder="以温棠的身份开口，或点（）输入动作"
               className="flex-1 bg-transparent text-[13px] outline-none placeholder:text-white/50"
             />
             <button
               onClick={insertActionMarkers}
               aria-label="输入动作"
-              title="输入动作（包在 ** 之间）"
+              title="输入动作（包在（）之间）"
               className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white/70 hover:text-white active:scale-95"
             >
               <Asterisk size={15} />
@@ -214,7 +214,7 @@ function Bubble({ m }: { m: Msg }) {
         <div className="max-w-[78%]">
           {m.mode === "do" ? (
             <div className="rounded-2xl rounded-tr-md bg-[#efe6d6]/75 px-4 py-2.5 text-[13px] italic text-neutral-500 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm">
-              *{m.text}*
+              （{m.text}）
             </div>
           ) : (
             <div className={`${CREAM_BUBBLE} rounded-tr-md`}>{m.text}</div>
@@ -288,7 +288,7 @@ function Bubble({ m }: { m: Msg }) {
         <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
         <div className="max-w-[78%]">
           <div className="rounded-2xl rounded-tl-md border border-white/40 bg-white/15 px-4 py-2.5 text-[13px] italic text-white shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-md drop-shadow">
-            *{m.text}*
+            （{m.text}）
           </div>
         </div>
       </div>
