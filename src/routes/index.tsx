@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, Share2, Bookmark, ChevronDown, Sparkles, Users, Clock } from "lucide-react";
 import heroImg from "@/assets/hero-huatangchun.jpg";
 import wentang from "@/assets/char-wentang.jpg";
@@ -53,10 +53,29 @@ const STORY_CHAPTERS = [
 ];
 
 function HuatangChun() {
-  const [active, setActive] = useState(1); // 裴琰 default center? Actually 温棠 is index 0; let's center wentang
+  const [active, setActive] = useState(1);
   const [openChapter, setOpenChapter] = useState(0);
+  const cardRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
-  const setActiveSafe = (i: number) => setActive(Math.max(0, Math.min(CHARACTERS.length - 1, i)));
+  const centerCard = (i: number, smooth = true) => {
+    const track = trackRef.current;
+    const card = cardRefs.current[i];
+    if (!track || !card) return;
+    const left = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
+    track.scrollTo({ left, behavior: smooth ? "smooth" : "auto" });
+  };
+
+  useEffect(() => {
+    centerCard(active, false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const setActiveSafe = (i: number) => {
+    const idx = Math.max(0, Math.min(CHARACTERS.length - 1, i));
+    setActive(idx);
+    centerCard(idx);
+  };
 
   return (
     <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar" style={{ background: "oklch(0.22 0.02 30)" }}>
@@ -112,12 +131,13 @@ function HuatangChun() {
           <h2 className="font-brush text-2xl text-white drop-shadow">人物角色</h2>
         </div>
 
-        <div className="no-scrollbar mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[22%] pb-6 pt-8">
+        <div ref={trackRef} className="no-scrollbar mt-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[22%] pb-6 pt-4">
           {CHARACTERS.map((c, i) => {
             const isActive = i === active;
             return (
               <button
                 key={c.id}
+                ref={(el) => { cardRefs.current[i] = el; }}
                 onClick={() => setActiveSafe(i)}
                 className={`relative shrink-0 snap-center overflow-hidden rounded-2xl border transition-all duration-500 ${
                   isActive
