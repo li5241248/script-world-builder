@@ -78,12 +78,12 @@ function HuatangChun() {
   };
 
   return (
-    <div className="relative h-full" style={{ background: "oklch(0.22 0.02 30)" }}>
+    <div className="relative h-full bg-white">
     <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar">
       {/* HERO */}
       <section className="relative h-[46vh] min-h-[360px] w-full overflow-hidden">
         <img src={heroImg} alt="画堂春世界" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 40%, oklch(0.22 0.02 30) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 40%, #ffffff 100%)" }} />
 
         {/* Top bar */}
         <div className="relative z-10 flex items-center justify-between px-5 pt-12">
