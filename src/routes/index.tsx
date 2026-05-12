@@ -53,10 +53,19 @@ const STORY_CHAPTERS = [
 ];
 
 function HuatangChun() {
-  const [active, setActive] = useState(1); // 裴琰 default center? Actually 温棠 is index 0; let's center wentang
+  const [active, setActive] = useState(1);
   const [openChapter, setOpenChapter] = useState(0);
+  const cardRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  const setActiveSafe = (i: number) => setActive(Math.max(0, Math.min(CHARACTERS.length - 1, i)));
+  useEffect(() => {
+    cardRefs.current[active]?.scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const setActiveSafe = (i: number) => {
+    setActive(Math.max(0, Math.min(CHARACTERS.length - 1, i)));
+    cardRefs.current[i]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  };
 
   return (
     <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar" style={{ background: "oklch(0.22 0.02 30)" }}>
