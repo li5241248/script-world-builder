@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb, Volume2, ChevronRight } from "lucide-react";
+import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb, Volume2 } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/scene-huatang.jpg";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
@@ -107,16 +107,6 @@ function Scene() {
             <Bubble key={i} m={m} />
           ))}
 
-          {/* AI 玩法 pill */}
-          <div className="flex justify-center pt-1">
-            <button className="flex items-center gap-1.5 rounded-full bg-black/45 px-3 py-1.5 text-[11px] text-white/90 backdrop-blur-md active:scale-95">
-              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-200/90 text-[9px] text-neutral-900">
-                ☺
-              </span>
-              更多 AI 玩法，限时体验～
-              <ChevronRight size={12} className="opacity-70" />
-            </button>
-          </div>
         </div>
       </div>
 
@@ -206,7 +196,7 @@ function Bubble({ m }: { m: Msg }) {
         <img
           src={me.img}
           alt={me.name}
-          className="h-9 w-9 flex-shrink-0 rounded-full object-cover ring-2 ring-white/70 shadow"
+          className="h-9 w-9 flex-shrink-0 rounded-full object-cover"
         />
       </div>
     );
@@ -268,7 +258,7 @@ function Bubble({ m }: { m: Msg }) {
   if (m.kind === "action") {
     return (
       <div className="flex gap-2">
-        <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover ring-2 ring-white/70 shadow" />
+        <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
         <div className="max-w-[78%]">
           <div className="rounded-2xl rounded-tl-md border border-white/40 bg-white/15 px-4 py-2.5 text-[13px] italic text-white shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-md drop-shadow">
             *{m.text}*
@@ -280,7 +270,7 @@ function Bubble({ m }: { m: Msg }) {
 
   return (
     <div className="flex gap-2">
-      <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover ring-2 ring-white/70 shadow" />
+      <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
       <div className="max-w-[80%]">
         <div className={`${CREAM_BUBBLE} rounded-tl-md pr-9`}>
           {m.text}
