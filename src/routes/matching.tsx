@@ -26,7 +26,10 @@ function Matching() {
   }, []);
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div
+      onClick={() => navigate({ to: "/scene" })}
+      className="relative h-full overflow-hidden cursor-pointer"
+    >
       {/* background image */}
       <img
         src={bg}
