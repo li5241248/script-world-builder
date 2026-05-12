@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import bg from "@/assets/matching-bg.png";
-import titleText from "@/assets/huatangchun-text.png";
+import seal from "@/assets/huatangchun-seal.png";
 
 export const Route = createFileRoute("/matching")({
   component: MatchingPage,
@@ -51,23 +51,12 @@ function Matching() {
       </button>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-8">
-        {/* Brush title - rendered as white via CSS mask */}
-        <div
-          aria-label="画堂春"
-          role="img"
-          className="h-[260px] w-[200px]"
-          style={{
-            backgroundColor: "white",
-            WebkitMaskImage: `url(${titleText})`,
-            maskImage: `url(${titleText})`,
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
-            maskPosition: "center",
-            WebkitMaskSize: "contain",
-            maskSize: "contain",
-            filter: "drop-shadow(0 2px 12px rgba(0,0,0,0.6))",
-          }}
+        {/* Red seal */}
+        <img
+          src={seal}
+          alt="画堂春"
+          className="h-[220px] w-[220px] object-contain"
+          style={{ filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.5))" }}
         />
 
         {/* status */}
