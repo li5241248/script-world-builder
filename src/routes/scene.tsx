@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
+import sceneBg from "@/assets/scene-bg.jpg";
 
 export const Route = createFileRoute("/scene")({
   component: ScenePage,
