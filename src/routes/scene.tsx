@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb, Volume2, Asterisk } from "lucide-react";
+import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb, Volume2, Asterisk, Clock } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/scene-huatang.jpg";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
@@ -39,6 +39,19 @@ function Scene() {
   const [pickedPromptIdx, setPickedPromptIdx] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // 剩余时间：单人无限制，双人/多人每幕 ≤ 20 分钟
+  const mode = "multi" as "solo" | "multi";
+  const ACT_SECONDS = 20 * 60;
+  const [remaining, setRemaining] = useState(ACT_SECONDS);
+  useEffect(() => {
+    if (mode === "solo") return;
+    const t = setInterval(() => setRemaining((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(t);
+  }, [mode]);
+  const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const ss = String(remaining % 60).padStart(2, "0");
+  const lowTime = mode !== "solo" && remaining <= 60;
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -132,6 +145,25 @@ function Scene() {
         <button className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95">
           <MoreHorizontal size={18} />
         </button>
+      </div>
+
+      {/* 剩余时间 */}
+      <div className="relative z-10 mx-4 mb-2 flex items-center justify-center">
+        <div
+          className={`flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1 text-[11px] backdrop-blur-md drop-shadow ${
+            lowTime ? "text-rose-300" : "text-white/85"
+          }`}
+          title="单人无时间限制；双人 / 多人每幕 ≤ 20 分钟"
+        >
+          <Clock size={11} />
+          {mode === "solo" ? (
+            <span>本幕剩余　不限时</span>
+          ) : (
+            <span>
+              本幕剩余 <span className="font-mono tabular-nums">{mm}:{ss}</span>
+            </span>
+          )}
+        </div>
       </div>
 
       {/* progress */}
