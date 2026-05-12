@@ -213,7 +213,6 @@ function Bubble({ m }: { m: Msg }) {
   }
 
   if (m.kind === "prompt") {
-    const me = getCharacter("wentang")!;
     const [open, setOpen] = useState(false);
     const hints = [
       { title: "惊喜，连忙整理仪容", hint: "皇帝注意到你的慌乱与真诚" },
@@ -222,34 +221,24 @@ function Bubble({ m }: { m: Msg }) {
     ];
     return (
       <div className="-mx-4 my-3 animate-fade-up">
-        <div className="relative h-[110px] w-full overflow-hidden">
-          <img
-            src={me.img}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "center 30%" }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(20,16,24,0.7) 0%, rgba(20,16,24,0.3) 55%, rgba(20,16,24,0) 100%)",
-            }}
-          />
-          <div className="relative z-10 flex h-full items-center px-5">
+        <div className="relative w-full overflow-hidden bg-black/55 backdrop-blur-md">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/10" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/10" />
+
+          <div className="relative z-10 flex items-center gap-3 px-5 py-4">
             <div className="flex-1">
               <div className="mb-1.5 flex items-center gap-1.5">
                 <Feather size={10} className="text-amber-200/90" />
                 <span className="text-[9px] tracking-[0.35em] text-amber-200/80">剧 情 提 示</span>
               </div>
-              <p className="max-w-[78%] text-[14px] font-medium leading-snug text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
+              <p className="text-[14px] font-medium leading-snug text-white">
                 {m.text}
               </p>
             </div>
             <button
               onClick={() => setOpen((v) => !v)}
               aria-label="灵感提示"
-              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/15 bg-black/55 text-white/90 backdrop-blur-md transition active:scale-95"
+              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/90 backdrop-blur-md transition active:scale-95"
             >
               <Lightbulb size={15} />
             </button>
