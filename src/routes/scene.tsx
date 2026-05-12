@@ -82,7 +82,7 @@ function Scene() {
         </button>
         <div className="text-center">
           <div className="text-[11px] tracking-[0.3em] text-white/60">第一幕</div>
-          <div className="font-brush text-[18px] tracking-[0.2em]">御 书 房 夜 召</div>
+          <div className="font-brush text-[18px] tracking-[0.2em]">雪 夜 承 宠</div>
         </div>
         <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 backdrop-blur active:scale-95">
           <MoreHorizontal size={18} />
