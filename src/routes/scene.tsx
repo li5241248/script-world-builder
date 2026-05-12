@@ -317,14 +317,8 @@ function Bubble({ m, picked, onPickHint }: { m: Msg; picked?: boolean; onPickHin
     <div className="flex gap-2">
       <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
       <div className="max-w-[80%]">
-        <div className={`${CREAM_BUBBLE} rounded-tl-md pr-9`}>
+        <div className={`${CREAM_BUBBLE} rounded-tl-md`}>
           {m.text}
-          <button
-            aria-label="播放语音"
-            className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-neutral-800/80 text-white active:scale-95"
-          >
-            <Volume2 size={11} />
-          </button>
         </div>
       </div>
     </div>
