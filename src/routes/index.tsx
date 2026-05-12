@@ -129,7 +129,7 @@ function HuatangChun() {
       {/* CHARACTER CAROUSEL */}
       <section className="relative -mt-16 z-20">
         <div className="px-5 pb-2 text-center">
-          <h2 className="font-brush text-2xl text-white drop-shadow">人物角色</h2>
+          <h2 className="font-brush text-2xl text-neutral-900">人物角色</h2>
         </div>
 
         <div ref={trackRef} className="no-scrollbar mt-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[22%] pb-6 pt-4">
@@ -142,8 +142,8 @@ function HuatangChun() {
                 onClick={() => setActiveSafe(i)}
                 className={`relative shrink-0 snap-center overflow-hidden rounded-2xl border transition-all duration-500 ${
                   isActive
-                    ? "h-[330px] w-[200px] -translate-y-2 border-white/40 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)]"
-                    : "h-[270px] w-[140px] border-white/10 opacity-70"
+                    ? "h-[330px] w-[200px] -translate-y-2 border-black/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.35)]"
+                    : "h-[270px] w-[140px] border-black/5 opacity-70"
                 }`}
               >
                 <img src={c.img} alt={c.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
@@ -165,7 +165,7 @@ function HuatangChun() {
         {/* Dots */}
         <div className="flex justify-center gap-1.5">
           {CHARACTERS.map((_, i) => (
-            <span key={i} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-white" : "w-1.5 bg-white/25"}`} />
+            <span key={i} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-neutral-800" : "w-1.5 bg-neutral-300"}`} />
           ))}
         </div>
 
