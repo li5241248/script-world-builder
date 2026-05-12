@@ -70,7 +70,7 @@ function Lobby() {
     <div className="relative h-full bg-white">
       <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar">
         {/* HEADER */}
-        <section className="relative h-[28vh] min-h-[220px] w-full overflow-hidden">
+        <section className="relative h-[18vh] min-h-[140px] w-full overflow-hidden">
           <img src={heroImg} alt="画堂春" className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.55) 75%, #ffffff 100%)" }} />
 
@@ -86,11 +86,11 @@ function Lobby() {
             </button>
           </div>
 
-          <div className="relative z-10 mt-3 px-6">
-            <h1 className="font-brush text-[40px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+          <div className="relative z-10 mt-2 px-6">
+            <h1 className="font-brush text-[32px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
               组队入梦
             </h1>
-            <p className="mt-2 text-[12px] text-white/85">三步开启你的画堂春</p>
+            <p className="mt-1.5 text-[11px] text-white/85">三步开启你的画堂春</p>
           </div>
         </section>
 
