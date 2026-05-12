@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { ChevronLeft, Share2, MoreHorizontal, Calendar, User, Heart, Sparkles, Lock } from "lucide-react";
+import { ChevronLeft, Share2, MoreHorizontal, Calendar, User, Heart, Sparkles, Lock, Wand2, X, Link2, FileText, Check } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
 
@@ -42,6 +43,30 @@ export const Route = createFileRoute("/character/$id")({
 function CharacterDetail() {
   const navigate = useNavigate();
   const c = Route.useLoaderData();
+  const [fusionOpen, setFusionOpen] = useState(false);
+  const [fusionStep, setFusionStep] = useState<"choose" | "analyzing" | "done">("choose");
+  const [zhihuId, setZhihuId] = useState("");
+  const [persona, setPersona] = useState("");
+
+  const startAnalyze = () => {
+    if (!zhihuId.trim()) return;
+    setFusionStep("analyzing");
+    setTimeout(() => {
+      setPersona(
+        "理性细腻 · 偏好长文输出 · 关注历史与人文。习惯用克制的语气表达观点，遇冲突倾向先观察后回应。"
+      );
+      setFusionStep("done");
+    }, 1600);
+  };
+
+  const closeFusion = () => {
+    setFusionOpen(false);
+    setTimeout(() => {
+      setFusionStep("choose");
+      setZhihuId("");
+      setPersona("");
+    }, 200);
+  };
 
   const attrs = [
     { icon: Calendar, label: "年龄", value: `${c.age} 岁` },
@@ -114,6 +139,28 @@ function CharacterDetail() {
             ))}
           </ul>
         </div>
+      </section>
+
+      {/* Personality fusion CTA */}
+      <section className="mt-4 px-5">
+        <button
+          onClick={() => setFusionOpen(true)}
+          className="group flex w-full items-center justify-between rounded-2xl border border-black/5 bg-white/85 px-4 py-3.5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.2)] backdrop-blur-sm transition active:scale-[0.99]"
+        >
+          <span className="flex items-center gap-3">
+            <span
+              className="grid h-9 w-9 place-items-center rounded-full text-white"
+              style={{ background: "var(--gradient-rouge)" }}
+            >
+              <Wand2 className="h-4 w-4" />
+            </span>
+            <span className="flex flex-col items-start">
+              <span className="text-[14px] font-medium text-neutral-900">个人性格融入</span>
+              <span className="text-[11px] text-neutral-500">将你的人设融入「{c.name}」，演出更像你</span>
+            </span>
+          </span>
+          <span className="text-[11px] text-neutral-400">去定制 ›</span>
+        </button>
       </section>
 
       {/* Relations */}
@@ -200,6 +247,107 @@ function CharacterDetail() {
           </span>
         </button>
       </div>
+
+      {/* Personality fusion modal */}
+      {fusionOpen && (
+        <div className="absolute inset-0 z-40 flex items-end justify-center" onClick={closeFusion}>
+          <div className="absolute inset-0 bg-black/45 backdrop-blur-sm" />
+          <div
+            className="relative z-10 w-full rounded-t-3xl bg-white p-5 pb-8 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Wand2 className="h-4 w-4" style={{ color: "var(--rouge)" }} />
+                <h3 className="font-brush text-lg text-neutral-900">个人性格融入</h3>
+              </div>
+              <button onClick={closeFusion} className="grid h-8 w-8 place-items-center rounded-full bg-black/[0.04]">
+                <X className="h-4 w-4 text-neutral-500" />
+              </button>
+            </div>
+
+            {fusionStep === "choose" && (
+              <>
+                <p className="text-[12px] leading-6 text-neutral-500">
+                  授权分析你在知乎的历史发文与互动，AI 将生成你的专属人设，与「{c.name}」融合后，让角色的语气与选择更贴近你本人。
+                </p>
+
+                <div className="mt-4 space-y-2">
+                  <label className="flex items-center gap-3 rounded-xl border border-black/5 bg-white px-3 py-3">
+                    <span className="grid h-9 w-9 place-items-center rounded-full bg-[#0066FF]/10">
+                      <Link2 className="h-4 w-4 text-[#0066FF]" />
+                    </span>
+                    <div className="flex-1">
+                      <div className="text-[13px] font-medium text-neutral-900">知乎主页 / ID</div>
+                      <input
+                        value={zhihuId}
+                        onChange={(e) => setZhihuId(e.target.value)}
+                        placeholder="粘贴主页链接或输入用户 ID"
+                        className="mt-1 w-full bg-transparent text-[12px] text-neutral-700 placeholder:text-neutral-400 focus:outline-none"
+                      />
+                    </div>
+                  </label>
+
+                  <button className="flex w-full items-center gap-3 rounded-xl border border-dashed border-black/10 bg-white px-3 py-3 text-left">
+                    <span className="grid h-9 w-9 place-items-center rounded-full bg-black/[0.04]">
+                      <FileText className="h-4 w-4 text-neutral-500" />
+                    </span>
+                    <div className="flex-1">
+                      <div className="text-[13px] font-medium text-neutral-900">手动描述我的人设</div>
+                      <div className="text-[11px] text-neutral-500">用一段话告诉 AI 你是谁</div>
+                    </div>
+                  </button>
+                </div>
+
+                <button
+                  onClick={startAnalyze}
+                  disabled={!zhihuId.trim()}
+                  className="mt-5 w-full rounded-full py-3 text-[13px] font-medium text-white shadow-[var(--shadow-card)] transition active:scale-[0.99] disabled:opacity-40"
+                  style={{ background: "var(--gradient-rouge)" }}
+                >
+                  开始分析并生成人设
+                </button>
+                <p className="mt-3 text-center text-[10px] text-neutral-400">
+                  授权信息仅用于本次人设生成，不对外公开
+                </p>
+              </>
+            )}
+
+            {fusionStep === "analyzing" && (
+              <div className="flex flex-col items-center py-10">
+                <div
+                  className="h-12 w-12 animate-spin rounded-full border-2 border-transparent"
+                  style={{ borderTopColor: "var(--rouge)", borderRightColor: "var(--rouge)" }}
+                />
+                <p className="mt-4 text-[13px] text-neutral-700">正在分析你的发文与互动…</p>
+                <p className="mt-1 text-[11px] text-neutral-400">AI 正在为你生成专属人设标签</p>
+              </div>
+            )}
+
+            {fusionStep === "done" && (
+              <>
+                <div className="rounded-2xl border border-black/5 bg-[var(--rouge)]/5 p-4">
+                  <div className="flex items-center gap-2">
+                    <Check className="h-4 w-4" style={{ color: "var(--rouge)" }} />
+                    <span className="text-[13px] font-medium text-neutral-900">你的人设已生成</span>
+                  </div>
+                  <p className="mt-2 text-[12px] leading-6 text-neutral-700">{persona}</p>
+                </div>
+                <p className="mt-4 text-[11px] text-neutral-500">
+                  融合后，「{c.name}」在剧中的语气、选择会更贴近你本人的表达习惯。
+                </p>
+                <button
+                  onClick={closeFusion}
+                  className="mt-5 w-full rounded-full py-3 text-[13px] font-medium text-white shadow-[var(--shadow-card)] transition active:scale-[0.99]"
+                  style={{ background: "var(--gradient-rouge)" }}
+                >
+                  确认融入
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
