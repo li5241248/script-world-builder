@@ -72,8 +72,16 @@ function Scene() {
   const send = () => {
     const { mode, text } = detectMode(input);
     if (!text) return;
-    setMessages((m) => [...m, { kind: "me", text, mode }]);
+    setMessages((prev) => {
+      // if a prompt was picked, drop that prompt block when sending
+      const filtered =
+        pickedPromptIdx !== null
+          ? prev.filter((_, i) => i !== pickedPromptIdx)
+          : prev;
+      return [...filtered, { kind: "me", text, mode }];
+    });
     setInput("");
+    setPickedPromptIdx(null);
     setTimeout(() => {
       setMessages((m) => [
         ...m,
@@ -82,9 +90,10 @@ function Scene() {
     }, 900);
   };
 
-  const pickHint = (_promptIndex: number, text: string) => {
+  const pickHint = (promptIndex: number, text: string) => {
     const wrapped = `（${text}）`;
     setInput(wrapped);
+    setPickedPromptIdx(promptIndex);
     requestAnimationFrame(() => {
       const el = inputRef.current;
       if (!el) return;
