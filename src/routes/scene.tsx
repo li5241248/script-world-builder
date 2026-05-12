@@ -38,7 +38,7 @@ function Scene() {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"say" | "do">("say");
   const scrollRef = useRef<HTMLDivElement>(null);
-  const sceneBg = getCharacter("wentang")!.img;
+  // scene background image
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
