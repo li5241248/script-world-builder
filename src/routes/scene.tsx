@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather } from "lucide-react";
+import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import bg from "@/assets/matching-bg.png";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
