@@ -249,7 +249,7 @@ function PhoneMockup() {
           }}
         />
         {/* Screen */}
-        <div className="absolute inset-[12px] overflow-hidden rounded-[46px] bg-background">
+        <div className="absolute inset-[12px] overflow-hidden rounded-[46px]" style={{ background: "oklch(0.22 0.02 30)" }}>
           {/* Dynamic island */}
           <div className="pointer-events-none absolute left-1/2 top-2 z-50 h-[30px] w-[110px] -translate-x-1/2 rounded-full bg-black" />
           {/* Status bar */}
