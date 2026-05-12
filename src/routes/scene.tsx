@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb, Volume2 } from "lucide-react";
+import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb, Volume2, Asterisk } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/scene-huatang.jpg";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
@@ -36,18 +36,42 @@ function Scene() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Msg[]>(INITIAL);
   const [input, setInput] = useState("");
-  const [mode, setMode] = useState<"say" | "do">("say");
   const scrollRef = useRef<HTMLDivElement>(null);
-  // scene background image
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
+  // Detect action mode from `**text**` wrapping
+  const detectMode = (raw: string): { mode: "say" | "do"; text: string } => {
+    const t = raw.trim();
+    const m = t.match(/^\*\*([\s\S]+)\*\*$/);
+    if (m) return { mode: "do", text: m[1].trim() };
+    return { mode: "say", text: t };
+  };
+
+  const insertActionMarkers = () => {
+    const el = inputRef.current;
+    if (!el) return;
+    const start = el.selectionStart ?? input.length;
+    const end = el.selectionEnd ?? input.length;
+    const before = input.slice(0, start);
+    const selected = input.slice(start, end);
+    const after = input.slice(end);
+    const next = `${before}**${selected}**${after}`;
+    setInput(next);
+    requestAnimationFrame(() => {
+      el.focus();
+      const pos = before.length + 2 + selected.length;
+      el.setSelectionRange(pos, pos);
+    });
+  };
+
   const send = () => {
-    const t = input.trim();
-    if (!t) return;
-    setMessages((m) => [...m, { kind: "me", text: t, mode }]);
+    const { mode, text } = detectMode(input);
+    if (!text) return;
+    setMessages((m) => [...m, { kind: "me", text, mode }]);
     setInput("");
     setTimeout(() => {
       setMessages((m) => [
@@ -56,6 +80,7 @@ function Scene() {
       ]);
     }, 900);
   };
+
 
   return (
     <div className="relative h-full overflow-hidden bg-neutral-900 text-white">
@@ -127,29 +152,31 @@ function Scene() {
       {/* input bar */}
       <div className="absolute bottom-0 left-0 right-0 z-20 border-t border-white/10 bg-black/55 px-3 pb-6 pt-3 backdrop-blur-xl">
         <div className="flex items-center gap-2">
-          <div className="flex rounded-full bg-white/10 p-0.5 text-[11px]">
-            <button
-              onClick={() => setMode("say")}
-              className={`rounded-full px-2.5 py-1 transition ${mode === "say" ? "bg-white text-neutral-900" : "text-white/70"}`}
-            >
-              说
-            </button>
-            <button
-              onClick={() => setMode("do")}
-              className={`rounded-full px-2.5 py-1 transition ${mode === "do" ? "bg-white text-neutral-900" : "text-white/70"}`}
-            >
-              动作
-            </button>
-          </div>
+          {/* voice input button (replaces 说/动作 toggle) */}
+          <button
+            aria-label="语音输入"
+            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white/85 active:scale-95"
+          >
+            <Mic size={17} />
+          </button>
+
           <div className="flex flex-1 items-center gap-2 rounded-full bg-white/15 px-3 py-2">
             <input
+              ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
-              placeholder={mode === "say" ? "以温棠的身份开口…" : "描述一个动作，如：低头敛眸"}
+              placeholder="以温棠的身份开口，或点 ✱ 输入动作"
               className="flex-1 bg-transparent text-[13px] outline-none placeholder:text-white/50"
             />
-            <Mic size={16} className="text-white/60" />
+            <button
+              onClick={insertActionMarkers}
+              aria-label="输入动作"
+              title="输入动作（包在 ** 之间）"
+              className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white/70 hover:text-white active:scale-95"
+            >
+              <Asterisk size={15} />
+            </button>
           </div>
           <button
             onClick={send}
@@ -186,7 +213,7 @@ function Bubble({ m }: { m: Msg }) {
       <div className="flex justify-end gap-2">
         <div className="max-w-[78%]">
           {m.mode === "do" ? (
-            <div className="rounded-2xl rounded-tr-md border border-amber-200/60 bg-amber-100/85 px-4 py-2.5 text-[13px] italic text-amber-900 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm">
+            <div className="rounded-2xl rounded-tr-md bg-[#efe6d6]/75 px-4 py-2.5 text-[13px] italic text-neutral-500 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm">
               *{m.text}*
             </div>
           ) : (
