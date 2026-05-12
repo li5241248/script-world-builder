@@ -225,7 +225,7 @@ function Bubble({ m }: { m: Msg }) {
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/10" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/10" />
 
-          <div className="relative z-10 flex items-center gap-3 px-5 py-4">
+          <div className="relative z-10 flex items-center gap-3 px-5 py-7">
             <div className="flex-1">
               <div className="mb-1.5 flex items-center gap-1.5">
                 <Feather size={10} className="text-amber-200/90" />
