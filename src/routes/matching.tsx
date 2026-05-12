@@ -22,17 +22,16 @@ function Matching() {
     const i = setInterval(() => {
       setDots((d) => (d.length >= 3 ? "" : d + "."));
     }, 450);
-    const t = setTimeout(() => {
-      navigate({ to: "/scene" });
-    }, 8000);
     return () => {
       clearInterval(i);
-      clearTimeout(t);
     };
   }, [navigate]);
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div
+      className="relative h-full overflow-hidden cursor-pointer"
+      onClick={() => navigate({ to: "/scene" })}
+    >
       {/* background image */}
       <img
         src={bg}
@@ -50,7 +49,7 @@ function Matching() {
 
       {/* close */}
       <button
-        onClick={() => navigate({ to: "/lobby" })}
+        onClick={(e) => { e.stopPropagation(); navigate({ to: "/lobby" }); }}
         className="absolute right-5 top-12 z-20 text-[12px] text-white/80 transition active:scale-95"
       >
         取消
