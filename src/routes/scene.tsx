@@ -26,8 +26,7 @@ const INITIAL: Msg[] = [
     kind: "narration",
     text: "大梁·泰和二十年。春雨初霁，画堂深处的海棠落了一地。你是温棠，今夜，皇上召你入御书房。",
   },
-  { kind: "action", charId: "mama", text: "替温棠披上一件石青色的披风，低声叮嘱。" },
-  { kind: "dialog", charId: "mama", text: "姑娘，今夜万事小心。皇上召见，怕是为了二十年前那桩旧事。" },
+  { kind: "dialog", charId: "mama", text: "贵人，仇公公来了，说……说陛下今夜要翻您的牌子。" },
   { kind: "dialog", charId: "peirong", text: "朕问你，想不想抚育三皇子琰儿？" },
 ];
 
