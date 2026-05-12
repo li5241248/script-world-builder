@@ -40,6 +40,19 @@ function Scene() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // 剩余时间：单人无限制，双人/多人每幕 ≤ 20 分钟
+  const mode: "solo" | "multi" = "multi";
+  const ACT_SECONDS = 20 * 60;
+  const [remaining, setRemaining] = useState(ACT_SECONDS);
+  useEffect(() => {
+    if (mode === "solo") return;
+    const t = setInterval(() => setRemaining((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(t);
+  }, [mode]);
+  const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const ss = String(remaining % 60).padStart(2, "0");
+  const lowTime = mode !== "solo" && remaining <= 60;
+
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
