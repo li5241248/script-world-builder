@@ -61,7 +61,7 @@ function HuatangChun() {
   return (
     <div className="relative h-full overflow-y-auto bg-background pb-32 text-foreground no-scrollbar">
       {/* HERO */}
-      <section className="relative h-[78vh] min-h-[560px] w-full overflow-hidden">
+      <section className="relative h-[58vh] min-h-[440px] w-full overflow-hidden">
         <img src={heroImg} alt="画堂春世界" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background" />
 
