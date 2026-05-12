@@ -166,6 +166,14 @@ function Scene() {
         </div>
       </div>
 
+      {/* progress */}
+      <div className="relative z-10 mx-4 mb-2 flex items-center gap-2 text-[10px] text-white/80 drop-shadow">
+        <BookOpen size={12} />
+        <div className="h-[2px] flex-1 overflow-hidden rounded-full bg-white/25">
+          <div className="h-full w-[18%] bg-gradient-to-r from-amber-200 to-rose-200" />
+        </div>
+        <span>1 / 6</span>
+      </div>
 
       {/* messages */}
       <div
