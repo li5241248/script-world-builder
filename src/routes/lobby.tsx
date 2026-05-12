@@ -274,6 +274,7 @@ function Lobby() {
             <div className="animate-fade-up mt-6 flex gap-3">
               <button
                 disabled={!canStart}
+                onClick={() => navigate({ to: "/invite" })}
                 className={`flex h-14 flex-1 items-center justify-center gap-1.5 rounded-full border border-dashed border-black/20 bg-white text-[13px] text-neutral-700 transition active:scale-[0.98] ${
                   canStart ? "" : "opacity-40"
                 }`}
