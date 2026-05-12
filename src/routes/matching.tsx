@@ -51,17 +51,24 @@ function Matching() {
       </button>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-8">
-        {/* Brush title - vertical white text */}
+        {/* Brush title - rendered as white via CSS mask */}
         <div
           aria-label="画堂春"
-          className="flex flex-col items-center gap-1 font-brush text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)]"
-          style={{ fontSize: "84px", lineHeight: 1.05 }}
-        >
-          <span>画</span>
-          <span>堂</span>
-          <span>春</span>
-          <span className="mt-3 text-[16px] tracking-[0.4em] text-white/85">剧本杀</span>
-        </div>
+          role="img"
+          className="h-[260px] w-[200px]"
+          style={{
+            backgroundColor: "white",
+            WebkitMaskImage: `url(${titleText})`,
+            maskImage: `url(${titleText})`,
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+            filter: "drop-shadow(0 2px 12px rgba(0,0,0,0.6))",
+          }}
+        />
 
         {/* status */}
         <div className="mt-14 flex flex-col items-center">
