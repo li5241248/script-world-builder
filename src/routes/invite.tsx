@@ -15,10 +15,9 @@ export const Route = createFileRoute("/invite")({
 
 function Invite() {
   const navigate = useNavigate();
-  // demo: you + one ready teammate
-  const you = CHARACTERS.find((c) => c.id === "peiyan")!;
-  const mate = CHARACTERS.find((c) => c.id === "wentang")!;
-  const empty = [3, 4, 5, 6];
+  // current user only — picked character from lobby (demo: 温棠)
+  const me = CHARACTERS.find((c) => c.id === "wentang")!;
+  const empty = [2, 3, 4, 5, 6];
 
   return (
     <div className="relative h-full overflow-y-auto bg-white px-6 pt-12 pb-6 no-scrollbar">
@@ -27,8 +26,7 @@ function Invite() {
 
       {/* Slots */}
       <div className="mt-6 grid grid-cols-3 gap-3">
-        <SlotFilled char={you} label="你" badge="剧本总新手" />
-        <SlotFilled char={mate} label={mate.name} badge="已准备" badgeTone="ready" />
+        <SlotFilled char={me} />
         {empty.map((n) => (
           <EmptySlot key={n} index={n} />
         ))}
@@ -64,23 +62,18 @@ function Invite() {
   );
 }
 
-function SlotFilled({
-  char, label, badge, badgeTone,
-}: { char: { name: string; img: string }; label: string; badge: string; badgeTone?: "ready" }) {
+function SlotFilled({ char }: { char: { name: string; img: string } }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-black/10 bg-neutral-50">
-      <div className="aspect-[3/4] w-full overflow-hidden">
-        <img src={char.img} alt={label} className="h-full w-full object-cover" />
+    <div className="relative flex aspect-[3/4.6] flex-col overflow-hidden rounded-2xl border border-black/10 bg-neutral-50">
+      <div className="relative flex-1 overflow-hidden">
+        <img src={char.img} alt={char.name} className="absolute inset-0 h-full w-full object-cover" />
+        <span className="absolute left-2 top-2 rounded-md bg-black/45 px-1.5 py-0.5 text-[10px] text-white backdrop-blur-sm">
+          我
+        </span>
       </div>
-      <div className="px-2 pb-2 pt-1.5 text-center">
-        <div className="font-brush text-[15px] text-neutral-900">{label}</div>
-        <div
-          className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[10px] ${
-            badgeTone === "ready" ? "bg-emerald-50 text-emerald-700" : "bg-black/[0.06] text-neutral-500"
-          }`}
-        >
-          {badge}
-        </div>
+      <div className="px-2 py-1.5 text-center">
+        <div className="font-brush text-[15px] text-neutral-900">{char.name}</div>
+        <div className="mt-0.5 text-[10px] text-emerald-600">已准备</div>
       </div>
     </div>
   );
