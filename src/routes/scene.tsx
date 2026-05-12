@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather } from "lucide-react";
+import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import bg from "@/assets/matching-bg.png";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
@@ -206,6 +206,12 @@ function Bubble({ m }: { m: Msg }) {
 
   if (m.kind === "prompt") {
     const me = getCharacter("wentang")!;
+    const [open, setOpen] = useState(false);
+    const hints = [
+      { title: "惊喜，连忙整理仪容", hint: "皇帝注意到你的慌乱与真诚" },
+      { title: "惊慌，不知所措", hint: "皇帝感受到了你的紧张" },
+      { title: "平静，这只是意外", hint: "皇帝对你的淡然有些意外" },
+    ];
     return (
       <div className="-mx-4 my-4 animate-fade-up">
         <div className="relative h-[110px] w-full overflow-hidden">
@@ -222,16 +228,46 @@ function Bubble({ m }: { m: Msg }) {
                 "linear-gradient(90deg, rgba(20,16,24,0.92) 0%, rgba(20,16,24,0.75) 45%, rgba(20,16,24,0.35) 100%)",
             }}
           />
-          <div className="relative z-10 flex h-full flex-col justify-center px-5">
-            <div className="mb-1.5 flex items-center gap-1.5">
-              <Feather size={10} className="text-amber-200/90" />
-              <span className="text-[9px] tracking-[0.35em] text-amber-200/80">剧 情 提 示</span>
+          <div className="relative z-10 flex h-full items-center px-5">
+            <div className="flex-1">
+              <div className="mb-1.5 flex items-center gap-1.5">
+                <Feather size={10} className="text-amber-200/90" />
+                <span className="text-[9px] tracking-[0.35em] text-amber-200/80">剧 情 提 示</span>
+              </div>
+              <p className="max-w-[78%] text-[14px] font-medium leading-snug text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
+                {m.text}
+              </p>
             </div>
-            <p className="max-w-[78%] text-[14px] font-medium leading-snug text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
-              {m.text}
-            </p>
+            <button
+              onClick={() => setOpen((v) => !v)}
+              aria-label="灵感提示"
+              className={`relative flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border backdrop-blur-md transition active:scale-95 ${
+                open
+                  ? "border-amber-300/70 bg-amber-300/20 text-amber-100"
+                  : "border-white/25 bg-black/40 text-white/85"
+              }`}
+            >
+              <Lightbulb size={16} className="drop-shadow-[0_0_6px_rgba(253,224,71,0.6)]" />
+              <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(253,224,71,0.9)]" />
+            </button>
           </div>
         </div>
+        {open && (
+          <div className="mt-3 space-y-2 px-4 animate-fade-up">
+            {hints.map((h, i) => (
+              <button
+                key={i}
+                className="block w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-left backdrop-blur transition hover:border-amber-200/40 hover:bg-white/[0.07] active:scale-[0.99]"
+              >
+                <div className="text-[14px] font-medium leading-tight text-white">{h.title}</div>
+                <div className="mt-1.5 flex items-center gap-1.5 text-[11px] text-white/55">
+                  <Lightbulb size={11} className="text-amber-300/90" />
+                  <span>{h.hint}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
