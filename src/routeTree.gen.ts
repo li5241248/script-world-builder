@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SceneRouteImport } from './routes/scene'
 import { Route as MatchingRouteImport } from './routes/matching'
 import { Route as LobbyRouteImport } from './routes/lobby'
 import { Route as InviteRouteImport } from './routes/invite'
@@ -16,6 +17,11 @@ import { Route as ConfirmRouteImport } from './routes/confirm'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CharacterIdRouteImport } from './routes/character.$id'
 
+const SceneRoute = SceneRouteImport.update({
+  id: '/scene',
+  path: '/scene',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MatchingRoute = MatchingRouteImport.update({
   id: '/matching',
   path: '/matching',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/scene': typeof SceneRoute
   '/character/$id': typeof CharacterIdRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/scene': typeof SceneRoute
   '/character/$id': typeof CharacterIdRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/scene': typeof SceneRoute
   '/character/$id': typeof CharacterIdRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +89,17 @@ export interface FileRouteTypes {
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/scene'
     | '/character/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/confirm' | '/invite' | '/lobby' | '/matching' | '/character/$id'
+  to:
+    | '/'
+    | '/confirm'
+    | '/invite'
+    | '/lobby'
+    | '/matching'
+    | '/scene'
+    | '/character/$id'
   id:
     | '__root__'
     | '/'
@@ -90,6 +107,7 @@ export interface FileRouteTypes {
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/scene'
     | '/character/$id'
   fileRoutesById: FileRoutesById
 }
@@ -99,11 +117,19 @@ export interface RootRouteChildren {
   InviteRoute: typeof InviteRoute
   LobbyRoute: typeof LobbyRoute
   MatchingRoute: typeof MatchingRoute
+  SceneRoute: typeof SceneRoute
   CharacterIdRoute: typeof CharacterIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/scene': {
+      id: '/scene'
+      path: '/scene'
+      fullPath: '/scene'
+      preLoaderRoute: typeof SceneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/matching': {
       id: '/matching'
       path: '/matching'
@@ -155,18 +181,9 @@ const rootRouteChildren: RootRouteChildren = {
   InviteRoute: InviteRoute,
   LobbyRoute: LobbyRoute,
   MatchingRoute: MatchingRoute,
+  SceneRoute: SceneRoute,
   CharacterIdRoute: CharacterIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

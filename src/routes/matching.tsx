@@ -22,8 +22,14 @@ function Matching() {
     const i = setInterval(() => {
       setDots((d) => (d.length >= 3 ? "" : d + "."));
     }, 450);
-    return () => clearInterval(i);
-  }, []);
+    const t = setTimeout(() => {
+      navigate({ to: "/scene" });
+    }, 8000);
+    return () => {
+      clearInterval(i);
+      clearTimeout(t);
+    };
+  }, [navigate]);
 
   return (
     <div className="relative h-full overflow-hidden">
