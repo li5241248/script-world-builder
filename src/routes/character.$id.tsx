@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { ChevronLeft, Share2, MoreHorizontal, Calendar, User, Heart, Sparkles, Lock } from "lucide-react";
+import { ChevronLeft, Share2, MoreHorizontal, Calendar, User, Heart, Sparkles, Lock, Wand2, X, Link2, FileText, Check } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
 
