@@ -226,43 +226,54 @@ function Lobby() {
           </div>
 
           {mode === "multi" && (
-            <div className="animate-fade-up mt-3 flex gap-2">
-              <button className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-dashed border-black/15 bg-white py-3 text-[12px] text-neutral-700 transition active:scale-[0.98]">
-                <Plus className="h-3.5 w-3.5" />
+            <div className="animate-fade-up mt-6 flex gap-3">
+              <button
+                disabled={!canStart}
+                className={`flex h-14 flex-1 items-center justify-center gap-1.5 rounded-full border border-dashed border-black/20 bg-white text-[13px] text-neutral-700 transition active:scale-[0.98] ${
+                  canStart ? "" : "opacity-40"
+                }`}
+              >
+                <Plus className="h-4 w-4" />
                 邀请好友
               </button>
-              <button className="flex flex-1 items-center justify-center gap-1.5 rounded-2xl border border-black/10 bg-black/[0.04] py-3 text-[12px] text-neutral-700 transition active:scale-[0.98]">
-                <Sparkles className="h-3.5 w-3.5" style={{ color: "var(--rouge)" }} />
-                站内匹配
+              <button
+                disabled={!canStart}
+                onClick={handleStart}
+                className={`flex h-14 flex-1 items-center justify-center gap-1.5 rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98] ${
+                  canStart ? "" : "opacity-40"
+                }`}
+                style={{ background: "var(--gradient-rouge)" }}
+              >
+                <Sparkles className="h-4 w-4" />
+                <span className="font-brush text-base tracking-wider">站内匹配</span>
               </button>
             </div>
           )}
 
           {mode === "solo" && (
-            <p className="animate-fade-up mt-3 flex items-center gap-1.5 px-1 text-[11px] text-neutral-500">
-              <Bot className="h-3 w-3" />
-              确认角色后将直接进入匹配大厅
-            </p>
+            <>
+              <p className="animate-fade-up mt-3 flex items-center gap-1.5 px-1 text-[11px] text-neutral-500">
+                <Bot className="h-3 w-3" />
+                确认角色后将直接进入匹配大厅
+              </p>
+              <div className="mt-6">
+                <button
+                  disabled={!canStart}
+                  onClick={handleStart}
+                  className={`flex h-14 w-full items-center justify-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98] ${
+                    canStart ? "" : "opacity-40"
+                  }`}
+                  style={{ background: "var(--gradient-rouge)" }}
+                >
+                  <span className="font-brush text-lg tracking-wider">进入匹配大厅</span>
+                </button>
+              </div>
+            </>
           )}
 
-          {/* CTA */}
-          <div className="mt-6">
-            <button
-              disabled={!canStart}
-              onClick={handleStart}
-              className={`flex h-14 w-full items-center justify-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-[0.98] ${
-                canStart ? "" : "opacity-40"
-              }`}
-              style={{ background: "var(--gradient-rouge)" }}
-            >
-              <span className="font-brush text-lg tracking-wider">
-                {mode === "solo" ? "进入匹配大厅" : "组队入梦"}
-              </span>
-            </button>
-            {!charId && (
-              <p className="mt-2 text-center text-[11px] text-neutral-400">请先选择一位角色</p>
-            )}
-          </div>
+          {!charId && (
+            <p className="mt-2 text-center text-[11px] text-neutral-400">请先选择一位角色</p>
+          )}
         </section>
       </div>
 
