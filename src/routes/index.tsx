@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, Share2, Bookmark, ChevronDown, Sparkles, Users, Clock } from "lucide-react";
+import { ChevronLeft, Share2, Bookmark, ChevronDown, Sparkles, Users, Clock, X } from "lucide-react";
 import heroImg from "@/assets/hero-huatangchun.jpg";
 import { CHARACTERS } from "@/lib/characters";
 import { PhoneMockup } from "@/components/PhoneMockup";
@@ -25,6 +25,7 @@ function HuatangChun() {
   const navigate = useNavigate();
   const [active, setActive] = useState(1);
   const [openChapter, setOpenChapter] = useState(0);
+  const [showWorld, setShowWorld] = useState(false);
   const cardRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const trackRef = useRef<HTMLDivElement | null>(null);
 
@@ -117,7 +118,10 @@ function HuatangChun() {
         </div>
 
         {/* World view chip */}
-        <button className="absolute right-5 top-28 z-10 flex flex-col items-center gap-1 rounded-full bg-white/15 px-3 py-3 backdrop-blur-md">
+        <button
+          onClick={() => setShowWorld(true)}
+          className="absolute right-5 top-28 z-10 flex flex-col items-center gap-1 rounded-full bg-white/15 px-3 py-3 backdrop-blur-md transition active:scale-95"
+        >
           <Sparkles className="h-4 w-4 text-white" />
           <span className="text-[10px] tracking-widest text-white">世界观</span>
         </button>
