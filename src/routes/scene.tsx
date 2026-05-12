@@ -36,6 +36,7 @@ function Scene() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Msg[]>(INITIAL);
   const [input, setInput] = useState("");
+  const [pickedPromptIdx, setPickedPromptIdx] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -71,8 +72,16 @@ function Scene() {
   const send = () => {
     const { mode, text } = detectMode(input);
     if (!text) return;
-    setMessages((m) => [...m, { kind: "me", text, mode }]);
+    setMessages((prev) => {
+      // if a prompt was picked, drop that prompt block when sending
+      const filtered =
+        pickedPromptIdx !== null
+          ? prev.filter((_, i) => i !== pickedPromptIdx)
+          : prev;
+      return [...filtered, { kind: "me", text, mode }];
+    });
     setInput("");
+    setPickedPromptIdx(null);
     setTimeout(() => {
       setMessages((m) => [
         ...m,
@@ -81,9 +90,10 @@ function Scene() {
     }, 900);
   };
 
-  const pickHint = (_promptIndex: number, text: string) => {
+  const pickHint = (promptIndex: number, text: string) => {
     const wrapped = `（${text}）`;
     setInput(wrapped);
+    setPickedPromptIdx(promptIndex);
     requestAnimationFrame(() => {
       const el = inputRef.current;
       if (!el) return;
@@ -141,7 +151,7 @@ function Scene() {
       >
         <div className="space-y-6 py-2">
           {messages.map((m, i) => (
-            <Bubble key={i} m={m} onPickHint={(text) => pickHint(i, text)} />
+            <Bubble key={i} m={m} picked={pickedPromptIdx === i} onPickHint={(text) => pickHint(i, text)} />
           ))}
 
         </div>
@@ -206,7 +216,7 @@ function Scene() {
 const CREAM_BUBBLE =
   "relative rounded-2xl bg-white/80 px-4 py-2.5 text-[14px] leading-relaxed text-neutral-800 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm";
 
-function Bubble({ m, onPickHint }: { m: Msg; onPickHint?: (text: string) => void }) {
+function Bubble({ m, picked, onPickHint }: { m: Msg; picked?: boolean; onPickHint?: (text: string) => void }) {
   if (m.kind === "narration") {
     return (
       <div className="mx-auto max-w-[88%] text-center">
@@ -269,7 +279,7 @@ function Bubble({ m, onPickHint }: { m: Msg; onPickHint?: (text: string) => void
             </button>
           </div>
         </div>
-        {open && (
+        {open && !picked && (
           <div className="mt-3 space-y-2 px-4 animate-fade-up">
             {hints.map((title) => (
               <button
