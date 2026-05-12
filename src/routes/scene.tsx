@@ -214,7 +214,7 @@ function Bubble({ m }: { m: Msg }) {
         <div className="max-w-[78%]">
           {m.mode === "do" ? (
             <div className="rounded-2xl rounded-tr-md bg-[#efe6d6]/75 px-4 py-2.5 text-[13px] italic text-neutral-500 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm">
-              *{m.text}*
+              （{m.text}）
             </div>
           ) : (
             <div className={`${CREAM_BUBBLE} rounded-tr-md`}>{m.text}</div>
@@ -288,7 +288,7 @@ function Bubble({ m }: { m: Msg }) {
         <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
         <div className="max-w-[78%]">
           <div className="rounded-2xl rounded-tl-md border border-white/40 bg-white/15 px-4 py-2.5 text-[13px] italic text-white shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-md drop-shadow">
-            *{m.text}*
+            （{m.text}）
           </div>
         </div>
       </div>
