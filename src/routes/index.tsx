@@ -144,7 +144,7 @@ function HuatangChun() {
         {/* Dots */}
         <div className="flex justify-center gap-1.5">
           {CHARACTERS.map((_, i) => (
-            <span key={i} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-foreground" : "w-1.5 bg-foreground/25"}`} />
+            <span key={i} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-white" : "w-1.5 bg-white/25"}`} />
           ))}
         </div>
 
