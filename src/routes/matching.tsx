@@ -57,7 +57,7 @@ function Matching() {
           role="img"
           className="h-[260px] w-[200px]"
           style={{
-            backgroundColor: "white",
+            backgroundColor: "var(--rouge)",
             WebkitMaskImage: `url(${titleText})`,
             maskImage: `url(${titleText})`,
             WebkitMaskRepeat: "no-repeat",
