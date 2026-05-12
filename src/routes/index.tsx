@@ -80,20 +80,35 @@ function HuatangChun() {
           </div>
         </div>
 
-        {/* Title block */}
+        {/* Title block — staggered seal-script layout */}
         <div className="relative z-10 mt-8 px-6">
-          <div className="flex items-start gap-3">
-            <div className="font-brush text-7xl leading-[0.9] text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-              画堂<br/>春
-            </div>
-            <div className="mt-2 flex flex-col items-center gap-2">
-              <span className="text-xs tracking-[0.3em] text-white/85" style={{ writingMode: "vertical-rl" }}>
-                剧 本 杀 · 文 游
-              </span>
-              <span className="grid h-7 w-7 place-items-center rounded-sm" style={{ background: "var(--gradient-rouge)" }}>
-                <span className="font-brush text-[11px] text-white">堂</span>
-              </span>
-            </div>
+          <div className="relative h-[210px] w-[260px]">
+            {/* 画 - top left, largest */}
+            <span className="absolute left-0 top-0 font-brush text-[96px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)]">
+              画
+            </span>
+            {/* 堂 - middle right, slightly smaller */}
+            <span className="absolute left-[110px] top-[60px] font-brush text-[78px] leading-none text-white/95 drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)]">
+              堂
+            </span>
+            {/* 春 - bottom, offset */}
+            <span className="absolute left-[40px] top-[120px] font-brush text-[86px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)]">
+              春
+            </span>
+            {/* 剧本杀 vertical */}
+            <span
+              className="absolute right-[-6px] top-[78px] font-display text-[13px] tracking-[0.35em] text-white/85"
+              style={{ writingMode: "vertical-rl" }}
+            >
+              剧本杀
+            </span>
+            {/* Seal */}
+            <span
+              className="absolute right-[-2px] top-[170px] grid h-6 w-6 place-items-center rounded-[3px] shadow-md"
+              style={{ background: "var(--gradient-rouge)" }}
+            >
+              <span className="font-brush text-[10px] text-white">堂</span>
+            </span>
           </div>
 
           <div className="mt-6 space-y-1 text-[13px] leading-relaxed text-white/85">
