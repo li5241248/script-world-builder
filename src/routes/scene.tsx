@@ -220,7 +220,7 @@ function Bubble({ m }: { m: Msg }) {
       { title: "平静，这只是意外", hint: "皇帝对你的淡然有些意外" },
     ];
     return (
-      <div className="-mx-4 my-3 animate-fade-up">
+      <div className="-mx-4 my-5 animate-fade-up">
         <div className="relative w-full overflow-hidden bg-black/55 backdrop-blur-md">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/10" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/10" />
