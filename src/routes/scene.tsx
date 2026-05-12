@@ -147,32 +147,40 @@ function Scene() {
         </button>
       </div>
 
-      {/* 剩余时间 */}
+      {/* 剩余时间 + 幕进度 */}
       <div className="relative z-10 mx-4 mb-2 flex items-center justify-center">
         <div
-          className={`flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1 text-[11px] backdrop-blur-md drop-shadow ${
-            lowTime ? "text-rose-300" : "text-white/85"
-          }`}
+          className="flex items-center gap-2.5 rounded-full bg-black/40 px-3 py-1 text-[11px] text-white/85 backdrop-blur-md drop-shadow"
           title="单人无时间限制；双人 / 多人每幕 ≤ 20 分钟"
         >
-          <Clock size={11} />
-          {mode === "solo" ? (
-            <span>本幕剩余　不限时</span>
-          ) : (
-            <span>
-              本幕剩余 <span className="font-mono tabular-nums">{mm}:{ss}</span>
+          <span className={`flex items-center gap-1.5 ${lowTime ? "text-rose-300" : ""}`}>
+            <Clock size={11} />
+            {mode === "solo" ? (
+              <span>本幕剩余　不限时</span>
+            ) : (
+              <span>
+                本幕剩余 <span className="font-mono tabular-nums">{mm}:{ss}</span>
+              </span>
+            )}
+          </span>
+          <span className="h-3 w-px bg-white/25" />
+          <span className="flex items-center gap-1.5">
+            <BookOpen size={11} className="opacity-80" />
+            <span className="flex items-center gap-[3px]">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <span
+                  key={i}
+                  className={`h-1 w-1 rounded-full ${
+                    i === 0
+                      ? "bg-gradient-to-r from-amber-200 to-rose-200"
+                      : "bg-white/30"
+                  }`}
+                />
+              ))}
             </span>
-          )}
+            <span className="font-mono tabular-nums text-white/80">1/6</span>
+          </span>
         </div>
-      </div>
-
-      {/* progress */}
-      <div className="relative z-10 mx-4 mb-2 flex items-center gap-2 text-[10px] text-white/80 drop-shadow">
-        <BookOpen size={12} />
-        <div className="h-[2px] flex-1 overflow-hidden rounded-full bg-white/25">
-          <div className="h-full w-[18%] bg-gradient-to-r from-amber-200 to-rose-200" />
-        </div>
-        <span>1 / 6</span>
       </div>
 
       {/* messages */}
