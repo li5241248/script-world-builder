@@ -109,7 +109,13 @@ function HuatangChun() {
               <button
                 key={c.id}
                 ref={(el) => { cardRefs.current[i] = el; }}
-                onClick={() => setActiveSafe(i)}
+                onClick={() => {
+                  if (i === active) {
+                    navigate({ to: "/character/$id", params: { id: c.id } });
+                  } else {
+                    setActiveSafe(i);
+                  }
+                }}
                 className={`relative shrink-0 snap-center overflow-hidden rounded-2xl border transition-all duration-500 ${
                   isActive
                     ? "h-[330px] w-[200px] -translate-y-2 border-white/30 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.55)]"
