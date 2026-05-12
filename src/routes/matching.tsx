@@ -51,12 +51,23 @@ function Matching() {
       </button>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-8">
-        {/* Brush title */}
-        <img
-          src={titleText}
-          alt="画堂春"
-          className="h-[260px] w-auto object-contain"
-          style={{ filter: "invert(1) brightness(1.6) drop-shadow(0 2px 12px rgba(0,0,0,0.6))" }}
+        {/* Brush title - rendered as white via CSS mask */}
+        <div
+          aria-label="画堂春"
+          role="img"
+          className="h-[260px] w-[200px]"
+          style={{
+            backgroundColor: "white",
+            WebkitMaskImage: `url(${titleText})`,
+            maskImage: `url(${titleText})`,
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+            filter: "drop-shadow(0 2px 12px rgba(0,0,0,0.6))",
+          }}
         />
 
         {/* status */}
