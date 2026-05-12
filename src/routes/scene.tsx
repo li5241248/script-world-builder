@@ -235,11 +235,11 @@ function Bubble({ m, picked, onPickHint }: { m: Msg; picked?: boolean; onPickHin
       <div className="flex justify-end gap-2">
         <div className="max-w-[78%]">
           {m.mode === "do" ? (
-            <div className="rounded-2xl rounded-tr-md bg-[#3f534a]/85 px-4 py-2.5 text-[13px] italic text-white/65 shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-sm">
+            <div className="rounded-2xl rounded-tr-md bg-black/70 px-4 py-2.5 text-[13px] italic text-white/65 shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-sm">
               （{m.text}）
             </div>
           ) : (
-            <div className="rounded-2xl rounded-tr-md bg-[#3f534a]/85 px-4 py-2.5 text-[14px] leading-relaxed text-white shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-sm">
+            <div className="rounded-2xl rounded-tr-md bg-black/70 px-4 py-2.5 text-[14px] leading-relaxed text-white shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-sm">
               {m.text}
             </div>
           )}
