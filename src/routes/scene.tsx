@@ -192,7 +192,7 @@ function Scene() {
 
 /* shared cream bubble used by both characters and the player */
 const CREAM_BUBBLE =
-  "relative rounded-2xl bg-[#efe6d6]/92 px-4 py-2.5 text-[14px] leading-relaxed text-neutral-800 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm";
+  "relative rounded-2xl bg-white/80 px-4 py-2.5 text-[14px] leading-relaxed text-neutral-800 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm";
 
 function Bubble({ m }: { m: Msg }) {
   if (m.kind === "narration") {
@@ -213,7 +213,7 @@ function Bubble({ m }: { m: Msg }) {
       <div className="flex justify-end gap-2">
         <div className="max-w-[78%]">
           {m.mode === "do" ? (
-            <div className="rounded-2xl rounded-tr-md bg-[#efe6d6]/75 px-4 py-2.5 text-[13px] italic text-neutral-500 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm">
+            <div className="rounded-2xl rounded-tr-md bg-white/65 px-4 py-2.5 text-[13px] italic text-neutral-500 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm">
               （{m.text}）
             </div>
           ) : (
