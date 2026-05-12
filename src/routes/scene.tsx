@@ -241,14 +241,11 @@ function Bubble({ m }: { m: Msg }) {
             <button
               onClick={() => setOpen((v) => !v)}
               aria-label="灵感提示"
-              className={`relative flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border backdrop-blur-md transition active:scale-95 ${
-                open
-                  ? "border-amber-300/70 bg-amber-300/20 text-amber-100"
-                  : "border-white/25 bg-black/40 text-white/85"
+              className={`relative flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white/15 bg-black/50 text-white/85 backdrop-blur-md transition active:scale-95 ${
+                open ? "text-white" : ""
               }`}
             >
-              <Lightbulb size={16} className="drop-shadow-[0_0_6px_rgba(253,224,71,0.6)]" />
-              <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(253,224,71,0.9)]" />
+              <Lightbulb size={15} />
             </button>
           </div>
         </div>
