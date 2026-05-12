@@ -213,7 +213,7 @@ function Bubble({ m }: { m: Msg }) {
       <div className="flex justify-end gap-2">
         <div className="max-w-[78%]">
           {m.mode === "do" ? (
-            <div className="rounded-2xl rounded-tr-md border border-amber-200/60 bg-amber-100/85 px-4 py-2.5 text-[13px] italic text-amber-900 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm">
+            <div className="rounded-2xl rounded-tr-md bg-[#efe6d6]/75 px-4 py-2.5 text-[13px] italic text-neutral-500 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm">
               *{m.text}*
             </div>
           ) : (
