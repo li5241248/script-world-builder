@@ -22,12 +22,8 @@ function Matching() {
     const i = setInterval(() => {
       setDots((d) => (d.length >= 3 ? "" : d + "."));
     }, 450);
-    const t = setTimeout(() => {
-      navigate({ to: "/scene" });
-    }, 8000);
     return () => {
       clearInterval(i);
-      clearTimeout(t);
     };
   }, [navigate]);
 
