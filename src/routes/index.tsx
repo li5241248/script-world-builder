@@ -238,6 +238,67 @@ function HuatangChun() {
           </span>
         </button>
       </div>
+
+      {/* WORLDVIEW SHEET */}
+      {showWorld && (
+        <div className="absolute inset-0 z-40 flex items-end" onClick={() => setShowWorld(false)}>
+          <div className="absolute inset-0 animate-fade-in bg-black/55 backdrop-blur-sm" />
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative z-10 w-full max-h-[78%] overflow-y-auto rounded-t-[28px] bg-white p-6 pb-10 shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.4)] no-scrollbar animate-slide-in-right"
+            style={{ animation: "fade-in 0.3s ease-out" }}
+          >
+            <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-neutral-300" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-4 w-4" style={{ color: "var(--rouge)" }} />
+                <h3 className="font-brush text-2xl text-neutral-900">画堂春 · 世界观</h3>
+              </div>
+              <button
+                onClick={() => setShowWorld(false)}
+                className="grid h-8 w-8 place-items-center rounded-full bg-black/[0.05] text-neutral-500"
+                aria-label="关闭"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="mt-5 space-y-5 text-[13px] leading-7 text-neutral-700">
+              <p className="rounded-xl bg-black/[0.03] px-4 py-3 text-[12px] italic text-neutral-600">
+                「一卷画堂春，半阙血色词。烟雨深处，是谁的故人，又是谁的劫数。」
+              </p>
+
+              <div>
+                <h4 className="font-display text-[14px] font-medium text-neutral-900">大梁王朝</h4>
+                <p className="mt-1.5">
+                  时值大梁开元二十三年，疆土辽阔，江南繁华甲于天下。朝堂之上党争日盛，皇子夺嫡之势已现端倪；江湖之远，画堂世家以丹青传家，名动京师。看似太平，实则风雨欲来。
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-display text-[14px] font-medium text-neutral-900">画堂世家</h4>
+                <p className="mt-1.5">
+                  画堂坐落于江南烟雨之畔，以一笔工笔重彩冠绝当世。每年春日，画堂主人会绘一幅《画堂春》献于朝廷，被视为大梁国运所系。然而二十年前的一场血案，让画堂从此蒙尘——那一夜，三十七口尽皆罹难，唯有襁褓中的女婴温棠被救出。
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-display text-[14px] font-medium text-neutral-900">深宫风云</h4>
+                <p className="mt-1.5">
+                  皇后端坐凤位十余载，二皇子裴瑜温润如玉却心藏锋刃，三皇子裴琰隐忍多年伺机而动。新妃温棠以画堂之女入宫为贵妃，看似圣眷正浓，实则身负血海深仇。每一道宫墙之后，都藏着一段不能言说的过往。
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-display text-[14px] font-medium text-neutral-900">你的故事</h4>
+                <p className="mt-1.5">
+                  在这一卷《画堂春》里，你可以是任何人——是温棠，背负血仇步步为营；是裴琰，剑藏鞘中谋定后动；亦可是旁观者，看尽这场盛世之下的悲欢。每一次选择，都将由 AI 实时改写，让属于你的画堂春，独一无二。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
