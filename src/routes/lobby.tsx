@@ -72,7 +72,7 @@ function Lobby() {
 
   const handleStart = () => {
     if (!canStart) return;
-    // Both modes proceed to matching/team room — placeholder no-op for now
+    navigate({ to: "/matching" });
   };
 
   const selectedChar = charId ? CHARACTERS.find((c) => c.id === charId) : undefined;
