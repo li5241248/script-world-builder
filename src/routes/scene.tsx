@@ -81,6 +81,21 @@ function Scene() {
     }, 900);
   };
 
+  const pickHint = (promptIndex: number, text: string) => {
+    setMessages((prev) => {
+      // remove the prompt (and any earlier prompts) and append the chosen reply
+      const next = prev.filter((m, i) => !(m.kind === "prompt" && i <= promptIndex));
+      return [...next, { kind: "me", text, mode: "do" }];
+    });
+    setTimeout(() => {
+      setMessages((m) => [
+        ...m,
+        { kind: "dialog", charId: "peirong", text: "嗯……你倒是比朕想的更沉得住气。" },
+      ]);
+    }, 900);
+  };
+
+
 
   return (
     <div className="relative h-full overflow-hidden bg-neutral-900 text-white">
@@ -129,7 +144,7 @@ function Scene() {
       >
         <div className="space-y-6 py-2">
           {messages.map((m, i) => (
-            <Bubble key={i} m={m} />
+            <Bubble key={i} m={m} onPickHint={(text) => pickHint(i, text)} />
           ))}
 
         </div>
@@ -194,7 +209,7 @@ function Scene() {
 const CREAM_BUBBLE =
   "relative rounded-2xl bg-white/80 px-4 py-2.5 text-[14px] leading-relaxed text-neutral-800 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm";
 
-function Bubble({ m }: { m: Msg }) {
+function Bubble({ m, onPickHint }: { m: Msg; onPickHint?: (text: string) => void }) {
   if (m.kind === "narration") {
     return (
       <div className="mx-auto max-w-[88%] text-center">
@@ -231,11 +246,7 @@ function Bubble({ m }: { m: Msg }) {
 
   if (m.kind === "prompt") {
     const [open, setOpen] = useState(false);
-    const hints = [
-      { title: "惊喜，连忙整理仪容", hint: "皇帝注意到你的慌乱与真诚" },
-      { title: "惊慌，不知所措", hint: "皇帝感受到了你的紧张" },
-      { title: "平静，这只是意外", hint: "皇帝对你的淡然有些意外" },
-    ];
+    const hints = ["惊喜，连忙整理仪容", "惊慌，不知所措", "平静，这只是意外"];
     return (
       <div className="-mx-4 my-5 animate-fade-up">
         <div className="relative w-full overflow-hidden bg-black/55 backdrop-blur-md">
@@ -263,16 +274,13 @@ function Bubble({ m }: { m: Msg }) {
         </div>
         {open && (
           <div className="mt-3 space-y-2 px-4 animate-fade-up">
-            {hints.map((h, i) => (
+            {hints.map((title) => (
               <button
-                key={i}
-                className={`${CREAM_BUBBLE} block w-full text-left`}
+                key={title}
+                onClick={() => onPickHint?.(title)}
+                className="block w-full rounded-lg bg-white/80 px-4 py-2.5 text-left text-[14px] font-medium text-neutral-900 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm transition active:scale-[0.99]"
               >
-                <div className="text-[14px] font-medium leading-tight text-neutral-900">{h.title}</div>
-                <div className="mt-1 flex items-center gap-1.5 text-[11px] text-neutral-600">
-                  <Lightbulb size={11} className="text-amber-500" />
-                  <span>{h.hint}</span>
-                </div>
+                {title}
               </button>
             ))}
           </div>
@@ -280,6 +288,7 @@ function Bubble({ m }: { m: Msg }) {
       </div>
     );
   }
+
 
   const c = getCharacter(m.charId) ?? CHARACTERS[0];
   if (m.kind === "action") {
