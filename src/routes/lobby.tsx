@@ -81,15 +81,12 @@ function Lobby() {
             >
               <ChevronLeft className="h-5 w-5 text-white" />
             </button>
+            <h1 className="font-brush text-[26px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+              组队入梦
+            </h1>
             <button className="grid h-9 w-9 place-items-center rounded-full bg-black/25 backdrop-blur-md">
               <Share2 className="h-4 w-4 text-white" />
             </button>
-          </div>
-
-          <div className="relative z-10 flex h-full items-center justify-center px-6">
-            <h1 className="font-brush text-[34px] leading-none text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-              组队入梦
-            </h1>
           </div>
         </section>
 
