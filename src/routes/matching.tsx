@@ -45,40 +45,14 @@ function Matching() {
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-8">
         {/* Golden ring */}
-        <div className="relative h-[260px] w-[260px]">
-          {/* outer ink splash */}
-          <div
-            className="absolute inset-0 rounded-full opacity-70 blur-2xl"
-            style={{
-              background:
-                "radial-gradient(circle at 50% 50%, rgba(212,175,90,0.45), rgba(212,175,90,0.05) 60%, transparent 70%)",
-            }}
+        <div className="relative h-[300px] w-[300px]">
+          <img
+            src={goldRing}
+            alt="画堂春"
+            className="absolute inset-0 h-full w-full object-contain"
           />
-          {/* rotating gold ring */}
-          <div
-            className="absolute inset-3 rounded-full"
-            style={{
-              background:
-                "conic-gradient(from 0deg, #f7e3a2, #b8862f, #f7e3a2, #8a5d1c, #f7e3a2)",
-              animation: "spin-slow 6s linear infinite",
-              padding: "10px",
-              WebkitMask:
-                "radial-gradient(farthest-side, transparent calc(100% - 14px), #000 calc(100% - 13px))",
-              mask: "radial-gradient(farthest-side, transparent calc(100% - 14px), #000 calc(100% - 13px))",
-            }}
-          />
-          {/* sparkle highlights */}
-          <div
-            className="absolute inset-3 rounded-full opacity-80"
-            style={{
-              background:
-                "radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 18%), radial-gradient(circle at 78% 70%, rgba(255,255,255,0.7), transparent 12%), radial-gradient(circle at 20% 75%, rgba(255,255,255,0.6), transparent 10%)",
-              animation: "pulse-soft 2.4s ease-in-out infinite",
-            }}
-          />
-
-          {/* inner paper disc with title */}
-          <div className="absolute inset-[42px] flex items-center justify-center rounded-full bg-[#f6efe1] shadow-[inset_0_2px_12px_rgba(0,0,0,0.08)]">
+          {/* center title */}
+          <div className="absolute inset-0 flex items-center justify-center">
             <div className="flex flex-col items-center">
               <span className="font-brush text-[44px] leading-[1.05] text-neutral-900">
                 画堂春
