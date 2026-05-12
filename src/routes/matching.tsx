@@ -45,7 +45,7 @@ function Matching() {
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-8">
         {/* Golden ring */}
-        <div className="relative h-[300px] w-[300px]">
+        <div className="relative h-[360px] w-[360px]">
           <img
             src={goldRing}
             alt="画堂春"
