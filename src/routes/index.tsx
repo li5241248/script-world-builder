@@ -168,56 +168,37 @@ function HuatangChun() {
           ))}
         </div>
 
-        {/* Active character detail */}
-        <div key={CHARACTERS[active].id} className="animate-fade-up mt-6 px-6">
-          <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-[var(--shadow-soft)]">
-            <div className="flex items-baseline justify-between">
-              <div>
-                <p className="text-[11px] tracking-widest text-muted-foreground">{CHARACTERS[active].role}</p>
-                <h3 className="mt-1 font-brush text-2xl text-foreground">{CHARACTERS[active].name}</h3>
-              </div>
-              <span className="text-[11px] text-muted-foreground">{CHARACTERS[active].played.toLocaleString()} 人演绎</span>
-            </div>
-            <p className="mt-3 text-[13px] leading-relaxed text-ink-soft" style={{ color: "var(--ink-soft)" }}>
-              {CHARACTERS[active].desc}
-            </p>
-            <button className="mt-4 w-full rounded-xl border border-foreground/15 py-2.5 text-[13px] font-medium text-foreground transition active:scale-[0.98]">
-              查看角色档案
-            </button>
-          </div>
+        {/* Tap-for-detail hint */}
+        <div className="mt-3 flex justify-center">
+          <button className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[11px] text-white/80 backdrop-blur-sm">
+            查看「{CHARACTERS[active].name}」角色档案
+            <ChevronDown className="h-3 w-3 -rotate-90" />
+          </button>
         </div>
       </section>
 
       {/* STORY BACKGROUND */}
       <section className="mt-10 px-6">
         <div className="flex items-center gap-2">
-          <span className="font-brush text-rose-900" style={{ color: "var(--rouge)" }}>❀</span>
-          <h2 className="font-brush text-xl text-foreground">故事背景</h2>
+          <span className="font-brush" style={{ color: "var(--rouge)" }}>❀</span>
+          <h2 className="font-brush text-xl text-white">故事背景</h2>
         </div>
 
         <div className="mt-4 space-y-3">
-          {STORY_CHAPTERS.map((ch, i) => {
-            const open = i === openChapter;
-            return (
-              <div
-                key={i}
-                className="overflow-hidden rounded-2xl border border-border/60 bg-card transition-all"
-              >
-                <button
-                  onClick={() => setOpenChapter(open ? -1 : i)}
-                  className="flex w-full items-center justify-between px-4 py-4 text-left"
-                >
-                  <span className="font-display text-[15px] text-foreground">{ch.title}</span>
-                  <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
-                </button>
-                {open && (
-                  <div className="animate-fade-up px-4 pb-4">
-                    <p className="text-[13px] leading-7 text-muted-foreground">{ch.body}</p>
-                  </div>
-                )}
+          {STORY_CHAPTERS.map((ch, i) => (
+            <button
+              key={i}
+              className="flex w-full items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 text-left backdrop-blur-sm transition active:scale-[0.99]"
+            >
+              <div className="flex items-center gap-3">
+                <span className="font-display text-[11px] tracking-widest text-white/40">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-display text-[15px] text-white/90">{ch.title}</span>
               </div>
-            );
-          })}
+              <ChevronDown className="h-4 w-4 -rotate-90 text-white/50" />
+            </button>
+          ))}
         </div>
       </section>
 
