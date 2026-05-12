@@ -189,20 +189,6 @@ function Scene() {
         </div>
       </div>
 
-      {/* quick suggestions */}
-      <div className="absolute bottom-[88px] left-0 right-0 z-10 flex gap-2 overflow-x-auto px-4 pb-2 [&::-webkit-scrollbar]:hidden">
-        {["向皇上行礼", "提及画堂旧事", "沉默不语", "询问皇上召见缘由"].map((s) => (
-          <button
-            key={s}
-            onClick={() => setInput(s)}
-            className="flex-shrink-0 rounded-full border border-white/25 bg-black/40 px-3 py-1.5 text-[11px] text-white backdrop-blur-md active:scale-95"
-          >
-            <Sparkles size={10} className="mr-1 inline opacity-80" />
-            {s}
-          </button>
-        ))}
-      </div>
-
       {/* input bar */}
       <div className="absolute bottom-0 left-0 right-0 z-20 border-t border-white/10 bg-black/55 px-3 pb-6 pt-3 backdrop-blur-xl">
         <div className="flex items-center gap-2">
