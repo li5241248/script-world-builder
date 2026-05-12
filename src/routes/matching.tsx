@@ -45,20 +45,20 @@ function Matching() {
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-8">
         {/* Golden ring */}
-        <div className="relative h-[360px] w-[360px]">
+        <div className="relative h-[280px] w-[280px]">
           <img
             src={goldRing}
             alt="画堂春"
             className="absolute inset-0 h-full w-full object-contain"
           />
           {/* center title */}
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center pl-6">
             <div className="flex flex-col items-center">
-              <span className="font-brush text-[44px] leading-[1.05] text-neutral-900">
+              <span className="font-brush text-[34px] leading-[1.05] text-neutral-900">
                 画堂春
               </span>
               <span
-                className="mt-1 inline-block rounded-[3px] px-1.5 text-[9px] font-medium tracking-[0.2em] text-white"
+                className="mt-1 inline-block rounded-[3px] px-1.5 text-[8px] font-medium tracking-[0.2em] text-white"
                 style={{ background: "var(--rouge)" }}
               >
                 印
