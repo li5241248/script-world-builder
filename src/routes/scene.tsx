@@ -36,6 +36,7 @@ function Scene() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Msg[]>(INITIAL);
   const [input, setInput] = useState("");
+  const [pickedPromptIdx, setPickedPromptIdx] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
