@@ -78,12 +78,12 @@ function HuatangChun() {
   };
 
   return (
-    <div className="relative h-full" style={{ background: "oklch(0.22 0.02 30)" }}>
+    <div className="relative h-full bg-white">
     <div className="relative h-full overflow-y-auto pb-32 text-foreground no-scrollbar">
       {/* HERO */}
       <section className="relative h-[46vh] min-h-[360px] w-full overflow-hidden">
         <img src={heroImg} alt="画堂春世界" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 40%, oklch(0.22 0.02 30) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 40%, #ffffff 100%)" }} />
 
         {/* Top bar */}
         <div className="relative z-10 flex items-center justify-between px-5 pt-12">
@@ -129,7 +129,7 @@ function HuatangChun() {
       {/* CHARACTER CAROUSEL */}
       <section className="relative -mt-16 z-20">
         <div className="px-5 pb-2 text-center">
-          <h2 className="font-brush text-2xl text-white drop-shadow">人物角色</h2>
+          <h2 className="font-brush text-2xl text-neutral-900">人物角色</h2>
         </div>
 
         <div ref={trackRef} className="no-scrollbar mt-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[22%] pb-6 pt-4">
@@ -142,8 +142,8 @@ function HuatangChun() {
                 onClick={() => setActiveSafe(i)}
                 className={`relative shrink-0 snap-center overflow-hidden rounded-2xl border transition-all duration-500 ${
                   isActive
-                    ? "h-[330px] w-[200px] -translate-y-2 border-white/40 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)]"
-                    : "h-[270px] w-[140px] border-white/10 opacity-70"
+                    ? "h-[330px] w-[200px] -translate-y-2 border-black/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.35)]"
+                    : "h-[270px] w-[140px] border-black/5 opacity-70"
                 }`}
               >
                 <img src={c.img} alt={c.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
@@ -165,7 +165,7 @@ function HuatangChun() {
         {/* Dots */}
         <div className="flex justify-center gap-1.5">
           {CHARACTERS.map((_, i) => (
-            <span key={i} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-white" : "w-1.5 bg-white/25"}`} />
+            <span key={i} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-neutral-800" : "w-1.5 bg-neutral-300"}`} />
           ))}
         </div>
 
@@ -175,7 +175,7 @@ function HuatangChun() {
       <section className="mt-10 px-6">
         <div className="flex items-center gap-2">
           <span className="font-brush" style={{ color: "var(--rouge)" }}>❀</span>
-          <h2 className="font-brush text-xl text-white">故事背景</h2>
+          <h2 className="font-brush text-xl text-neutral-900">故事背景</h2>
         </div>
 
         <div className="mt-4 space-y-3">
@@ -184,23 +184,23 @@ function HuatangChun() {
             return (
               <div
                 key={i}
-                className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all"
+                className="overflow-hidden rounded-2xl border border-black/10 bg-black/[0.03] transition-all"
               >
                 <button
                   onClick={() => setOpenChapter(open ? -1 : i)}
                   className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-display text-[11px] tracking-widest text-white/40">
+                    <span className="font-display text-[11px] tracking-widest text-neutral-400">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="font-display text-[15px] text-white/90">{ch.title}</span>
+                    <span className="font-display text-[15px] text-neutral-900">{ch.title}</span>
                   </div>
-                  <ChevronDown className={`h-4 w-4 text-white/50 transition-transform ${open ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`h-4 w-4 text-neutral-400 transition-transform ${open ? "rotate-180" : ""}`} />
                 </button>
                 {open && (
                   <div className="animate-fade-up px-4 pb-4">
-                    <p className="text-[13px] leading-7 text-white/65">{ch.body}</p>
+                    <p className="text-[13px] leading-7 text-neutral-600">{ch.body}</p>
                   </div>
                 )}
               </div>
@@ -211,12 +211,12 @@ function HuatangChun() {
 
       {/* AI feature strip */}
       <section className="mt-8 px-6">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-sm">
+        <div className="rounded-2xl border border-black/10 bg-black/[0.03] p-4">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4" style={{ color: "var(--rouge)" }} />
-            <span className="text-[12px] font-medium text-white/90">AI 动态剧情</span>
+            <span className="text-[12px] font-medium text-neutral-900">AI 动态剧情</span>
           </div>
-          <p className="mt-2 text-[12px] leading-6 text-white/65">
+          <p className="mt-2 text-[12px] leading-6 text-neutral-600">
             你的每一个选择，都将由 AI 实时改写，与他人的故事彼此交错——同一卷《画堂春》，没有两场相同的结局。
           </p>
         </div>
@@ -258,7 +258,7 @@ function PhoneMockup() {
           }}
         />
         {/* Screen */}
-        <div className="absolute inset-[12px] overflow-hidden rounded-[46px]" style={{ background: "oklch(0.22 0.02 30)" }}>
+        <div className="absolute inset-[12px] overflow-hidden rounded-[46px] bg-white">
           {/* Dynamic island */}
           <div className="pointer-events-none absolute left-1/2 top-2 z-50 h-[30px] w-[110px] -translate-x-1/2 rounded-full bg-black" />
           {/* Status bar */}
