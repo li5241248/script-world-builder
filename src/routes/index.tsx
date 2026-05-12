@@ -32,10 +32,10 @@ type Character = {
 };
 
 const CHARACTERS: Character[] = [
-  { id: "wentang", name: "温棠", role: "女主 · 妃子", gender: "女", age: 21, tag: "贵妃", img: wentang, played: 12483,
-    desc: "出身画堂世家，入宫为妃。表面温婉，心中藏着一段不能告人的旧情与一桩待雪的冤案。" },
   { id: "peiyan", name: "裴琰", role: "皇子", gender: "男", age: 12, tag: "皇子", img: peiyan, played: 9821,
     desc: "母族倾覆后隐忍多年，剑藏鞘中，谋定后动。与温棠之间，是宿命，也是劫数。" },
+  { id: "wentang", name: "温棠", role: "女主 · 妃子", gender: "女", age: 21, tag: "贵妃", img: wentang, played: 12483,
+    desc: "出身画堂世家，入宫为妃。表面温婉，心中藏着一段不能告人的旧情与一桩待雪的冤案。" },
   { id: "peirong", name: "裴容", role: "皇上", gender: "男", age: 45, tag: "九五至尊", img: peirong, played: 4216,
     desc: "在位二十载，多疑而念旧。爱江山，亦爱画堂。一念之间，便是生死。" },
   { id: "peiyu", name: "裴瑜", role: "二皇子", gender: "男", age: 24, tag: "贤王", img: peiyu, played: 3580,
