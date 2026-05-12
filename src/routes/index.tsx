@@ -222,7 +222,9 @@ function HuatangChun() {
         </div>
       </section>
 
-      {/* CTA */}
+    </div>
+
+      {/* CTA — fixed to phone screen */}
       <div className="absolute bottom-6 right-5 z-30">
         <button
           className="grid h-20 w-20 place-items-center rounded-full text-white shadow-[var(--shadow-card)] transition active:scale-95"
