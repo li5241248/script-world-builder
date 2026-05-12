@@ -225,7 +225,7 @@ function Bubble({ m }: { m: Msg }) {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(20,16,24,0.92) 0%, rgba(20,16,24,0.75) 45%, rgba(20,16,24,0.35) 100%)",
+                "linear-gradient(90deg, rgba(20,16,24,0.75) 0%, rgba(20,16,24,0.35) 55%, rgba(20,16,24,0) 100%)",
             }}
           />
           <div className="relative z-10 flex h-full items-center px-5">
