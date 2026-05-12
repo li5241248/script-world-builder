@@ -196,7 +196,7 @@ function Bubble({ m }: { m: Msg }) {
         <img
           src={me.img}
           alt={me.name}
-          className="h-9 w-9 flex-shrink-0 rounded-full object-cover ring-2 ring-white/70 shadow"
+          className="h-9 w-9 flex-shrink-0 rounded-full object-cover"
         />
       </div>
     );
@@ -258,7 +258,7 @@ function Bubble({ m }: { m: Msg }) {
   if (m.kind === "action") {
     return (
       <div className="flex gap-2">
-        <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover ring-2 ring-white/70 shadow" />
+        <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
         <div className="max-w-[78%]">
           <div className="rounded-2xl rounded-tl-md border border-white/40 bg-white/15 px-4 py-2.5 text-[13px] italic text-white shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-md drop-shadow">
             *{m.text}*
@@ -270,7 +270,7 @@ function Bubble({ m }: { m: Msg }) {
 
   return (
     <div className="flex gap-2">
-      <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover ring-2 ring-white/70 shadow" />
+      <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
       <div className="max-w-[80%]">
         <div className={`${CREAM_BUBBLE} rounded-tl-md pr-9`}>
           {m.text}
