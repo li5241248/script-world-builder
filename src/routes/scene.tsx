@@ -209,7 +209,7 @@ function Scene() {
 const CREAM_BUBBLE =
   "relative rounded-2xl bg-white/80 px-4 py-2.5 text-[14px] leading-relaxed text-neutral-800 shadow-[0_2px_10px_rgba(0,0,0,0.18)] backdrop-blur-sm";
 
-function Bubble({ m }: { m: Msg }) {
+function Bubble({ m, onPickHint }: { m: Msg; onPickHint?: (text: string) => void }) {
   if (m.kind === "narration") {
     return (
       <div className="mx-auto max-w-[88%] text-center">
