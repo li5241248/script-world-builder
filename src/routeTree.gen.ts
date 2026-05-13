@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SceneRouteImport } from './routes/scene'
+import { Route as ReportRouteImport } from './routes/report'
 import { Route as MatchingRouteImport } from './routes/matching'
 import { Route as LobbyRouteImport } from './routes/lobby'
 import { Route as InviteRouteImport } from './routes/invite'
@@ -22,6 +23,11 @@ import { Route as CharacterIdRouteImport } from './routes/character.$id'
 const SceneRoute = SceneRouteImport.update({
   id: '/scene',
   path: '/scene',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportRoute = ReportRouteImport.update({
+  id: '/report',
+  path: '/report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MatchingRoute = MatchingRouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/report': typeof ReportRoute
   '/scene': typeof SceneRoute
   '/character/$id': typeof CharacterIdRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/report': typeof ReportRoute
   '/scene': typeof SceneRoute
   '/character/$id': typeof CharacterIdRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/report': typeof ReportRoute
   '/scene': typeof SceneRoute
   '/character/$id': typeof CharacterIdRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/report'
     | '/scene'
     | '/character/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/report'
     | '/scene'
     | '/character/$id'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/report'
     | '/scene'
     | '/character/$id'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   InviteRoute: typeof InviteRoute
   LobbyRoute: typeof LobbyRoute
   MatchingRoute: typeof MatchingRoute
+  ReportRoute: typeof ReportRoute
   SceneRoute: typeof SceneRoute
   CharacterIdRoute: typeof CharacterIdRoute
 }
@@ -154,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/scene'
       fullPath: '/scene'
       preLoaderRoute: typeof SceneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report': {
+      id: '/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/matching': {
@@ -223,9 +243,20 @@ const rootRouteChildren: RootRouteChildren = {
   InviteRoute: InviteRoute,
   LobbyRoute: LobbyRoute,
   MatchingRoute: MatchingRoute,
+  ReportRoute: ReportRoute,
   SceneRoute: SceneRoute,
   CharacterIdRoute: CharacterIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
