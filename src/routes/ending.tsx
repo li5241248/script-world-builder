@@ -55,7 +55,7 @@ function Ending() {
       </button>
 
       {/* main scroll */}
-      <div className="relative z-10 h-full overflow-y-auto px-4 pt-24 pb-8">
+      <div className="relative z-10 h-full overflow-y-auto px-4 pt-32 pb-8">
         {/* paper card */}
         <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-[28px] bg-[#fbf5ec] px-6 pt-9 pb-7 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.55)]">
           {/* subtle inner border */}
