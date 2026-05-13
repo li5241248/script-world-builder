@@ -348,6 +348,9 @@ function Scene() {
       {panelCharId && (
         <CharacterPanel charId={panelCharId} onClose={() => setPanelCharId(null)} />
       )}
+
+      {/* 剧情回溯 */}
+      {recapOpen && <RecapPanel onClose={() => setRecapOpen(false)} />}
     </div>
   );
 }
