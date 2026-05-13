@@ -70,8 +70,6 @@ function Play() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (phase === "idle") {
-      // Add role intro message
-      setMessages([{ kind: "notice", text: `你将扮演「${roleName}」进入画堂春` }]);
       const searchParams = new URLSearchParams(window.location.search);
       const joinId = searchParams.get("join");
       if (joinId) {
