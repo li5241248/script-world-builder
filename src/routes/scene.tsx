@@ -342,6 +342,36 @@ function Bubble({ m, picked, onPickHint }: { m: Msg; picked?: boolean; onPickHin
     );
   }
 
+  if (m.kind === "reward") {
+    return (
+      <div className="my-2 flex justify-center animate-fade-up">
+        <div className="max-w-[88%] rounded-2xl border border-amber-200/30 bg-gradient-to-br from-amber-950/70 to-rose-950/70 px-4 py-2.5 text-center shadow-[0_4px_20px_rgba(0,0,0,0.4)] backdrop-blur-md">
+          <div className="mb-1.5 flex items-center justify-center gap-1.5">
+            <Sparkles size={11} className="text-amber-200" />
+            <span className="text-[9px] tracking-[0.35em] text-amber-200/90">情 缘 流 转</span>
+            <Sparkles size={11} className="text-amber-200" />
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[12px] text-white/95">
+            {m.affinities.map((a) => {
+              const ch = getCharacter(a.charId);
+              return (
+                <span key={a.charId} className="inline-flex items-center gap-1">
+                  {ch && <img src={ch.img} alt={ch.name} className="h-4 w-4 rounded-full object-cover" />}
+                  <span>{ch?.name ?? a.charId}</span>
+                  <span className="font-mono tabular-nums text-rose-200">亲密度 +{a.delta}</span>
+                </span>
+              );
+            })}
+          </div>
+          {m.unlock && (
+            <div className="mt-1.5 text-[11px] text-amber-100/90">
+              解锁剧情 <span className="font-medium text-amber-200">「{m.unlock}」</span>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   const c = getCharacter(m.charId) ?? CHARACTERS[0];
   if (m.kind === "action") {
