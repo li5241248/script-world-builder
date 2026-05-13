@@ -407,6 +407,16 @@ function Bubble({ m, picked, onPickHint, onAvatarClick }: { m: Msg; picked?: boo
     );
   }
 
+  if (m.kind === "notice") {
+    return (
+      <div className="my-3 flex justify-center animate-fade-up">
+        <div className="rounded-full border border-amber-200/30 bg-black/55 px-4 py-1.5 text-[11px] tracking-[0.2em] text-amber-100/90 backdrop-blur-md">
+          {m.text}
+        </div>
+      </div>
+    );
+  }
+
   const c = getCharacter(m.charId) ?? CHARACTERS[0];
   const avatarBtn = (
     <button
