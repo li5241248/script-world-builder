@@ -191,9 +191,18 @@ function Scene() {
           <div className="text-[11px] tracking-[0.3em] text-white/80">第一幕</div>
           <div className="font-brush text-[18px] tracking-[0.2em]">雪 夜 承 宠</div>
         </div>
-        <button className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95">
-          <MoreHorizontal size={18} />
-        </button>
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={() => setRecapOpen(true)}
+            className="flex h-9 items-center gap-1 rounded-full bg-black/35 px-2.5 text-[11px] text-white/90 backdrop-blur active:scale-95"
+          >
+            <History size={14} />
+            <span>剧情回溯</span>
+          </button>
+          <button className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95">
+            <MoreHorizontal size={18} />
+          </button>
+        </div>
       </div>
 
       {/* 剩余时间 + 幕进度 */}
