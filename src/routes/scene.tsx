@@ -614,7 +614,83 @@ function PanelField({ label, value }: { label: string; value: string }) {
   );
 }
 
-function ScenePage() {
+const RECAP: { act: string; title: string; summary: string; highlights: string[] }[] = [
+  {
+    act: "序幕",
+    title: "初入采桑宫",
+    summary: "温棠入宫十年，被遗忘在采桑宫偏殿，与嬷嬷相依度日。",
+    highlights: ["结识嬷嬷", "得三皇子裴琰偶然探望"],
+  },
+  {
+    act: "第一幕",
+    title: "雪夜承宠",
+    summary: "陛下夜翻牌子，问温棠是否愿抚育三皇子琰儿。",
+    highlights: ["得宠 +1", "与裴荣初次试探"],
+  },
+];
+
+function RecapPanel({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="absolute inset-0 z-30 animate-fade-in">
+      <button
+        onClick={onClose}
+        aria-label="关闭"
+        className="absolute inset-0 bg-black/55 backdrop-blur-sm"
+      />
+      <div className="absolute inset-x-0 bottom-0 max-h-[78%] overflow-hidden rounded-t-3xl border-t border-amber-200/20 bg-gradient-to-b from-[#2a1a14] to-[#1a0e14] shadow-[0_-12px_40px_rgba(0,0,0,0.5)] animate-slide-in-up">
+        <div className="flex items-center justify-between px-5 pt-5 pb-3">
+          <div className="flex items-center gap-2">
+            <History size={16} className="text-amber-200" />
+            <div>
+              <div className="text-[10px] tracking-[0.35em] text-amber-200/80">剧 情 回 溯</div>
+              <div className="font-brush text-[18px] tracking-[0.15em] text-white">画 堂 春</div>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/80 active:scale-95"
+          >
+            <X size={15} />
+          </button>
+        </div>
+        <div className="h-px bg-gradient-to-r from-transparent via-amber-200/20 to-transparent" />
+        <div className="max-h-[60vh] overflow-y-auto px-5 py-5">
+          <ol className="relative space-y-5 border-l border-amber-200/20 pl-5">
+            {RECAP.map((r, i) => (
+              <li key={i} className="relative">
+                <span className="absolute -left-[26px] top-1 flex h-3 w-3 items-center justify-center">
+                  <span className="absolute inset-0 rounded-full bg-amber-200/20" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-amber-200" />
+                </span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-[10px] tracking-[0.3em] text-amber-200/80">{r.act}</span>
+                  <span className="font-brush text-[16px] text-white">{r.title}</span>
+                </div>
+                <p className="mt-1.5 text-[13px] leading-relaxed text-white/85">{r.summary}</p>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {r.highlights.map((h) => (
+                    <span
+                      key={h}
+                      className="rounded-full border border-amber-200/25 bg-amber-200/10 px-2 py-0.5 text-[10.5px] text-amber-100/90"
+                    >
+                      {h}
+                    </span>
+                  ))}
+                </div>
+              </li>
+            ))}
+            <li className="relative opacity-60">
+              <span className="absolute -left-[26px] top-1 flex h-3 w-3 items-center justify-center">
+                <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
+              </span>
+              <div className="text-[12px] italic text-white/55">未来剧情待你书写……</div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  );
+}
   return (
     <PhoneMockup>
       <Scene />
