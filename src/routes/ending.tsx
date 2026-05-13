@@ -191,13 +191,6 @@ function Ending() {
                 </div>
                 <button
                   onClick={() => navigate({ to: "/report" })}
-                <div className="flex-1 min-w-0">
-                  <div className="text-[10px] text-[#3a2a22]/60">扮演者</div>
-                  <div className="text-[13px] font-medium text-[#2b1a14] truncate">真人玩家 · 听雨</div>
-                  <div className="text-[10px] text-[#3a2a22]/60">ID: 88231 · 已扮演 3 场</div>
-                </div>
-                <button
-                  onClick={() => navigate({ to: "/ending" })}
                   className="shrink-0 rounded-full bg-[#7a2a2a]/10 px-3 py-1.5 text-[11px] text-[#7a2a2a] active:scale-95"
                 >
                   亲密关系报告 →
