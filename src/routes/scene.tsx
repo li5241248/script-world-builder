@@ -50,6 +50,8 @@ function Scene() {
   const [input, setInput] = useState("");
   const [pickedPromptIdx, setPickedPromptIdx] = useState<number | null>(null);
   const [panelCharId, setPanelCharId] = useState<string | null>(null);
+  const [secretOpen, setSecretOpen] = useState(true);
+  const [secretRevealed, setSecretRevealed] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
