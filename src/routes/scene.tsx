@@ -401,10 +401,20 @@ function Bubble({ m, picked, onPickHint, onAvatarClick }: { m: Msg; picked?: boo
   }
 
   const c = getCharacter(m.charId) ?? CHARACTERS[0];
+  const avatarBtn = (
+    <button
+      onClick={() => onAvatarClick?.(c.id)}
+      className="h-9 w-9 flex-shrink-0 overflow-hidden rounded-full active:scale-95"
+      aria-label={`查看 ${c.name}`}
+    >
+      <img src={c.img} alt={c.name} className="h-full w-full object-cover" />
+    </button>
+  );
+
   if (m.kind === "action") {
     return (
       <div className="flex gap-2">
-        <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
+        {avatarBtn}
         <div className="max-w-[78%]">
           <div className="rounded-2xl rounded-tl-md border border-white/40 bg-white/15 px-4 py-2.5 text-[13px] italic text-white shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-md drop-shadow">
             （{m.text}）
@@ -416,12 +426,97 @@ function Bubble({ m, picked, onPickHint, onAvatarClick }: { m: Msg; picked?: boo
 
   return (
     <div className="flex gap-2">
-      <img src={c.img} alt={c.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
+      {avatarBtn}
       <div className="max-w-[80%]">
         <div className={`${CREAM_BUBBLE} rounded-tl-md`}>
           {m.text}
         </div>
       </div>
+    </div>
+  );
+}
+
+function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => void }) {
+  const c = getCharacter(charId);
+  const [followed, setFollowed] = useState(false);
+  if (!c) return null;
+  const actor = ACTORS[charId] ?? "@匿名玩家";
+  return (
+    <div className="absolute inset-0 z-30 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-fade-in" onClick={onClose}>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative max-h-[88%] w-full overflow-hidden rounded-t-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 text-white animate-fade-up"
+      >
+        <div className="relative h-56 w-full">
+          <img src={c.img} alt={c.name} className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-neutral-900" />
+          <button
+            onClick={onClose}
+            className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur active:scale-95"
+            aria-label="关闭"
+          >
+            <X size={16} />
+          </button>
+          <div className="absolute bottom-3 left-0 right-0 text-center">
+            <div className="font-brush text-[24px] tracking-[0.2em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">{c.name}</div>
+            <div className="mt-0.5 text-[11px] tracking-[0.3em] text-white/80">{c.role}</div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between px-5 py-4">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-300/40 to-rose-400/40 text-[12px] font-semibold text-white">
+              {actor.slice(1, 2)}
+            </div>
+            <div>
+              <div className="text-[13px] font-medium text-white">{actor}</div>
+              <div className="text-[10px] text-white/55">知乎 · 扮演者</div>
+            </div>
+          </div>
+          <button
+            onClick={() => setFollowed((v) => !v)}
+            className={`flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[12px] font-medium transition active:scale-95 ${
+              followed
+                ? "bg-white/10 text-white/70"
+                : "bg-white text-neutral-900 shadow-[0_2px_10px_rgba(255,255,255,0.15)]"
+            }`}
+          >
+            {followed ? <><Check size={13} /> 已添加</> : <><UserPlus size={13} /> 添加好友</>}
+          </button>
+        </div>
+
+        <div className="mx-5 h-px bg-white/10" />
+
+        <div className="max-h-[42vh] overflow-y-auto px-5 py-4 pb-8">
+          {c.motto && (
+            <p className="mb-3 text-center font-brush text-[14px] leading-relaxed text-amber-100/90">
+              {c.motto}
+            </p>
+          )}
+          <p className="text-[13px] leading-relaxed text-white/85">{c.desc}</p>
+
+          <div className="mt-5 grid grid-cols-1 gap-2.5 text-[12px]">
+            <PanelField label="身份" value={c.identity} />
+            <PanelField label="性格" value={c.personality} />
+            <PanelField label="所长" value={c.skill} />
+            <PanelField label="秘事" value={c.secret} />
+          </div>
+
+          <div className="mt-5">
+            <div className="mb-1.5 text-[10px] tracking-[0.3em] text-amber-200/80">人 物 小 传</div>
+            <p className="text-[13px] leading-relaxed text-white/80">{c.story}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PanelField({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex gap-3 rounded-lg bg-white/5 px-3 py-2">
+      <span className="w-10 flex-shrink-0 text-[11px] tracking-widest text-white/45">{label}</span>
+      <span className="flex-1 text-white/90">{value}</span>
     </div>
   );
 }
