@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Download, Share2, RotateCcw, ChevronLeft } from "lucide-react";
+import { useState } from "react";
+import { Download, Share2, RotateCcw, ChevronLeft, Heart, Search } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/ending-bg.jpg";
 import { getCharacter } from "@/lib/characters";
@@ -14,23 +15,27 @@ export const Route = createFileRoute("/ending")({
   }),
 });
 
-const CAST: { id: string; displayName: string; tag: string }[] = [
-  { id: "wentang", displayName: "温棠", tag: "封妃" },
-  { id: "peiyan", displayName: "裴琰", tag: "健康成长" },
-  { id: "peiyu", displayName: "瑜儿", tag: "认母成功" },
-  { id: "mama", displayName: "采桑", tag: "安居乐业" },
-  { id: "empress", displayName: "皇后", tag: "母仪天下" },
-  { id: "peirong", displayName: "皇帝", tag: "勤政爱民" },
-];
+const PLAYER_ID = "wentang";
 
-const STATS: { label: string; value: string; suffix?: string }[] = [
-  { label: "亲密度", value: "95", suffix: "%" },
-  { label: "线索", value: "28", suffix: "/30" },
-  { label: "正确率", value: "100", suffix: "%" },
-];
+// 与主角的关系数据
+const RELATIONS: Record<string, { desc: string; intimacy: number; clues: number; tag: string }> = {
+  peiyan: { desc: "宫中知己，互为依靠的少年与贵妃。", intimacy: 95, clues: 12, tag: "知己" },
+  peiyu: { desc: "表面恭敬，暗藏机锋的君臣之谊。", intimacy: 62, clues: 7, tag: "认母成功" },
+  mama: { desc: "自幼相伴，唯一可以托付秘密的人。", intimacy: 99, clues: 9, tag: "心腹" },
+  empress: { desc: "凤位之下，宫规之内的微妙制衡。", intimacy: 48, clues: 5, tag: "母仪天下" },
+  peirong: { desc: "君妃名分，恩宠与猜忌并存。", intimacy: 70, clues: 8, tag: "勤政爱民" },
+};
+
+const OTHERS = ["peiyan", "peiyu", "mama", "empress", "peirong"];
+
+
 
 function Ending() {
   const navigate = useNavigate();
+  const [selected, setSelected] = useState<string>("peiyan");
+  const player = getCharacter(PLAYER_ID);
+  const target = getCharacter(selected);
+  const rel = RELATIONS[selected];
 
   return (
     <div className="relative h-full overflow-hidden">
@@ -78,43 +83,92 @@ function Ending() {
           {/* hairline */}
           <div className="mx-auto mt-6 h-px w-full bg-[#7a2a2a]/10" />
 
-          {/* cast */}
-          <div className="mt-5 grid grid-cols-6 gap-1.5">
-            {CAST.map((c) => {
-              const ch = getCharacter(c.id);
-              return (
-                <div key={c.id} className="flex flex-col items-center">
-                  <div className="relative">
-                    <div className="absolute -inset-[2px] rounded-full bg-gradient-to-br from-[#d4a373] to-[#7a2a2a]/60" />
-                    <img
-                      src={ch?.img}
-                      alt={c.displayName}
-                      className="relative h-11 w-11 rounded-full object-cover"
-                    />
-                  </div>
-                  <div className="mt-1.5 text-[11px] text-[#2b1a14]">{c.displayName}</div>
-                  <div className="mt-1 rounded-full bg-[#f1e6d4] px-1.5 py-[2px] text-[9px] leading-none text-[#7a2a2a]">
-                    {c.tag}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {/* relationship graph */}
+          <div className="mt-6 flex flex-col items-center">
+            {/* player avatar (large) */}
+            <div className="relative">
+              <div className="absolute -inset-[3px] rounded-full bg-gradient-to-br from-[#d4a373] to-[#7a2a2a]" />
+              <img
+                src={player?.img}
+                alt={player?.name}
+                className="relative h-20 w-20 rounded-full object-cover"
+              />
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#7a2a2a] px-2 py-[2px] text-[9px] leading-none text-white">
+                我 · {player?.name}
+              </div>
+            </div>
 
-          {/* stats */}
-          <div className="mt-5 grid grid-cols-3 overflow-hidden rounded-xl bg-[#f3e8d4]/70">
-            {STATS.map((s, i) => (
-              <div
-                key={s.label}
-                className={`flex flex-col items-center py-3 ${i < STATS.length - 1 ? "border-r border-[#7a2a2a]/10" : ""}`}
-              >
-                <div className="text-[11px] text-[#3a2a22]/70">{s.label}</div>
-                <div className="mt-1 font-brush text-[20px] leading-none text-[#7a2a2a]">
-                  {s.value}
-                  <span className="text-[12px]">{s.suffix}</span>
+            {/* connector */}
+            <div className="my-4 flex w-full items-center justify-center">
+              <span className="h-px flex-1 bg-[#7a2a2a]/15" />
+              <span className="mx-2 rounded-full border border-[#7a2a2a]/30 bg-[#fbf5ec] px-2 py-[2px] text-[10px] text-[#7a2a2a]">
+                {rel?.tag ?? "关系"}
+              </span>
+              <span className="h-px flex-1 bg-[#7a2a2a]/15" />
+            </div>
+
+            {/* others row */}
+            <div className="grid w-full grid-cols-5 gap-1">
+              {OTHERS.map((id) => {
+                const ch = getCharacter(id);
+                const active = id === selected;
+                return (
+                  <button
+                    key={id}
+                    onClick={() => setSelected(id)}
+                    className="flex flex-col items-center gap-1 active:scale-95"
+                  >
+                    <div className="relative">
+                      <div
+                        className={`absolute -inset-[2px] rounded-full ${
+                          active
+                            ? "bg-gradient-to-br from-[#d4a373] to-[#7a2a2a]"
+                            : "bg-[#7a2a2a]/15"
+                        }`}
+                      />
+                      <img
+                        src={ch?.img}
+                        alt={ch?.name}
+                        className={`relative h-12 w-12 rounded-full object-cover transition ${
+                          active ? "" : "opacity-70 grayscale-[40%]"
+                        }`}
+                      />
+                    </div>
+                    <div
+                      className={`text-[11px] ${
+                        active ? "font-medium text-[#7a2a2a]" : "text-[#3a2a22]/70"
+                      }`}
+                    >
+                      {ch?.name}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* relation info */}
+            <div className="mt-4 w-full rounded-xl bg-[#f3e8d4]/70 p-3">
+              <p className="text-center text-[12px] leading-[1.7] text-[#3a2a22]">
+                {rel?.desc}
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <div className="flex items-center justify-center gap-1.5 rounded-lg bg-white/70 py-2">
+                  <Heart size={12} className="text-[#7a2a2a]" />
+                  <span className="text-[10px] text-[#3a2a22]/70">亲密度</span>
+                  <span className="font-brush text-[16px] leading-none text-[#7a2a2a]">
+                    {rel?.intimacy}
+                    <span className="text-[10px]">%</span>
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-1.5 rounded-lg bg-white/70 py-2">
+                  <Search size={12} className="text-[#7a2a2a]" />
+                  <span className="text-[10px] text-[#3a2a22]/70">线索</span>
+                  <span className="font-brush text-[16px] leading-none text-[#7a2a2a]">
+                    {rel?.clues}
+                  </span>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
 
           {/* buttons */}
