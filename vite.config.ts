@@ -14,6 +14,7 @@ export default defineConfig({
   },
   vite: {
     server: {
+      allowedHosts: ["meter-folder-assets-trackback.trycloudflare.com"],
       proxy: {
         "/api": {
           target: "http://localhost:8000",
