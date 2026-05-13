@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Share2, RotateCcw, ChevronLeft, Heart, Search } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/ending-bg.jpg";
+import playerAvatar from "@/assets/player-tingyu.png";
 import { getCharacter } from "@/lib/characters";
 
 export const Route = createFileRoute("/ending")({
