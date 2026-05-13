@@ -178,10 +178,19 @@ function Ending() {
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <div className="absolute -inset-[2px] rounded-full bg-gradient-to-br from-[#d4a373] to-[#7a2a2a]" />
-                  <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#fbf5ec] text-[12px] font-medium text-[#7a2a2a]">
-                    玩家
-                  </div>
+                  <img
+                    src={playerAvatar}
+                    alt="真人玩家"
+                    className="relative h-10 w-10 rounded-full object-cover"
+                  />
                 </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] text-[#3a2a22]/60">扮演者</div>
+                  <div className="text-[13px] font-medium text-[#2b1a14] truncate">真人玩家 · 听雨</div>
+                  <div className="text-[10px] text-[#3a2a22]/60">ID: 88231 · 已扮演 3 场</div>
+                </div>
+                <button
+                  onClick={() => navigate({ to: "/report" })}
                 <div className="flex-1 min-w-0">
                   <div className="text-[10px] text-[#3a2a22]/60">扮演者</div>
                   <div className="text-[13px] font-medium text-[#2b1a14] truncate">真人玩家 · 听雨</div>
