@@ -187,7 +187,7 @@ function Scene() {
         >
           <ChevronLeft size={18} />
         </button>
-        <div className="text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
+        <div className="pointer-events-none absolute left-1/2 top-12 -translate-x-1/2 text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
           <div className="text-[11px] tracking-[0.3em] text-white/80">第一幕</div>
           <div className="font-brush text-[18px] tracking-[0.2em]">雪 夜 承 宠</div>
         </div>
