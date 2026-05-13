@@ -691,6 +691,8 @@ function RecapPanel({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
+function ScenePage() {
   return (
     <PhoneMockup>
       <Scene />
