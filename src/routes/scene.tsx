@@ -509,6 +509,7 @@ function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => vo
           <p className="text-[13px] leading-relaxed text-white/80">{c.story}</p>
         </div>
       </div>
+      </div>
     </div>
   );
 }
