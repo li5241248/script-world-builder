@@ -55,6 +55,7 @@ function Play() {
     loading,
     initSoloGame,
     initDuoGame,
+    initJoinGame,
     makeChoice,
     sendMessage,
     endGame,
@@ -67,7 +68,13 @@ function Play() {
   // Auto-start game on mount
   useEffect(() => {
     if (phase === "idle") {
-      if (gameMode === "duo") {
+      // Add role intro message
+      setMessages([{ kind: "notice", text: `你将扮演「${roleName}」进入画堂春` }]);
+      const searchParams = new URLSearchParams(window.location.search);
+      const joinId = searchParams.get("join");
+      if (joinId) {
+        initJoinGame(joinId);
+      } else if (gameMode === "duo") {
         initDuoGame(partnerRole);
       } else {
         initSoloGame();

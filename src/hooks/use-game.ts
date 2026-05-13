@@ -179,17 +179,56 @@ export function useGame(myRoleId: string = "wentang") {
       setGameId(meta.game_id);
       // Player 1 joins
       await joinGame(meta.game_id, userId, myRoleId);
-      // Player 2 joins (simulated second player)
-      const user2 = `user_${Math.random().toString(36).slice(2, 8)}`;
-      await joinGame(meta.game_id, user2, player2RoleId);
-      const nodeData = await startGame(meta.game_id, myRoleId);
-      setPhase("playing");
-      processNode(nodeData as unknown as NodeData);
-
+      setPhase("joined");
+      // Show invite link — don't auto-start, wait for player 2
+      const inviteUrl = `${window.location.origin}/play?role=${player2RoleId}&join=${meta.game_id}`;
+      setMessages((prev) => [...prev, {
+        kind: "notice",
+        text: `房间已创建！发送链接给队友加入：`,
+      }, {
+        kind: "notice",
+        text: inviteUrl,
+      }]);
+      // Connect WS to listen for player 2 joining
       wsRef.current = connectWs(meta.game_id, userId, handleWsEvent);
+      // Auto-start after 3s for demo (in production, wait for player 2)
+      setTimeout(async () => {
+        try {
+          const nodeData = await startGame(meta.game_id, myRoleId);
+          setPhase("playing");
+          processNode(nodeData as unknown as NodeData);
+        } catch (e) {
+          console.error("auto-start failed:", e);
+        }
+      }, 3000);
     } catch (e) {
       console.error("initDuoGame failed:", e);
       setMessages((prev) => [...prev, { kind: "notice", text: `连接失败: ${e}` }]);
+    } finally {
+      setLoading(false);
+    }
+  }, [userId, myRoleId, processNode, handleWsEvent]);
+
+  const initJoinGame = useCallback(async (existingGameId: string) => {
+    setLoading(true);
+    try {
+      setGameId(existingGameId);
+      await joinGame(existingGameId, userId, myRoleId);
+      // Try to start (may already be started)
+      try {
+        const nodeData = await startGame(existingGameId, myRoleId);
+        setPhase("playing");
+        processNode(nodeData as unknown as NodeData);
+      } catch {
+        // Game might already be playing, just get state
+        const state = await import("@/lib/game-api").then(m => m.getGame(existingGameId));
+        setPhase("playing");
+        processNode(state.current_node);
+      }
+      wsRef.current = connectWs(existingGameId, userId, handleWsEvent);
+    } catch (e) {
+      console.error("initJoinGame failed:", e);
+      setMessages((prev) => [...prev, { kind: "notice", text: `加入失败: ${e}` }]);
     } finally {
       setLoading(false);
     }
@@ -261,6 +300,7 @@ export function useGame(myRoleId: string = "wentang") {
     loading,
     initSoloGame,
     initDuoGame,
+    initJoinGame,
     makeChoice,
     sendMessage,
     endGame,
