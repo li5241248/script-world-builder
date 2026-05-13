@@ -87,43 +87,92 @@ function Ending() {
           {/* hairline */}
           <div className="mx-auto mt-6 h-px w-full bg-[#7a2a2a]/10" />
 
-          {/* cast */}
-          <div className="mt-5 grid grid-cols-6 gap-1.5">
-            {CAST.map((c) => {
-              const ch = getCharacter(c.id);
-              return (
-                <div key={c.id} className="flex flex-col items-center">
-                  <div className="relative">
-                    <div className="absolute -inset-[2px] rounded-full bg-gradient-to-br from-[#d4a373] to-[#7a2a2a]/60" />
-                    <img
-                      src={ch?.img}
-                      alt={c.displayName}
-                      className="relative h-11 w-11 rounded-full object-cover"
-                    />
-                  </div>
-                  <div className="mt-1.5 text-[11px] text-[#2b1a14]">{c.displayName}</div>
-                  <div className="mt-1 rounded-full bg-[#f1e6d4] px-1.5 py-[2px] text-[9px] leading-none text-[#7a2a2a]">
-                    {c.tag}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {/* relationship graph */}
+          <div className="mt-6 flex flex-col items-center">
+            {/* player avatar (large) */}
+            <div className="relative">
+              <div className="absolute -inset-[3px] rounded-full bg-gradient-to-br from-[#d4a373] to-[#7a2a2a]" />
+              <img
+                src={player?.img}
+                alt={player?.name}
+                className="relative h-20 w-20 rounded-full object-cover"
+              />
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#7a2a2a] px-2 py-[2px] text-[9px] leading-none text-white">
+                我 · {player?.name}
+              </div>
+            </div>
 
-          {/* stats */}
-          <div className="mt-5 grid grid-cols-3 overflow-hidden rounded-xl bg-[#f3e8d4]/70">
-            {STATS.map((s, i) => (
-              <div
-                key={s.label}
-                className={`flex flex-col items-center py-3 ${i < STATS.length - 1 ? "border-r border-[#7a2a2a]/10" : ""}`}
-              >
-                <div className="text-[11px] text-[#3a2a22]/70">{s.label}</div>
-                <div className="mt-1 font-brush text-[20px] leading-none text-[#7a2a2a]">
-                  {s.value}
-                  <span className="text-[12px]">{s.suffix}</span>
+            {/* connector */}
+            <div className="my-4 flex w-full items-center justify-center">
+              <span className="h-px flex-1 bg-[#7a2a2a]/15" />
+              <span className="mx-2 rounded-full border border-[#7a2a2a]/30 bg-[#fbf5ec] px-2 py-[2px] text-[10px] text-[#7a2a2a]">
+                {rel?.tag ?? "关系"}
+              </span>
+              <span className="h-px flex-1 bg-[#7a2a2a]/15" />
+            </div>
+
+            {/* others row */}
+            <div className="grid w-full grid-cols-5 gap-1">
+              {OTHERS.map((id) => {
+                const ch = getCharacter(id);
+                const active = id === selected;
+                return (
+                  <button
+                    key={id}
+                    onClick={() => setSelected(id)}
+                    className="flex flex-col items-center gap-1 active:scale-95"
+                  >
+                    <div className="relative">
+                      <div
+                        className={`absolute -inset-[2px] rounded-full ${
+                          active
+                            ? "bg-gradient-to-br from-[#d4a373] to-[#7a2a2a]"
+                            : "bg-[#7a2a2a]/15"
+                        }`}
+                      />
+                      <img
+                        src={ch?.img}
+                        alt={ch?.name}
+                        className={`relative h-12 w-12 rounded-full object-cover transition ${
+                          active ? "" : "opacity-70 grayscale-[40%]"
+                        }`}
+                      />
+                    </div>
+                    <div
+                      className={`text-[11px] ${
+                        active ? "font-medium text-[#7a2a2a]" : "text-[#3a2a22]/70"
+                      }`}
+                    >
+                      {ch?.name}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* relation info */}
+            <div className="mt-4 w-full rounded-xl bg-[#f3e8d4]/70 p-3">
+              <p className="text-center text-[12px] leading-[1.7] text-[#3a2a22]">
+                {rel?.desc}
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <div className="flex items-center justify-center gap-1.5 rounded-lg bg-white/70 py-2">
+                  <Heart size={12} className="text-[#7a2a2a]" />
+                  <span className="text-[10px] text-[#3a2a22]/70">亲密度</span>
+                  <span className="font-brush text-[16px] leading-none text-[#7a2a2a]">
+                    {rel?.intimacy}
+                    <span className="text-[10px]">%</span>
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-1.5 rounded-lg bg-white/70 py-2">
+                  <Search size={12} className="text-[#7a2a2a]" />
+                  <span className="text-[10px] text-[#3a2a22]/70">线索</span>
+                  <span className="font-brush text-[16px] leading-none text-[#7a2a2a]">
+                    {rel?.clues}
+                  </span>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
 
           {/* buttons */}
