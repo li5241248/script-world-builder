@@ -171,6 +171,31 @@ function Ending() {
             </div>
           </div>
 
+          {/* real player module - only for peiyan */}
+          {selected === "peiyan" && (
+            <div className="mt-4 rounded-xl border border-[#7a2a2a]/15 bg-white/60 p-3">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="absolute -inset-[2px] rounded-full bg-gradient-to-br from-[#d4a373] to-[#7a2a2a]" />
+                  <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#fbf5ec] text-[12px] font-medium text-[#7a2a2a]">
+                    玩家
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] text-[#3a2a22]/60">扮演者</div>
+                  <div className="text-[13px] font-medium text-[#2b1a14] truncate">真人玩家 · 听雨</div>
+                  <div className="text-[10px] text-[#3a2a22]/60">ID: 88231 · 已扮演 3 场</div>
+                </div>
+                <button
+                  onClick={() => navigate({ to: "/ending" })}
+                  className="shrink-0 rounded-full bg-[#7a2a2a]/10 px-3 py-1.5 text-[11px] text-[#7a2a2a] active:scale-95"
+                >
+                  亲密关系报告 →
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* buttons */}
           <div className="mt-5 flex items-center gap-2">
             <button
