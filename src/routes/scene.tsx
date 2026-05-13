@@ -52,6 +52,7 @@ function Scene() {
   const [panelCharId, setPanelCharId] = useState<string | null>(null);
   const [secretOpen, setSecretOpen] = useState(true);
   const [secretRevealed, setSecretRevealed] = useState(false);
+  const [recapOpen, setRecapOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
