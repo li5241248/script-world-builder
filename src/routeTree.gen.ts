@@ -13,6 +13,7 @@ import { Route as SceneRouteImport } from './routes/scene'
 import { Route as MatchingRouteImport } from './routes/matching'
 import { Route as LobbyRouteImport } from './routes/lobby'
 import { Route as InviteRouteImport } from './routes/invite'
+import { Route as HuatangchunRouteImport } from './routes/huatangchun'
 import { Route as EndingRouteImport } from './routes/ending'
 import { Route as ConfirmRouteImport } from './routes/confirm'
 import { Route as IndexRouteImport } from './routes/index'
@@ -36,6 +37,11 @@ const LobbyRoute = LobbyRouteImport.update({
 const InviteRoute = InviteRouteImport.update({
   id: '/invite',
   path: '/invite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HuatangchunRoute = HuatangchunRouteImport.update({
+  id: '/huatangchun',
+  path: '/huatangchun',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EndingRoute = EndingRouteImport.update({
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/confirm': typeof ConfirmRoute
   '/ending': typeof EndingRoute
+  '/huatangchun': typeof HuatangchunRoute
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/confirm': typeof ConfirmRoute
   '/ending': typeof EndingRoute
+  '/huatangchun': typeof HuatangchunRoute
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/confirm': typeof ConfirmRoute
   '/ending': typeof EndingRoute
+  '/huatangchun': typeof HuatangchunRoute
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/confirm'
     | '/ending'
+    | '/huatangchun'
     | '/invite'
     | '/lobby'
     | '/matching'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/confirm'
     | '/ending'
+    | '/huatangchun'
     | '/invite'
     | '/lobby'
     | '/matching'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/confirm'
     | '/ending'
+    | '/huatangchun'
     | '/invite'
     | '/lobby'
     | '/matching'
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConfirmRoute: typeof ConfirmRoute
   EndingRoute: typeof EndingRoute
+  HuatangchunRoute: typeof HuatangchunRoute
   InviteRoute: typeof InviteRoute
   LobbyRoute: typeof LobbyRoute
   MatchingRoute: typeof MatchingRoute
@@ -164,6 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InviteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/huatangchun': {
+      id: '/huatangchun'
+      path: '/huatangchun'
+      fullPath: '/huatangchun'
+      preLoaderRoute: typeof HuatangchunRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ending': {
       id: '/ending'
       path: '/ending'
@@ -199,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConfirmRoute: ConfirmRoute,
   EndingRoute: EndingRoute,
+  HuatangchunRoute: HuatangchunRoute,
   InviteRoute: InviteRoute,
   LobbyRoute: LobbyRoute,
   MatchingRoute: MatchingRoute,
