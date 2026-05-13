@@ -52,12 +52,6 @@ function Scene() {
   const [panelCharId, setPanelCharId] = useState<string | null>(null);
   const [secretOpen, setSecretOpen] = useState(true);
   const [secretRevealed, setSecretRevealed] = useState(false);
-
-  useEffect(() => {
-    if (!secretOpen) return;
-    const t = setTimeout(() => setSecretOpen(false), 5000);
-    return () => clearTimeout(t);
-  }, [secretOpen]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
