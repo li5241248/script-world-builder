@@ -231,34 +231,34 @@ function Scene() {
         </div>
       </div>
 
-      {/* 秘密任务 */}
-      <div className="relative z-10 mx-4 mb-1 animate-fade-up">
+      {/* 秘密任务 - 浮在聊天框上方 */}
+      <div className="pointer-events-none absolute bottom-[110px] left-0 right-0 z-20 flex justify-center px-4 animate-fade-up">
         {secretOpen ? (
-          <div className="relative overflow-hidden rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#2a1410]/85 to-[#1a0e1a]/85 px-3.5 py-2.5 shadow-[0_4px_18px_rgba(0,0,0,0.45)] backdrop-blur-md">
+          <div className="pointer-events-auto relative w-full max-w-[340px] overflow-hidden rounded-2xl border border-amber-300/40 bg-gradient-to-br from-amber-50/85 to-amber-100/75 px-3.5 py-2.5 shadow-[0_8px_24px_-8px_rgba(120,60,20,0.35)] backdrop-blur-xl">
             <div
-              className="pointer-events-none absolute inset-0 opacity-40"
+              className="pointer-events-none absolute inset-0 opacity-60"
               style={{
                 background:
-                  "radial-gradient(circle at 20% 0%, rgba(251,191,36,0.18), transparent 55%)",
+                  "radial-gradient(circle at 20% 0%, rgba(251,191,36,0.25), transparent 60%)",
               }}
             />
             <div className="relative flex items-start gap-2.5">
-              <div className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md border border-amber-200/30 bg-amber-200/10">
-                <ScrollText size={13} className="text-amber-200" />
+              <div className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md border border-amber-600/30 bg-amber-200/40">
+                <ScrollText size={13} className="text-amber-800" />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="mb-1 flex items-center gap-1.5">
-                  <span className="text-[9px] tracking-[0.35em] text-amber-200/85">秘 密 任 务</span>
-                  <span className="rounded-sm bg-amber-200/15 px-1 py-px text-[8px] tracking-wider text-amber-100/80">仅你可见</span>
+                  <span className="text-[9px] tracking-[0.35em] text-amber-800/85">秘 密 任 务</span>
+                  <span className="rounded-sm bg-amber-700/15 px-1 py-px text-[8px] tracking-wider text-amber-900/75">仅你可见</span>
                 </div>
                 {secretRevealed ? (
-                  <p className="text-[12.5px] leading-snug text-white/95">
-                    本幕中，让 <span className="text-amber-200">裴琰</span> 主动喊你一次"<span className="text-amber-200">母妃</span>"。
+                  <p className="text-[12.5px] leading-snug text-[#3a2418]">
+                    本幕中，让 <span className="font-medium text-amber-800">裴琰</span> 主动喊你一次"<span className="font-medium text-amber-800">母妃</span>"。
                   </p>
                 ) : (
                   <button
                     onClick={() => setSecretRevealed(true)}
-                    className="flex items-center gap-1.5 text-[12px] text-white/70 active:scale-[0.98]"
+                    className="flex items-center gap-1.5 text-[12px] text-amber-900/75 active:scale-[0.98]"
                   >
                     <Lock size={11} />
                     <span>轻触揭示本幕任务</span>
@@ -268,7 +268,7 @@ function Scene() {
               <button
                 onClick={() => setSecretOpen(false)}
                 aria-label="收起"
-                className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white/55 hover:text-white/90"
+                className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-amber-900/55 hover:text-amber-900/90"
               >
                 <EyeOff size={13} />
               </button>
@@ -277,7 +277,7 @@ function Scene() {
         ) : (
           <button
             onClick={() => setSecretOpen(true)}
-            className="flex items-center gap-1.5 rounded-full border border-amber-200/30 bg-black/45 px-3 py-1 text-[11px] text-amber-100/85 backdrop-blur-md active:scale-95"
+            className="pointer-events-auto flex items-center gap-1.5 rounded-full border border-amber-300/50 bg-amber-50/80 px-3 py-1 text-[11px] text-amber-900/85 shadow-[0_4px_12px_-4px_rgba(120,60,20,0.3)] backdrop-blur-md active:scale-95"
           >
             <ScrollText size={11} />
             <span>秘密任务</span>
