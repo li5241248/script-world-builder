@@ -22,7 +22,8 @@ type Msg =
   | { kind: "action"; charId: string; text: string }
   | { kind: "prompt"; text: string }
   | { kind: "me"; text: string; mode: "say" | "do" }
-  | { kind: "reward"; affinities: { charId: string; delta: number }[]; unlock?: string };
+  | { kind: "reward"; affinities: { charId: string; delta: number }[]; unlock?: string }
+  | { kind: "notice"; text: string };
 
 const INITIAL: Msg[] = [
   {
@@ -100,6 +101,27 @@ function Scene() {
     if (text === "结局" || text === "结局。") {
       setInput("");
       navigate({ to: "/ending" });
+      return;
+    }
+    if (text === "真人扮演") {
+      setInput("");
+      setMessages((prev) => [
+        ...prev,
+        { kind: "notice", text: "下 面 进 入 真 人 扮 演 环 节 · 皇 上 / 温 棠" },
+      ]);
+      setTimeout(() => {
+        setMessages((m) => [
+          ...m,
+          { kind: "action", charId: "peirong", text: "缓步上前，指尖挑起她的下颌，眸光深沉。" },
+          { kind: "dialog", charId: "peirong", text: "抬起头来，让朕好好看看你。" },
+        ]);
+      }, 700);
+      setTimeout(() => {
+        setMessages((m) => [
+          ...m,
+          { kind: "prompt", text: "面对陛下逼近的气息，你……" },
+        ]);
+      }, 1600);
       return;
     }
     setMessages((prev) => {
@@ -401,6 +423,16 @@ function Bubble({ m, picked, onPickHint, onAvatarClick }: { m: Msg; picked?: boo
               解锁剧情 <span className="font-medium text-amber-200">「{m.unlock}」</span>
             </div>
           )}
+        </div>
+      </div>
+    );
+  }
+
+  if (m.kind === "notice") {
+    return (
+      <div className="my-3 flex justify-center animate-fade-up">
+        <div className="rounded-full border border-amber-200/30 bg-black/55 px-4 py-1.5 text-[11px] tracking-[0.2em] text-amber-100/90 backdrop-blur-md">
+          {m.text}
         </div>
       </div>
     );
