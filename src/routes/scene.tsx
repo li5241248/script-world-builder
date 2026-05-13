@@ -52,6 +52,12 @@ function Scene() {
   const [panelCharId, setPanelCharId] = useState<string | null>(null);
   const [secretOpen, setSecretOpen] = useState(true);
   const [secretRevealed, setSecretRevealed] = useState(false);
+
+  useEffect(() => {
+    if (!secretOpen) return;
+    const t = setTimeout(() => setSecretOpen(false), 5000);
+    return () => clearTimeout(t);
+  }, [secretOpen]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -256,13 +262,6 @@ function Scene() {
                   本幕中，让 <span className="font-medium text-amber-200">裴琰</span> 主动喊你一次"<span className="font-medium text-amber-200">母妃</span>"。
                 </p>
               </div>
-              <button
-                onClick={() => setSecretOpen(false)}
-                aria-label="收起"
-                className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-amber-50/60 hover:text-amber-50/95"
-              >
-                <EyeOff size={13} />
-              </button>
             </div>
           </div>
         ) : (
