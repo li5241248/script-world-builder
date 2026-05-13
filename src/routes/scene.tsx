@@ -442,40 +442,38 @@ function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => vo
   if (!c) return null;
   const actor = ACTORS[charId] ?? "@匿名玩家";
   return (
-    <div className="absolute inset-0 z-30 flex items-end justify-center bg-black/60 backdrop-blur-sm animate-fade-in" onClick={onClose}>
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative max-h-[88%] w-full overflow-hidden rounded-t-3xl bg-gradient-to-b from-neutral-900 to-neutral-950 text-white animate-fade-up"
-      >
-        <div className="relative h-56 w-full">
-          <img src={c.img} alt={c.name} className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-neutral-900" />
-          <button
-            onClick={onClose}
-            className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur active:scale-95"
-            aria-label="关闭"
-          >
-            <X size={16} />
-          </button>
-          <div className="absolute bottom-3 left-0 right-0 text-center">
-            <div className="font-brush text-[24px] tracking-[0.2em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">{c.name}</div>
-            <div className="mt-0.5 text-[11px] tracking-[0.3em] text-white/80">{c.role}</div>
-          </div>
+    <div className="absolute inset-0 z-30 flex flex-col bg-neutral-950 text-white animate-fade-in">
+      <div className="relative h-72 w-full flex-shrink-0">
+        <img src={c.img} alt={c.name} className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-neutral-950" />
+        <button
+          onClick={onClose}
+          className="absolute left-4 top-12 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur active:scale-95"
+          aria-label="关闭"
+        >
+          <X size={18} />
+        </button>
+        <div className="absolute bottom-4 left-0 right-0 text-center">
+          <div className="font-brush text-[28px] tracking-[0.2em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">{c.name}</div>
+          <div className="mt-1 text-[11px] tracking-[0.3em] text-white/80">{c.role}</div>
         </div>
+      </div>
 
-        <div className="flex items-center justify-between px-5 py-4">
+      <div className="flex-1 overflow-y-auto px-5 pb-10">
+        {/* 扮演者 */}
+        <div className="flex items-center justify-between py-6">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-300/40 to-rose-400/40 text-[12px] font-semibold text-white">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-300/40 to-rose-400/40 text-[13px] font-semibold text-white">
               {actor.slice(1, 2)}
             </div>
             <div>
-              <div className="text-[13px] font-medium text-white">{actor}</div>
+              <div className="text-[14px] font-medium text-white">{actor}</div>
               <div className="text-[10px] text-white/55">知乎 · 扮演者</div>
             </div>
           </div>
           <button
             onClick={() => setFollowed((v) => !v)}
-            className={`flex items-center gap-1 rounded-full px-3.5 py-1.5 text-[12px] font-medium transition active:scale-95 ${
+            className={`flex items-center gap-1 rounded-full px-4 py-1.5 text-[12px] font-medium transition active:scale-95 ${
               followed
                 ? "bg-white/10 text-white/70"
                 : "bg-white text-neutral-900 shadow-[0_2px_10px_rgba(255,255,255,0.15)]"
@@ -485,27 +483,28 @@ function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => vo
           </button>
         </div>
 
-        <div className="mx-5 h-px bg-white/10" />
+        <div className="h-px bg-white/10" />
 
-        <div className="max-h-[42vh] overflow-y-auto px-5 py-4 pb-8">
-          {c.motto && (
-            <p className="mb-3 text-center font-brush text-[14px] leading-relaxed text-amber-100/90">
-              {c.motto}
-            </p>
-          )}
-          <p className="text-[13px] leading-relaxed text-white/85">{c.desc}</p>
+        {/* 简介 */}
+        {c.motto && (
+          <p className="mt-8 text-center font-brush text-[15px] leading-relaxed text-amber-100/90">
+            {c.motto}
+          </p>
+        )}
+        <p className="mt-4 text-[13px] leading-relaxed text-white/85">{c.desc}</p>
 
-          <div className="mt-5 grid grid-cols-1 gap-2.5 text-[12px]">
-            <PanelField label="身份" value={c.identity} />
-            <PanelField label="性格" value={c.personality} />
-            <PanelField label="所长" value={c.skill} />
-            <PanelField label="秘事" value={c.secret} />
-          </div>
+        {/* 属性 */}
+        <div className="mt-10 grid grid-cols-1 gap-3 text-[12px]">
+          <PanelField label="身份" value={c.identity} />
+          <PanelField label="性格" value={c.personality} />
+          <PanelField label="所长" value={c.skill} />
+          <PanelField label="秘事" value={c.secret} />
+        </div>
 
-          <div className="mt-5">
-            <div className="mb-1.5 text-[10px] tracking-[0.3em] text-amber-200/80">人 物 小 传</div>
-            <p className="text-[13px] leading-relaxed text-white/80">{c.story}</p>
-          </div>
+        {/* 小传 */}
+        <div className="mt-10">
+          <div className="mb-3 text-[10px] tracking-[0.3em] text-amber-200/80">人 物 小 传</div>
+          <p className="text-[13px] leading-relaxed text-white/80">{c.story}</p>
         </div>
       </div>
     </div>
