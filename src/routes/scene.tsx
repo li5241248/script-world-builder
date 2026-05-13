@@ -281,7 +281,11 @@ function Bubble({ m, picked, onPickHint }: { m: Msg; picked?: boolean; onPickHin
 
   if (m.kind === "prompt") {
     const [open, setOpen] = useState(false);
-    const hints = ["惊喜，连忙整理仪容", "惊慌，不知所措", "平静，这只是意外"];
+    const hints = [
+      "（欣然应允）臣妾愿悉心照料琰儿。",
+      "（犹豫试探）陛下，琰儿乃皇子，臣妾恐难当此任。",
+      "（婉言拒绝）臣妾只想盼着瑜儿回心转意。",
+    ];
     return (
       <div className="-mx-4 my-5 animate-fade-up">
         <div className="relative w-full overflow-hidden bg-black/55 backdrop-blur-md">
