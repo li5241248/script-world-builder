@@ -244,7 +244,7 @@ function Scene() {
             <Mic size={17} />
           </button>
 
-          <div className="flex flex-1 items-center gap-2 rounded-full bg-white/15 px-3 py-2">
+          <div className="flex flex-1 min-w-0 items-center gap-2 rounded-full bg-white/15 px-3 py-2">
             <input
               ref={inputRef}
               value={input}
