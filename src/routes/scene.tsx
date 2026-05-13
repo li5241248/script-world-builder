@@ -180,28 +180,30 @@ function Scene() {
       />
 
       {/* header */}
-      <div className="relative z-10 flex items-center justify-between px-4 pt-12 pb-3">
-        <button
-          onClick={() => navigate({ to: "/lobby" })}
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95"
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <div className="text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
+      <div className="relative z-10 px-4 pt-12 pb-3">
+        <div className="pointer-events-none absolute inset-x-0 top-12 text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
           <div className="text-[11px] tracking-[0.3em] text-white/80">第一幕</div>
           <div className="font-brush text-[18px] tracking-[0.2em]">雪 夜 承 宠</div>
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="relative flex items-center justify-between">
           <button
-            onClick={() => setRecapOpen(true)}
-            aria-label="剧情回溯"
+            onClick={() => navigate({ to: "/lobby" })}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95"
           >
-            <History size={16} />
+            <ChevronLeft size={18} />
           </button>
-          <button className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95">
-            <MoreHorizontal size={18} />
-          </button>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => setRecapOpen(true)}
+              aria-label="剧情回溯"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95"
+            >
+              <History size={16} />
+            </button>
+            <button className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95">
+              <MoreHorizontal size={18} />
+            </button>
+          </div>
         </div>
       </div>
 
