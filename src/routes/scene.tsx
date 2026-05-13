@@ -22,7 +22,8 @@ type Msg =
   | { kind: "action"; charId: string; text: string }
   | { kind: "prompt"; text: string }
   | { kind: "me"; text: string; mode: "say" | "do" }
-  | { kind: "reward"; affinities: { charId: string; delta: number }[]; unlock?: string };
+  | { kind: "reward"; affinities: { charId: string; delta: number }[]; unlock?: string }
+  | { kind: "notice"; text: string };
 
 const INITIAL: Msg[] = [
   {
