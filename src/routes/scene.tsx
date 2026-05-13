@@ -442,24 +442,28 @@ function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => vo
   if (!c) return null;
   const actor = ACTORS[charId] ?? "@匿名玩家";
   return (
-    <div className="absolute inset-0 z-30 flex flex-col bg-neutral-950 text-white animate-fade-in">
-      <div className="relative h-72 w-full flex-shrink-0">
+    <div className="absolute inset-0 z-30 overflow-y-auto bg-neutral-950 text-white animate-fade-in">
+      {/* 关闭按钮 — 固定不动 */}
+      <button
+        onClick={onClose}
+        className="fixed left-4 top-12 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur active:scale-95"
+        aria-label="关闭"
+        style={{ position: "absolute" }}
+      >
+        <X size={18} />
+      </button>
+
+      {/* 背景人物 — 随滚动一起向上 */}
+      <div className="relative h-72 w-full">
         <img src={c.img} alt={c.name} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-neutral-950" />
-        <button
-          onClick={onClose}
-          className="absolute left-4 top-12 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur active:scale-95"
-          aria-label="关闭"
-        >
-          <X size={18} />
-        </button>
         <div className="absolute bottom-4 left-0 right-0 text-center">
           <div className="font-brush text-[28px] tracking-[0.2em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">{c.name}</div>
           <div className="mt-1 text-[11px] tracking-[0.3em] text-white/80">{c.role}</div>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-5 pb-10">
+      <div className="px-5 pb-10">
         {/* 扮演者 */}
         <div className="flex items-center justify-between py-6">
           <div className="flex items-center gap-2.5">
@@ -485,7 +489,6 @@ function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => vo
 
         <div className="h-px bg-white/10" />
 
-        {/* 简介 */}
         {c.motto && (
           <p className="mt-8 text-center font-brush text-[15px] leading-relaxed text-amber-100/90">
             {c.motto}
@@ -493,7 +496,6 @@ function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => vo
         )}
         <p className="mt-4 text-[13px] leading-relaxed text-white/85">{c.desc}</p>
 
-        {/* 属性 */}
         <div className="mt-10 grid grid-cols-1 gap-3 text-[12px]">
           <PanelField label="身份" value={c.identity} />
           <PanelField label="性格" value={c.personality} />
@@ -501,7 +503,6 @@ function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => vo
           <PanelField label="秘事" value={c.secret} />
         </div>
 
-        {/* 小传 */}
         <div className="mt-10">
           <div className="mb-3 text-[10px] tracking-[0.3em] text-amber-200/80">人 物 小 传</div>
           <p className="text-[13px] leading-relaxed text-white/80">{c.story}</p>
