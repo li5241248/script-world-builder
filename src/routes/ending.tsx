@@ -98,14 +98,7 @@ function Ending() {
               </div>
             </div>
 
-            {/* connector */}
-            <div className="my-4 flex w-full items-center justify-center">
-              <span className="h-px flex-1 bg-[#7a2a2a]/15" />
-              <span className="mx-2 rounded-full border border-[#7a2a2a]/30 bg-[#fbf5ec] px-2 py-[2px] text-[10px] text-[#7a2a2a]">
-                {rel?.tag ?? "关系"}
-              </span>
-              <span className="h-px flex-1 bg-[#7a2a2a]/15" />
-            </div>
+            <div className="mt-5" />
 
             {/* others row */}
             <div className="grid w-full grid-cols-5 gap-1">
