@@ -20,7 +20,8 @@ type Msg =
   | { kind: "dialog"; charId: string; text: string }
   | { kind: "action"; charId: string; text: string }
   | { kind: "prompt"; text: string }
-  | { kind: "me"; text: string; mode: "say" | "do" };
+  | { kind: "me"; text: string; mode: "say" | "do" }
+  | { kind: "reward"; affinities: { charId: string; delta: number }[]; unlock?: string };
 
 const INITIAL: Msg[] = [
   {
