@@ -36,6 +36,10 @@ const STATS: { label: string; value: string; suffix?: string }[] = [
 
 function Ending() {
   const navigate = useNavigate();
+  const [selected, setSelected] = useState<string>("peiyan");
+  const player = getCharacter(PLAYER_ID);
+  const target = getCharacter(selected);
+  const rel = RELATIONS[selected];
 
   return (
     <div className="relative h-full overflow-hidden">
