@@ -65,11 +65,14 @@ function Play() {
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const initRef = useRef(false);
 
   // Auto-start game on mount (client-side only)
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (initRef.current) return;
     if (phase === "idle") {
+      initRef.current = true;
       const searchParams = new URLSearchParams(window.location.search);
       const joinId = searchParams.get("join");
       if (joinId) {
