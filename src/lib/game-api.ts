@@ -89,7 +89,9 @@ export type WsEvent = {
 
 // ── API Client ──
 
-const BASE = "";  // proxy handles /api -> localhost:8000
+const BASE = typeof window !== "undefined" && window.location.hostname.includes("trycloudflare")
+  ? "https://wish-origin-proved-title.trycloudflare.com"
+  : "";  // local dev uses vite proxy
 
 export async function createGame(storyId = "huatangchun", protagonistRole = ""): Promise<GameMeta> {
   const res = await fetch(`${BASE}/api/games/create`, {
@@ -173,9 +175,15 @@ export function connectWs(
   onClose?: () => void,
 ): WebSocket | null {
   if (typeof window === "undefined") return null;
-  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-  const host = window.location.host;
-  const ws = new WebSocket(`${protocol}//${host}/ws/games/${gameId}?user_id=${userId}`);
+  let wsUrl: string;
+  if (window.location.hostname.includes("trycloudflare")) {
+    wsUrl = `wss://wish-origin-proved-title.trycloudflare.com/ws/games/${gameId}?user_id=${userId}`;
+  } else {
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const host = window.location.host;
+    wsUrl = `${protocol}//${host}/ws/games/${gameId}?user_id=${userId}`;
+  }
+  const ws = new WebSocket(wsUrl);
 
   ws.onmessage = (e) => {
     try {
