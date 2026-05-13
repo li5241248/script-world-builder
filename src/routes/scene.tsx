@@ -235,7 +235,7 @@ function Scene() {
 
       {/* input bar */}
       <div className="absolute bottom-0 left-0 right-0 z-20 border-t border-white/10 bg-black/55 px-3 pb-6 pt-3 backdrop-blur-xl">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full min-w-0">
           {/* voice input button (replaces 说/动作 toggle) */}
           <button
             aria-label="语音输入"
@@ -244,14 +244,14 @@ function Scene() {
             <Mic size={17} />
           </button>
 
-          <div className="flex flex-1 items-center gap-2 rounded-full bg-white/15 px-3 py-2">
+          <div className="flex flex-1 min-w-0 items-center gap-2 rounded-full bg-white/15 px-3 py-2">
             <input
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && send()}
               placeholder="以温棠的身份开口，或点（）输入动作"
-              className="flex-1 bg-transparent text-[13px] outline-none placeholder:text-white/50"
+              className="flex-1 min-w-0 bg-transparent text-[13px] outline-none placeholder:text-white/50"
             />
             <button
               onClick={insertActionMarkers}
