@@ -114,20 +114,12 @@ export function useGame(myRoleId: string = "wentang", gameMode: string = "solo")
       case "message":
         // Real-time message (from speak)
         const d = event.data;
+        // Skip own player messages (already added locally in sendMessage)
         if (d.speaker_type === "player") {
-          // Other player's message — show as dialog
-          const nameToId: Record<string, string> = {
-            "温棠": "wentang", "裴容": "peirong", "裴琰": "peiyan",
-            "裴瑜": "peiyu", "皇后": "empress", "陈嬷嬷": "mama",
-          };
-          setMessages((prev) => [...prev, {
-            kind: "dialog",
-            charId: nameToId[d.speaker] ?? d.speaker,
-            speaker: d.speaker,
-            text: d.text,
-          }]);
-        } else {
-          // Bot/AI reply
+          break;
+        }
+        // Bot/AI reply
+        {
           const nameToId: Record<string, string> = {
             "温棠": "wentang", "裴容": "peirong", "裴琰": "peiyan",
             "裴瑜": "peiyu", "皇后": "empress", "陈嬷嬷": "mama",
