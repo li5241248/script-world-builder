@@ -97,6 +97,11 @@ function Scene() {
   const send = () => {
     const { mode, text } = detectMode(input);
     if (!text) return;
+    if (text === "结局" || text === "结局。") {
+      setInput("");
+      navigate({ to: "/ending" });
+      return;
+    }
     setMessages((prev) => {
       // if a prompt was picked, drop that prompt block when sending
       const filtered =
