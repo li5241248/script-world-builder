@@ -228,7 +228,7 @@ function Scene() {
           </div>
           <button
             onClick={send}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 to-rose-300 text-neutral-900 active:scale-95"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-[#7a2a2a] text-white shadow-[0_2px_10px_rgba(0,0,0,0.35)] active:scale-95"
           >
             <Send size={15} />
           </button>
