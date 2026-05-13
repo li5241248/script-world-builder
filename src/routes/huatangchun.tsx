@@ -85,7 +85,7 @@ function HuatangChun() {
 
         {/* Top bar */}
         <div className="relative z-10 flex items-center justify-between px-5 pt-12">
-          <button className="grid h-9 w-9 place-items-center rounded-full bg-black/25 backdrop-blur-md">
+          <button onClick={() => navigate({ to: "/" })} className="grid h-9 w-9 place-items-center rounded-full bg-black/25 backdrop-blur-md">
             <ChevronLeft className="h-5 w-5 text-white" />
           </button>
           <div className="flex items-center gap-2">
