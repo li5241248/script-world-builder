@@ -442,16 +442,17 @@ function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => vo
   if (!c) return null;
   const actor = ACTORS[charId] ?? "@匿名玩家";
   return (
-    <div className="absolute inset-0 z-30 overflow-y-auto bg-neutral-950 text-white animate-fade-in">
+    <div className="absolute inset-0 z-30 bg-neutral-950 text-white animate-fade-in">
       {/* 关闭按钮 — 固定不动 */}
       <button
         onClick={onClose}
-        className="fixed left-4 top-12 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur active:scale-95"
+        className="absolute left-4 top-12 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur active:scale-95"
         aria-label="关闭"
-        style={{ position: "absolute" }}
       >
         <X size={18} />
       </button>
+
+      <div className="absolute inset-0 overflow-y-auto">
 
       {/* 背景人物 — 随滚动一起向上 */}
       <div className="relative h-72 w-full">
