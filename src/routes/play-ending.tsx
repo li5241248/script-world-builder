@@ -16,6 +16,7 @@ export const Route = createFileRoute("/play-ending")({
     data: typeof s.data === "string" ? s.data : undefined,
   }),
   component: PlayEndingPage,
+  ssr: false,
   head: () => ({
     meta: [
       { title: "结局 · 画堂春" },

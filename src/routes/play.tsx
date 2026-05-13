@@ -32,6 +32,7 @@ export const Route = createFileRoute("/play")({
     partner: typeof s.partner === "string" ? s.partner : "peirong",
   }),
   component: PlayPage,
+  ssr: false,
   head: () => ({
     meta: [
       { title: "游戏中 · 画堂春" },
