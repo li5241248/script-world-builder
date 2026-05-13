@@ -38,9 +38,8 @@ function Ending() {
       <img
         src={sceneBg}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full scale-110 object-cover blur-md"
       />
-      <div className="absolute inset-0 bg-black/50" />
 
       {/* back */}
       <button
