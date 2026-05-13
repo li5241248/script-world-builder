@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Share2, RotateCcw, ChevronLeft, Heart, Search } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/ending-bg.jpg";
+import playerAvatar from "@/assets/player-tingyu.png";
 import { getCharacter } from "@/lib/characters";
 
 export const Route = createFileRoute("/ending")({
@@ -177,9 +178,11 @@ function Ending() {
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <div className="absolute -inset-[2px] rounded-full bg-gradient-to-br from-[#d4a373] to-[#7a2a2a]" />
-                  <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#fbf5ec] text-[12px] font-medium text-[#7a2a2a]">
-                    玩家
-                  </div>
+                  <img
+                    src={playerAvatar}
+                    alt="真人玩家"
+                    className="relative h-10 w-10 rounded-full object-cover"
+                  />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-[10px] text-[#3a2a22]/60">扮演者</div>
@@ -187,7 +190,7 @@ function Ending() {
                   <div className="text-[10px] text-[#3a2a22]/60">ID: 88231 · 已扮演 3 场</div>
                 </div>
                 <button
-                  onClick={() => navigate({ to: "/ending" })}
+                  onClick={() => navigate({ to: "/report" })}
                   className="shrink-0 rounded-full bg-[#7a2a2a]/10 px-3 py-1.5 text-[11px] text-[#7a2a2a] active:scale-95"
                 >
                   亲密关系报告 →
