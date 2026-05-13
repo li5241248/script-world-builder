@@ -264,6 +264,11 @@ function Scene() {
           </button>
         </div>
       </div>
+
+      {/* 角色面板 */}
+      {panelCharId && (
+        <CharacterPanel charId={panelCharId} onClose={() => setPanelCharId(null)} />
+      )}
     </div>
   );
 }
