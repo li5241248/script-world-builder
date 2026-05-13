@@ -15,14 +15,18 @@ export const Route = createFileRoute("/ending")({
   }),
 });
 
-const CAST: { id: string; displayName: string; tag: string }[] = [
-  { id: "wentang", displayName: "温棠", tag: "封妃" },
-  { id: "peiyan", displayName: "裴琰", tag: "健康成长" },
-  { id: "peiyu", displayName: "瑜儿", tag: "认母成功" },
-  { id: "mama", displayName: "采桑", tag: "安居乐业" },
-  { id: "empress", displayName: "皇后", tag: "母仪天下" },
-  { id: "peirong", displayName: "皇帝", tag: "勤政爱民" },
-];
+const PLAYER_ID = "wentang";
+
+// 与主角的关系数据
+const RELATIONS: Record<string, { desc: string; intimacy: number; clues: number; tag: string }> = {
+  peiyan: { desc: "宫中知己，互为依靠的少年与贵妃。", intimacy: 95, clues: 12, tag: "知己" },
+  peiyu: { desc: "表面恭敬，暗藏机锋的君臣之谊。", intimacy: 62, clues: 7, tag: "认母成功" },
+  mama: { desc: "自幼相伴，唯一可以托付秘密的人。", intimacy: 99, clues: 9, tag: "心腹" },
+  empress: { desc: "凤位之下，宫规之内的微妙制衡。", intimacy: 48, clues: 5, tag: "母仪天下" },
+  peirong: { desc: "君妃名分，恩宠与猜忌并存。", intimacy: 70, clues: 8, tag: "勤政爱民" },
+};
+
+const OTHERS = ["peiyan", "peiyu", "mama", "empress", "peirong"];
 
 const STATS: { label: string; value: string; suffix?: string }[] = [
   { label: "亲密度", value: "95", suffix: "%" },
