@@ -343,6 +343,12 @@ function Bubble({ m, picked, onPickHint }: { m: Msg; picked?: boolean; onPickHin
   }
 
   if (m.kind === "reward") {
+    const [visible, setVisible] = useState(true);
+    useEffect(() => {
+      const t = setTimeout(() => setVisible(false), 5000);
+      return () => clearTimeout(t);
+    }, []);
+    if (!visible) return null;
     return (
       <div className="my-2 flex justify-center animate-fade-up">
         <div className="max-w-[88%] rounded-2xl border border-amber-200/30 bg-gradient-to-br from-amber-950/70 to-rose-950/70 px-4 py-2.5 text-center shadow-[0_4px_20px_rgba(0,0,0,0.4)] backdrop-blur-md">
