@@ -48,6 +48,7 @@ export type NodeData = {
   ending_description: string;
   ending_closing: string;
   waiting_for: string;
+  mook_active_role: string;
 };
 
 export type GameState = {

@@ -82,8 +82,15 @@ export function useGame(myRoleId: string = "wentang", gameMode: string = "solo")
     for (const seg of node.segments) {
       newMsgs.push(segmentToMessage(seg));
     }
-    if (node.choices.length > 0 && !node.is_ending) {
+    // Show choices only if it's my turn (or no mook_active_role specified)
+    const isMyTurn = !node.mook_active_role || node.mook_active_role === myRoleId;
+    if (node.choices.length > 0 && !node.is_ending && isMyTurn) {
       newMsgs.push({ kind: "choice", choices: node.choices });
+    } else if (!node.is_ending && isMyTurn && node.waiting_for !== undefined) {
+      // No choices but game continues — show "continue" button
+      newMsgs.push({ kind: "choice", choices: [{ index: 0, text: "继续", influence_hint: "" }] });
+    } else if (!node.is_ending && !isMyTurn) {
+      newMsgs.push({ kind: "notice", text: `等待对方操作中…` });
     }
     if (node.is_ending) {
       newMsgs.push({ kind: "notice", text: `【${node.ending_type}】${node.ending_title}` });
@@ -119,19 +126,19 @@ export function useGame(myRoleId: string = "wentang", gameMode: string = "solo")
       case "message":
         // Real-time message (from speak)
         const d = event.data;
-        // Skip own player messages (already added locally in sendMessage)
-        if (d.speaker_type === "player") {
-          break;
-        }
-        // Bot/AI reply
         {
           const nameToId: Record<string, string> = {
             "温棠": "wentang", "裴容": "peirong", "裴琰": "peiyan",
             "裴瑜": "peiyu", "皇后": "empress", "陈嬷嬷": "mama",
           };
+          const speakerId = nameToId[d.speaker] ?? d.speaker;
+          // Skip own player messages (already added locally in sendMessage)
+          if (d.speaker_type === "player" && speakerId === myRoleId) {
+            break;
+          }
           setMessages((prev) => [...prev, {
             kind: "dialog",
-            charId: nameToId[d.speaker] ?? d.speaker,
+            charId: speakerId,
             speaker: d.speaker,
             text: d.text,
           }]);
