@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Download, Share2, RotateCcw, ChevronLeft } from "lucide-react";
+import { useState } from "react";
+import { Download, Share2, RotateCcw, ChevronLeft, Heart, Search } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/ending-bg.jpg";
 import { getCharacter } from "@/lib/characters";
