@@ -65,8 +65,9 @@ function Play() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Auto-start game on mount
+  // Auto-start game on mount (client-side only)
   useEffect(() => {
+    if (typeof window === "undefined") return;
     if (phase === "idle") {
       // Add role intro message
       setMessages([{ kind: "notice", text: `你将扮演「${roleName}」进入画堂春` }]);

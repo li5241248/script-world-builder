@@ -170,7 +170,8 @@ export function connectWs(
   userId: string,
   onEvent: (event: WsEvent) => void,
   onClose?: () => void,
-): WebSocket {
+): WebSocket | null {
+  if (typeof window === "undefined") return null;
   const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
   const host = window.location.host;
   const ws = new WebSocket(`${protocol}//${host}/ws/games/${gameId}?user_id=${userId}`);
