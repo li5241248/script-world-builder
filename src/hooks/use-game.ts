@@ -8,6 +8,7 @@ import {
   joinGame,
   startGame,
   choose,
+  mookChoose,
   speak,
   finishGame,
   connectWs,
@@ -64,7 +65,7 @@ function segmentToMessage(seg: Segment): ChatMessage {
   return { kind: "dialog", charId: resolvedId, speaker: seg.speaker, text: seg.text };
 }
 
-export function useGame(myRoleId: string = "wentang") {
+export function useGame(myRoleId: string = "wentang", gameMode: string = "solo") {
   const [phase, setPhase] = useState<GamePhase>("idle");
   const [gameId, setGameId] = useState<string>("");
   const [userId] = useState(() => `user_${Math.random().toString(36).slice(2, 8)}`);
@@ -98,6 +99,13 @@ export function useGame(myRoleId: string = "wentang") {
         break;
       case "node_update":
         processNode(event.data);
+        break;
+      case "player_action":
+        // Other player made a choice in MOOK mode
+        setMessages((prev) => [...prev, {
+          kind: "notice",
+          text: `${event.data.role_name || "对方"} 选择了：${event.data.text || "继续"}`,
+        }]);
         break;
       case "game_end":
         setResult(event.data);
@@ -154,8 +162,8 @@ export function useGame(myRoleId: string = "wentang") {
   const initSoloGame = useCallback(async () => {
     setLoading(true);
     try {
-      // Create → Join → Start
-      const meta = await createGame("huatangchun");
+      // Create with protagonist_role to get correct perspective
+      const meta = await createGame("huatangchun", myRoleId);
       setGameId(meta.game_id);
       await joinGame(meta.game_id, userId, myRoleId);
       const nodeData = await startGame(meta.game_id, myRoleId);
@@ -175,13 +183,14 @@ export function useGame(myRoleId: string = "wentang") {
   const initDuoGame = useCallback(async (player2RoleId: string) => {
     setLoading(true);
     try {
-      const meta = await createGame("huatangchun");
+      // Create MOOK (dual-player) story
+      const meta = await createGame("huatangchun_mook", "mook");
       setGameId(meta.game_id);
       // Player 1 joins
       await joinGame(meta.game_id, userId, myRoleId);
       setPhase("joined");
-      // Show invite link — don't auto-start, wait for player 2
-      const inviteUrl = `${window.location.origin}/play?role=${player2RoleId}&join=${meta.game_id}`;
+      // Show invite link
+      const inviteUrl = `${window.location.origin}/play?role=${player2RoleId}&mode=duo&join=${meta.game_id}`;
       setMessages((prev) => [...prev, {
         kind: "notice",
         text: `房间已创建！发送链接给队友加入：`,
@@ -189,9 +198,9 @@ export function useGame(myRoleId: string = "wentang") {
         kind: "notice",
         text: inviteUrl,
       }]);
-      // Connect WS to listen for player 2 joining
+      // Connect WS
       wsRef.current = connectWs(meta.game_id, userId, handleWsEvent);
-      // Auto-start after 3s for demo (in production, wait for player 2)
+      // Auto-start after 3s for demo
       setTimeout(async () => {
         try {
           const nodeData = await startGame(meta.game_id, myRoleId);
@@ -238,7 +247,13 @@ export function useGame(myRoleId: string = "wentang") {
     if (!gameId) return;
     setLoading(true);
     try {
-      const res = await choose(gameId, userId, choiceIndex);
+      let res;
+      if (gameMode === "duo") {
+        // MOOK mode: use mook-choose with role_id
+        res = await mookChoose(gameId, userId, myRoleId, choiceIndex);
+      } else {
+        res = await choose(gameId, userId, choiceIndex);
+      }
       if (res.status === "finished") {
         setResult(res.result);
         setPhase("ended");
@@ -249,10 +264,11 @@ export function useGame(myRoleId: string = "wentang") {
       }
     } catch (e) {
       console.error("choose failed:", e);
+      setMessages((prev) => [...prev, { kind: "notice", text: `操作失败: ${e}` }]);
     } finally {
       setLoading(false);
     }
-  }, [gameId, userId, processNode]);
+  }, [gameId, userId, myRoleId, gameMode, processNode]);
 
   const sendMessage = useCallback(async (text: string) => {
     if (!gameId) return;

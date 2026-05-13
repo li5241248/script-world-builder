@@ -59,7 +59,7 @@ function Play() {
     makeChoice,
     sendMessage,
     endGame,
-  } = useGame(myRole);
+  } = useGame(myRole, gameMode);
 
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);

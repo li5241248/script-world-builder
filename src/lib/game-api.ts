@@ -90,11 +90,11 @@ export type WsEvent = {
 
 const BASE = "";  // proxy handles /api -> localhost:8000
 
-export async function createGame(storyId = "huatangchun"): Promise<GameMeta> {
+export async function createGame(storyId = "huatangchun", protagonistRole = ""): Promise<GameMeta> {
   const res = await fetch(`${BASE}/api/games/create`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ story_id: storyId }),
+    body: JSON.stringify({ story_id: storyId, protagonist_role: protagonistRole }),
   });
   if (!res.ok) throw new Error(`创建房间失败: ${res.status}`);
   return res.json();
@@ -130,6 +130,16 @@ export async function choose(gameId: string, userId: string, choiceIndex: number
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ user_id: userId, choice_index: choiceIndex }),
+  });
+  if (!res.ok) throw new Error(`选择失败: ${res.status}`);
+  return res.json();
+}
+
+export async function mookChoose(gameId: string, userId: string, roleId: string, choiceIndex: number) {
+  const res = await fetch(`${BASE}/api/games/${gameId}/mook-choose`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId, role_id: roleId, choice_index: choiceIndex }),
   });
   if (!res.ok) throw new Error(`选择失败: ${res.status}`);
   return res.json();
