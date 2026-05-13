@@ -116,12 +116,6 @@ function Scene() {
           { kind: "dialog", charId: "peirong", text: "抬起头来，让朕好好看看你。" },
         ]);
       }, 700);
-      setTimeout(() => {
-        setMessages((m) => [
-          ...m,
-          { kind: "prompt", text: "面对陛下逼近的气息，你……" },
-        ]);
-      }, 1600);
       return;
     }
     setMessages((prev) => {
