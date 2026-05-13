@@ -232,8 +232,8 @@ function Scene() {
       </div>
 
       {/* 秘密任务 - 浮在聊天框上方 */}
-      <div className="pointer-events-none absolute bottom-[110px] left-0 right-0 z-20 flex justify-center px-4 animate-fade-up">
-        {secretOpen ? (
+      {secretOpen ? (
+        <div className="pointer-events-none absolute bottom-[110px] left-0 right-0 z-20 flex justify-center px-4 animate-fade-up">
           <div className="pointer-events-auto relative w-full max-w-[340px] overflow-hidden rounded-2xl border border-amber-200/40 bg-[#3a2418]/35 px-3.5 py-2.5 shadow-[0_8px_28px_-10px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
             <div
               className="pointer-events-none absolute inset-0"
@@ -256,18 +256,25 @@ function Scene() {
                   本幕中，让 <span className="font-medium text-amber-200">裴琰</span> 主动喊你一次"<span className="font-medium text-amber-200">母妃</span>"。
                 </p>
               </div>
+              <button
+                onClick={() => setSecretOpen(false)}
+                aria-label="收起"
+                className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-amber-50/60 hover:text-amber-50/95 active:scale-95"
+              >
+                <EyeOff size={13} />
+              </button>
             </div>
           </div>
-        ) : (
-          <button
-            onClick={() => setSecretOpen(true)}
-            className="pointer-events-auto flex items-center gap-1.5 rounded-full border border-amber-200/40 bg-[#3a2418]/40 px-3 py-1 text-[11px] text-amber-100/90 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.4)] backdrop-blur-xl active:scale-95"
-          >
-            <ScrollText size={11} />
-            <span>秘密任务</span>
-          </button>
-        )}
-      </div>
+        </div>
+      ) : (
+        <button
+          onClick={() => setSecretOpen(true)}
+          className="absolute bottom-[110px] left-4 z-20 flex items-center gap-1.5 rounded-full border border-amber-200/40 bg-[#3a2418]/45 px-3 py-1 text-[11px] text-amber-100/90 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.4)] backdrop-blur-xl active:scale-95 animate-fade-in"
+        >
+          <Eye size={11} />
+          <span>秘密任务</span>
+        </button>
+      )}
 
 
       <div
