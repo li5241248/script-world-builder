@@ -34,13 +34,12 @@ function Ending() {
 
   return (
     <div className="relative h-full overflow-hidden">
-      {/* blurred background */}
+      {/* background */}
       <img
         src={sceneBg}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover scale-110 blur-md"
+        className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#3a1f1a]/55 via-[#1f0f0c]/55 to-[#1a0a08]/70" />
 
       {/* back */}
       <button
