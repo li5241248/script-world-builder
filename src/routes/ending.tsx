@@ -166,20 +166,13 @@ function Ending() {
 
           {/* buttons */}
           <div className="mt-5 flex items-center gap-2">
-            <button className="flex flex-1 items-center justify-center gap-1 rounded-full border border-[#7a2a2a]/40 bg-white py-2.5 text-[12px] text-[#7a2a2a] active:scale-[0.99]">
-              <Download size={13} />
-              保存结局
+            <button className="flex flex-1 items-center justify-center gap-1.5 rounded-full border border-[#7a2a2a]/40 bg-white py-2.5 text-[13px] text-[#7a2a2a] active:scale-[0.99]">
+              <Sparkles size={14} />
+              高光时刻
             </button>
-            <button className="flex flex-[1.2] items-center justify-center gap-1.5 rounded-full bg-[#7a2a2a] py-2.5 text-[13px] font-medium text-white shadow-[0_6px_16px_-6px_rgba(122,42,42,0.6)] active:scale-[0.99]">
+            <button className="flex flex-1 items-center justify-center gap-1.5 rounded-full bg-[#7a2a2a] py-2.5 text-[13px] font-medium text-white shadow-[0_6px_16px_-6px_rgba(122,42,42,0.6)] active:scale-[0.99]">
               <Share2 size={14} />
-              分享
-            </button>
-            <button
-              onClick={() => navigate({ to: "/lobby" })}
-              className="flex flex-1 items-center justify-center gap-1 rounded-full border border-[#7a2a2a]/40 bg-white py-2.5 text-[12px] text-[#7a2a2a] active:scale-[0.99]"
-            >
-              <RotateCcw size={13} />
-              再玩一次
+              分享体验
             </button>
           </div>
         </div>
