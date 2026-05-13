@@ -28,11 +28,7 @@ const RELATIONS: Record<string, { desc: string; intimacy: number; clues: number;
 
 const OTHERS = ["peiyan", "peiyu", "mama", "empress", "peirong"];
 
-const STATS: { label: string; value: string; suffix?: string }[] = [
-  { label: "亲密度", value: "95", suffix: "%" },
-  { label: "线索", value: "28", suffix: "/30" },
-  { label: "正确率", value: "100", suffix: "%" },
-];
+
 
 function Ending() {
   const navigate = useNavigate();
