@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SceneRouteImport } from './routes/scene'
 import { Route as ReportRouteImport } from './routes/report'
+import { Route as PlayEndingRouteImport } from './routes/play-ending'
+import { Route as PlayRouteImport } from './routes/play'
 import { Route as MatchingRouteImport } from './routes/matching'
 import { Route as LobbyRouteImport } from './routes/lobby'
 import { Route as InviteRouteImport } from './routes/invite'
@@ -28,6 +30,16 @@ const SceneRoute = SceneRouteImport.update({
 const ReportRoute = ReportRouteImport.update({
   id: '/report',
   path: '/report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlayEndingRoute = PlayEndingRouteImport.update({
+  id: '/play-ending',
+  path: '/play-ending',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlayRoute = PlayRouteImport.update({
+  id: '/play',
+  path: '/play',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MatchingRoute = MatchingRouteImport.update({
@@ -79,6 +91,8 @@ export interface FileRoutesByFullPath {
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/play': typeof PlayRoute
+  '/play-ending': typeof PlayEndingRoute
   '/report': typeof ReportRoute
   '/scene': typeof SceneRoute
   '/character/$id': typeof CharacterIdRoute
@@ -91,6 +105,8 @@ export interface FileRoutesByTo {
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/play': typeof PlayRoute
+  '/play-ending': typeof PlayEndingRoute
   '/report': typeof ReportRoute
   '/scene': typeof SceneRoute
   '/character/$id': typeof CharacterIdRoute
@@ -104,6 +120,8 @@ export interface FileRoutesById {
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/play': typeof PlayRoute
+  '/play-ending': typeof PlayEndingRoute
   '/report': typeof ReportRoute
   '/scene': typeof SceneRoute
   '/character/$id': typeof CharacterIdRoute
@@ -118,6 +136,8 @@ export interface FileRouteTypes {
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/play'
+    | '/play-ending'
     | '/report'
     | '/scene'
     | '/character/$id'
@@ -130,6 +150,8 @@ export interface FileRouteTypes {
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/play'
+    | '/play-ending'
     | '/report'
     | '/scene'
     | '/character/$id'
@@ -142,6 +164,8 @@ export interface FileRouteTypes {
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/play'
+    | '/play-ending'
     | '/report'
     | '/scene'
     | '/character/$id'
@@ -155,6 +179,8 @@ export interface RootRouteChildren {
   InviteRoute: typeof InviteRoute
   LobbyRoute: typeof LobbyRoute
   MatchingRoute: typeof MatchingRoute
+  PlayRoute: typeof PlayRoute
+  PlayEndingRoute: typeof PlayEndingRoute
   ReportRoute: typeof ReportRoute
   SceneRoute: typeof SceneRoute
   CharacterIdRoute: typeof CharacterIdRoute
@@ -174,6 +200,20 @@ declare module '@tanstack/react-router' {
       path: '/report'
       fullPath: '/report'
       preLoaderRoute: typeof ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/play-ending': {
+      id: '/play-ending'
+      path: '/play-ending'
+      fullPath: '/play-ending'
+      preLoaderRoute: typeof PlayEndingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/play': {
+      id: '/play'
+      path: '/play'
+      fullPath: '/play'
+      preLoaderRoute: typeof PlayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/matching': {
@@ -243,6 +283,8 @@ const rootRouteChildren: RootRouteChildren = {
   InviteRoute: InviteRoute,
   LobbyRoute: LobbyRoute,
   MatchingRoute: MatchingRoute,
+  PlayRoute: PlayRoute,
+  PlayEndingRoute: PlayEndingRoute,
   ReportRoute: ReportRoute,
   SceneRoute: SceneRoute,
   CharacterIdRoute: CharacterIdRoute,
@@ -250,3 +292,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
