@@ -33,11 +33,21 @@ const INITIAL: Msg[] = [
   { kind: "prompt", text: "听到这个消息，你心里……" },
 ];
 
+const ACTORS: Record<string, string> = {
+  peirong: "@玄夜听雪",
+  peiyan: "@少年执灯人",
+  peiyu: "@玉折",
+  empress: "@凤栖梧",
+  mama: "@老茶馆",
+  wentang: "@沐雨",
+};
+
 function Scene() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Msg[]>(INITIAL);
   const [input, setInput] = useState("");
   const [pickedPromptIdx, setPickedPromptIdx] = useState<number | null>(null);
+  const [panelCharId, setPanelCharId] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
