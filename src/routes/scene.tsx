@@ -279,7 +279,7 @@ function Scene() {
       ) : (
         <button
           onClick={() => setSecretOpen(true)}
-          className="absolute bottom-[88px] left-4 z-20 flex items-center gap-1.5 rounded-full border border-amber-200/40 bg-[#3a2418]/45 px-3 py-1 text-[11px] text-amber-100/90 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.4)] backdrop-blur-xl active:scale-95 animate-fade-in"
+          className="absolute bottom-[68px] left-4 z-20 flex items-center gap-1.5 rounded-full border border-amber-200/40 bg-[#3a2418]/45 px-3 py-1 text-[11px] text-amber-100/90 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.4)] backdrop-blur-xl active:scale-95 animate-fade-in"
         >
           <Eye size={11} />
           <span>秘密任务</span>
