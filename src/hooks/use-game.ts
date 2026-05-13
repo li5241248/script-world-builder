@@ -97,6 +97,11 @@ export function useGame(myRoleId: string = "wentang", gameMode: string = "solo")
       case "connected":
         // Initial state already loaded via REST
         break;
+      case "game_start":
+        // Player B started the game, process the node
+        setPhase("playing");
+        processNode(event.data);
+        break;
       case "node_update":
         processNode(event.data);
         break;
@@ -192,16 +197,8 @@ export function useGame(myRoleId: string = "wentang", gameMode: string = "solo")
       }]);
       // Connect WS
       wsRef.current = connectWs(meta.game_id, userId, handleWsEvent);
-      // Auto-start after 3s for demo
-      setTimeout(async () => {
-        try {
-          const nodeData = await startGame(meta.game_id, myRoleId);
-          setPhase("playing");
-          processNode(nodeData as unknown as NodeData);
-        } catch (e) {
-          console.error("auto-start failed:", e);
-        }
-      }, 3000);
+      // Wait for player 2 to join, then start
+      // Player 2 joining will trigger via initJoinGame which calls startGame
     } catch (e) {
       console.error("initDuoGame failed:", e);
       setMessages((prev) => [...prev, { kind: "notice", text: `连接失败: ${e}` }]);
@@ -215,17 +212,10 @@ export function useGame(myRoleId: string = "wentang", gameMode: string = "solo")
     try {
       setGameId(existingGameId);
       await joinGame(existingGameId, userId, myRoleId);
-      // Try to start (may already be started)
-      try {
-        const nodeData = await startGame(existingGameId, myRoleId);
-        setPhase("playing");
-        processNode(nodeData as unknown as NodeData);
-      } catch {
-        // Game might already be playing, just get state
-        const state = await import("@/lib/game-api").then(m => m.getGame(existingGameId));
-        setPhase("playing");
-        processNode(state.current_node);
-      }
+      // Both players in, start the game
+      const nodeData = await startGame(existingGameId, myRoleId);
+      setPhase("playing");
+      processNode(nodeData as unknown as NodeData);
       wsRef.current = connectWs(existingGameId, userId, handleWsEvent);
     } catch (e) {
       console.error("initJoinGame failed:", e);
