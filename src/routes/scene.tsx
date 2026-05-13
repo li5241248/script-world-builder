@@ -104,7 +104,7 @@ function Scene() {
   };
 
   const pickHint = (promptIndex: number, text: string) => {
-    const wrapped = `（${text}）`;
+    const wrapped = /^（[\s\S]+）/.test(text) ? text : `（${text}）`;
     setInput(wrapped);
     setPickedPromptIdx(promptIndex);
     requestAnimationFrame(() => {
