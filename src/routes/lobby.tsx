@@ -71,7 +71,12 @@ function Lobby() {
   const canStart = !!charId && scripts.length > 0;
 
   const handleStart = () => {
-    navigate({ to: "/matching" });
+    if (!charId) return;
+    if (mode === "solo") {
+      navigate({ to: "/play", search: { role: charId, mode: "solo" } });
+    } else {
+      navigate({ to: "/play", search: { role: charId, mode: "duo", partner: charId === "wentang" ? "peirong" : "wentang" } });
+    }
   };
 
   const selectedChar = charId ? CHARACTERS.find((c) => c.id === charId) : undefined;

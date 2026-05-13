@@ -30,7 +30,7 @@ function Matching() {
   return (
     <div
       className="relative h-full overflow-hidden cursor-pointer"
-      onClick={() => navigate({ to: "/scene" })}
+      onClick={() => navigate({ to: "/play", search: { role: "wentang", mode: "solo" } })}
     >
       {/* background image */}
       <img
