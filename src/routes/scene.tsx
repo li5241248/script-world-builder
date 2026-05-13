@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, MoreHorizontal, Send, Sparkles, Mic, BookOpen, Feather, Lightbulb, Volume2, Asterisk, Clock, X, UserPlus, Check } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/scene-huatang.jpg";
+import actorAvatar from "@/assets/actor-avatar.png";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
 
 export const Route = createFileRoute("/scene")({
