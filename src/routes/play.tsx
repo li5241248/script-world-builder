@@ -261,6 +261,28 @@ function MessageBubble({
   }
 
   if (m.kind === "dialog" || m.kind === "action") {
+    // If this character is the one I'm playing, show on the right (as "me")
+    const nameToId: Record<string, string> = {
+      "温棠": "wentang", "裴容": "peirong", "裴琰": "peiyan",
+      "裴瑜": "peiyu", "皇后": "empress", "陈嬷嬷": "mama",
+    };
+    const speakerRoleId = nameToId[m.speaker] ?? m.charId;
+    if (speakerRoleId === myRole) {
+      // It's the player's own character speaking (from script) — show as narration/prompt
+      const me = getCharacter(myRole);
+      return (
+        <div className="flex justify-end gap-2">
+          <div className="max-w-[78%]">
+            <div className="rounded-2xl rounded-tr-md bg-black/50 px-4 py-2.5 text-[14px] leading-relaxed text-white shadow-[0_2px_10px_rgba(0,0,0,0.25)] backdrop-blur-sm">
+              {m.text}
+            </div>
+          </div>
+          {me && (
+            <img src={me.img} alt={me.name} className="h-9 w-9 flex-shrink-0 rounded-full object-cover" />
+          )}
+        </div>
+      );
+    }
     const c = getCharacter(m.charId) ?? CHARACTERS[0];
     return (
       <div className="flex gap-2">
