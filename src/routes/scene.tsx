@@ -632,6 +632,9 @@ const RECAP: { act: string; title: string; summary: string; highlights: string[]
 ];
 
 function RecapPanel({ onClose }: { onClose: () => void }) {
+  const startY = useRef<number | null>(null);
+  const [dragY, setDragY] = useState(0);
+
   return (
     <div className="absolute inset-0 z-30 animate-fade-in">
       <button
@@ -639,8 +642,11 @@ function RecapPanel({ onClose }: { onClose: () => void }) {
         aria-label="关闭"
         className="absolute inset-0 bg-black/55 backdrop-blur-sm"
       />
-      <div className="absolute inset-x-0 bottom-0 max-h-[78%] overflow-hidden rounded-t-3xl border-t border-amber-200/20 bg-gradient-to-b from-[#2a1a14] to-[#1a0e14] shadow-[0_-12px_40px_rgba(0,0,0,0.5)] animate-slide-in-up">
-        <div className="flex items-center justify-between px-5 pt-5 pb-3">
+      <div
+        className="absolute inset-x-0 top-0 max-h-[88%] overflow-hidden rounded-b-3xl border-b border-amber-200/20 bg-gradient-to-b from-[#2a1a14] to-[#1a0e14] shadow-[0_12px_40px_rgba(0,0,0,0.5)] animate-fade-in transition-transform"
+        style={{ transform: `translateY(${Math.min(0, -dragY)}px)` }}
+      >
+        <div className="flex items-center justify-between px-5 pt-12 pb-3">
           <div className="flex items-center gap-2">
             <History size={16} className="text-amber-200" />
             <div>
@@ -656,7 +662,7 @@ function RecapPanel({ onClose }: { onClose: () => void }) {
           </button>
         </div>
         <div className="h-px bg-gradient-to-r from-transparent via-amber-200/20 to-transparent" />
-        <div className="max-h-[60vh] overflow-y-auto px-5 py-5">
+        <div className="max-h-[calc(88vh-150px)] overflow-y-auto overscroll-contain px-5 py-5">
           <ol className="relative space-y-5 border-l border-amber-200/20 pl-5">
             {RECAP.map((r, i) => (
               <li key={i} className="relative">
@@ -688,6 +694,23 @@ function RecapPanel({ onClose }: { onClose: () => void }) {
               <div className="text-[12px] italic text-white/55">未来剧情待你书写……</div>
             </li>
           </ol>
+        </div>
+        {/* drag handle */}
+        <div
+          onTouchStart={(e) => { startY.current = e.touches[0].clientY; }}
+          onTouchMove={(e) => {
+            if (startY.current == null) return;
+            const dy = e.touches[0].clientY - startY.current;
+            setDragY(dy);
+          }}
+          onTouchEnd={() => {
+            if (dragY < -40) onClose();
+            else setDragY(0);
+            startY.current = null;
+          }}
+          className="flex cursor-grab items-center justify-center py-2 active:cursor-grabbing"
+        >
+          <span className="h-1 w-10 rounded-full bg-white/25" />
         </div>
       </div>
     </div>
