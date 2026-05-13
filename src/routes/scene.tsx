@@ -469,9 +469,8 @@ function CharacterPanel({ charId, onClose }: { charId: string; onClose: () => vo
         {/* 扮演者 */}
         <div className="flex items-center justify-between py-6">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-300/40 to-rose-400/40 text-[13px] font-semibold text-white">
-              {actor.slice(1, 2)}
-            </div>
+            <img src={actorAvatar} alt={actor} className="h-10 w-10 rounded-full object-cover" />
+
             <div>
               <div className="text-[14px] font-medium text-white">{actor}</div>
               <div className="text-[10px] text-white/55">知乎 · 扮演者</div>
