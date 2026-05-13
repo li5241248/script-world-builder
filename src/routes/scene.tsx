@@ -231,7 +231,61 @@ function Scene() {
         </div>
       </div>
 
-      {/* messages */}
+      {/* 秘密任务 */}
+      <div className="relative z-10 mx-4 mb-1 animate-fade-up">
+        {secretOpen ? (
+          <div className="relative overflow-hidden rounded-xl border border-amber-200/30 bg-gradient-to-br from-[#2a1410]/85 to-[#1a0e1a]/85 px-3.5 py-2.5 shadow-[0_4px_18px_rgba(0,0,0,0.45)] backdrop-blur-md">
+            <div
+              className="pointer-events-none absolute inset-0 opacity-40"
+              style={{
+                background:
+                  "radial-gradient(circle at 20% 0%, rgba(251,191,36,0.18), transparent 55%)",
+              }}
+            />
+            <div className="relative flex items-start gap-2.5">
+              <div className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md border border-amber-200/30 bg-amber-200/10">
+                <ScrollText size={13} className="text-amber-200" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="mb-1 flex items-center gap-1.5">
+                  <span className="text-[9px] tracking-[0.35em] text-amber-200/85">秘 密 任 务</span>
+                  <span className="rounded-sm bg-amber-200/15 px-1 py-px text-[8px] tracking-wider text-amber-100/80">仅你可见</span>
+                </div>
+                {secretRevealed ? (
+                  <p className="text-[12.5px] leading-snug text-white/95">
+                    本幕中，让 <span className="text-amber-200">裴琰</span> 主动喊你一次"<span className="text-amber-200">母妃</span>"。
+                  </p>
+                ) : (
+                  <button
+                    onClick={() => setSecretRevealed(true)}
+                    className="flex items-center gap-1.5 text-[12px] text-white/70 active:scale-[0.98]"
+                  >
+                    <Lock size={11} />
+                    <span>轻触揭示本幕任务</span>
+                  </button>
+                )}
+              </div>
+              <button
+                onClick={() => setSecretOpen(false)}
+                aria-label="收起"
+                className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-white/55 hover:text-white/90"
+              >
+                <EyeOff size={13} />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => setSecretOpen(true)}
+            className="flex items-center gap-1.5 rounded-full border border-amber-200/30 bg-black/45 px-3 py-1 text-[11px] text-amber-100/85 backdrop-blur-md active:scale-95"
+          >
+            <ScrollText size={11} />
+            <span>秘密任务</span>
+          </button>
+        )}
+      </div>
+
+
       <div
         ref={scrollRef}
         className="relative z-10 flex-1 overflow-y-auto px-4 pb-32"
