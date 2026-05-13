@@ -235,7 +235,7 @@ function Scene() {
 
       {/* input bar */}
       <div className="absolute bottom-0 left-0 right-0 z-20 border-t border-white/10 bg-black/55 px-3 pb-6 pt-3 backdrop-blur-xl">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full min-w-0">
           {/* voice input button (replaces 说/动作 toggle) */}
           <button
             aria-label="语音输入"
