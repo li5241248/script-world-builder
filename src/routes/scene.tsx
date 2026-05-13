@@ -101,6 +101,19 @@ function Scene() {
         ...m,
         { kind: "dialog", charId: "peirong", text: "嗯……你倒是比朕想的更沉得住气。" },
       ]);
+      setTimeout(() => {
+        setMessages((m) => [
+          ...m,
+          {
+            kind: "reward",
+            affinities: [
+              { charId: "peirong", delta: 10 },
+              { charId: "peiyan", delta: 15 },
+            ],
+            unlock: "采桑宫温居",
+          },
+        ]);
+      }, 700);
     }, 900);
   };
 
