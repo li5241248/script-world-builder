@@ -194,10 +194,10 @@ function Scene() {
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => setRecapOpen(true)}
-            className="flex h-9 items-center gap-1 rounded-full bg-black/35 px-2.5 text-[11px] text-white/90 backdrop-blur active:scale-95"
+            aria-label="剧情回溯"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95"
           >
-            <History size={14} />
-            <span>剧情回溯</span>
+            <History size={16} />
           </button>
           <button className="flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur active:scale-95">
             <MoreHorizontal size={18} />
