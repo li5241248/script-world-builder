@@ -43,7 +43,8 @@ function AdaptPreviewPage() {
 
   return (
     <PhoneMockup>
-      <div className="relative h-full overflow-y-auto bg-[#0d0b14] pb-28 no-scrollbar">
+      <div className="relative h-full bg-[#0d0b14]">
+      <div className="h-full overflow-y-auto pb-28 no-scrollbar">
         <header className="sticky top-0 z-30 flex items-center justify-between bg-[#0d0b14]/95 backdrop-blur-md px-4 pb-3 pt-12 border-b border-white/5">
           <button
             onClick={() => navigate({ to: "/adapt" })}
