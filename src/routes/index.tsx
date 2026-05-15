@@ -70,22 +70,22 @@ function GameHub() {
       {/* Top bar */}
       <header className="sticky top-0 z-20 bg-[#fbf7ef]/90 px-5 pb-3 pt-12 backdrop-blur-md">
         <div className="flex items-center justify-between">
-          <div>
-            <div className="text-[10px] tracking-[0.3em] text-neutral-500">ZHIHU · SALT</div>
-            <h1 className="font-brush text-2xl text-neutral-900">盐选 · 互动文游</h1>
-          </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => navigate({ to: "/novel" })}
-              className="grid h-9 w-9 place-items-center rounded-full bg-black/[0.05]"
+              className="-ml-1 grid h-8 w-8 place-items-center"
               aria-label="返回画堂春"
             >
-              <ChevronLeft className="h-4 w-4 text-neutral-700" />
+              <ChevronLeft className="h-5 w-5 text-neutral-700" />
             </button>
-            <button className="grid h-9 w-9 place-items-center rounded-full bg-black/[0.05]" aria-label="通知">
-              <Bell className="h-4 w-4 text-neutral-700" />
-            </button>
+            <div>
+              <div className="text-[10px] tracking-[0.3em] text-neutral-500">ZHIHU · SALT</div>
+              <h1 className="font-brush text-2xl text-neutral-900">盐选 · 互动文游</h1>
+            </div>
           </div>
+          <button className="grid h-9 w-9 place-items-center rounded-full bg-black/[0.05]" aria-label="通知">
+            <Bell className="h-4 w-4 text-neutral-700" />
+          </button>
         </div>
 
         {/* Category chips */}
