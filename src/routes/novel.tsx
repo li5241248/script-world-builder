@@ -29,9 +29,9 @@ function NovelPage() {
   const navigate = useNavigate();
   return (
     <PhoneMockup>
-      <div className="relative h-full overflow-y-auto bg-white pb-32 no-scrollbar">
+      <div className="relative flex h-full flex-col bg-white">
         {/* Top bar */}
-        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-black/5 bg-white px-4 pb-3 pt-12">
+        <header className="z-20 flex shrink-0 items-center justify-between border-b border-black/5 bg-white px-4 pb-3 pt-12">
           <div className="text-[22px] font-bold leading-none text-[#0084FF]">知乎</div>
           <div className="flex items-center gap-3">
             <button className="flex items-center gap-1 text-[12px] text-neutral-500" aria-label="收藏">
@@ -44,51 +44,54 @@ function NovelPage() {
           </div>
         </header>
 
-        {/* Title */}
-        <section className="px-6 pt-6">
-          <h1 className="text-[26px] font-bold tracking-wide text-neutral-900">画堂春</h1>
-          <div className="mt-5 flex items-center gap-1 text-[11px] text-neutral-400">
-            <span>©</span>
-            <span>本内容版权为知乎及版权方所有，正在受版权保护中</span>
-            <span className="ml-0.5 grid h-3 w-3 place-items-center rounded-full border border-neutral-300 text-[8px]">?</span>
-          </div>
-        </section>
-
-        {/* Body */}
-        <article className="px-6 pt-5">
-          <div className="space-y-5 text-[15px] leading-[1.95] text-neutral-800">
-            {PARAGRAPHS.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-
-          {/* CTA — 改编为互动文游 */}
-          <button
-            onClick={() => navigate({ to: "/adapt" })}
-            className="group mt-10 block w-full overflow-hidden rounded-2xl text-left shadow-[0_18px_40px_-18px_rgba(0,0,0,0.45)] active:scale-[0.99] transition"
-            style={{ background: "var(--gradient-rouge)" }}
-          >
-            <div className="relative px-5 py-4 text-white">
-              <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/10 blur-xl" />
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4" />
-                <span className="text-[10px] tracking-[0.3em] text-white/80">AI · INTERACTIVE</span>
-              </div>
-              <div className="mt-2 flex items-end justify-between">
-                <div>
-                  <div className="text-[17px] font-semibold leading-tight">改编为互动文游</div>
-                  <p className="mt-1 text-[11px] leading-5 text-white/85">让 AI 把这本小说变成你能代入主角的故事</p>
-                </div>
-                <span className="flex shrink-0 items-center gap-1 rounded-full bg-white/15 px-3 py-1.5 text-[11px] backdrop-blur-md">
-                  立即改编 <ChevronRight className="h-3 w-3" />
-                </span>
-              </div>
+        {/* Scrollable content */}
+        <div className="flex-1 overflow-y-auto pb-6 no-scrollbar">
+          {/* Title */}
+          <section className="px-6 pt-6">
+            <h1 className="text-[26px] font-bold tracking-wide text-neutral-900">画堂春</h1>
+            <div className="mt-5 flex items-center gap-1 text-[11px] text-neutral-400">
+              <span>©</span>
+              <span>本内容版权为知乎及版权方所有，正在受版权保护中</span>
+              <span className="ml-0.5 grid h-3 w-3 place-items-center rounded-full border border-neutral-300 text-[8px]">?</span>
             </div>
-          </button>
-        </article>
+          </section>
 
-        {/* Bottom toolbar */}
-        <div className="sticky bottom-0 left-0 right-0 z-20 flex items-center justify-between border-t border-black/5 bg-white px-5 py-3">
+          {/* Body */}
+          <article className="px-6 pt-5">
+            <div className="space-y-5 text-[15px] leading-[1.95] text-neutral-800">
+              {PARAGRAPHS.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+
+            {/* CTA — 改编为互动文游 */}
+            <button
+              onClick={() => navigate({ to: "/adapt" })}
+              className="group mt-10 block w-full overflow-hidden rounded-2xl text-left shadow-[0_18px_40px_-18px_rgba(0,0,0,0.45)] active:scale-[0.99] transition"
+              style={{ background: "var(--gradient-rouge)" }}
+            >
+              <div className="relative px-5 py-4 text-white">
+                <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/10 blur-xl" />
+                <div className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4" />
+                  <span className="text-[10px] tracking-[0.3em] text-white/80">AI · INTERACTIVE</span>
+                </div>
+                <div className="mt-2 flex items-end justify-between">
+                  <div>
+                    <div className="text-[17px] font-semibold leading-tight">改编为互动文游</div>
+                    <p className="mt-1 text-[11px] leading-5 text-white/85">让 AI 把这本小说变成你能代入主角的故事</p>
+                  </div>
+                  <span className="flex shrink-0 items-center gap-1 rounded-full bg-white/15 px-3 py-1.5 text-[11px] backdrop-blur-md">
+                    立即改编 <ChevronRight className="h-3 w-3" />
+                  </span>
+                </div>
+              </div>
+            </button>
+          </article>
+        </div>
+
+        {/* Bottom toolbar — always pinned */}
+        <div className="z-20 flex shrink-0 items-center justify-between border-t border-black/5 bg-white px-5 py-3">
           <div className="flex items-center gap-2 rounded-full bg-[#EAF4FF] px-3 py-1.5 text-[12px] text-[#0084FF]">
             <ThumbsUp className="h-3.5 w-3.5" />
             <span className="font-medium">赞同 10.8 万</span>
