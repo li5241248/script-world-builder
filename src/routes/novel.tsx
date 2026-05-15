@@ -79,10 +79,7 @@ function NovelPage() {
                     <div className="text-[17px] font-semibold leading-tight text-neutral-900">改编为互动文游</div>
                     <p className="mt-1 text-[11px] leading-5 text-neutral-500">让 AI 把这本小说变成你能代入主角的故事</p>
                   </div>
-                  <span
-                    className="flex shrink-0 items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(232,107,90,0.6)]"
-                    style={{ background: "var(--gradient-rouge)" }}
-                  >
+                  <span className="flex shrink-0 items-center gap-1 rounded-full bg-neutral-900 px-3 py-1.5 text-[11px] font-medium text-white">
                     立即改编 <ChevronRight className="h-3 w-3" />
                   </span>
                 </div>
