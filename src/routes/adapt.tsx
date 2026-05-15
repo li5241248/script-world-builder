@@ -135,7 +135,7 @@ function AdaptPage() {
         <section className="mt-6 px-5">
           {done ? (
             <button
-              onClick={() => navigate({ to: "/" })}
+              onClick={() => navigate({ to: "/", search: { entered: "1" } })}
               className="group block w-full overflow-hidden rounded-2xl text-left shadow-[0_18px_40px_-12px_rgba(232,107,90,0.5)] active:scale-[0.99] transition"
               style={{ background: "var(--gradient-rouge)" }}
             >
