@@ -234,7 +234,7 @@ function AdaptPreviewPage() {
         </section>
 
         {/* Bottom CTA */}
-        <div className="fixed bottom-0 left-1/2 z-30 w-full max-w-[390px] -translate-x-1/2 bg-gradient-to-t from-[#0d0b14] via-[#0d0b14]/95 to-transparent px-5 pb-6 pt-6">
+        <div className="absolute bottom-0 left-0 right-0 z-30 bg-gradient-to-t from-[#0d0b14] via-[#0d0b14]/95 to-transparent px-5 pb-6 pt-6">
           <button
             onClick={() => navigate({ to: "/huatangchun" })}
             className="block w-full rounded-2xl px-5 py-3.5 text-[14px] font-semibold text-white shadow-[0_18px_40px_-12px_rgba(232,107,90,0.55)] active:scale-[0.99] transition"
