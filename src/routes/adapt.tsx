@@ -61,7 +61,7 @@ function AdaptPage() {
             <div className="absolute inset-x-0 bottom-0 p-4">
               <div className="flex items-center gap-1.5 text-white/80">
                 <Sparkles className="h-3.5 w-3.5" />
-                <span className="text-[10px] tracking-[0.3em]">ZHIHU · SALT AI</span>
+                <span className="text-[10px] tracking-[0.3em]">知乎 · 盐言 AI</span>
               </div>
               <h1 className="font-brush text-3xl text-white drop-shadow">画堂春 · 改编中</h1>
             </div>
@@ -141,7 +141,7 @@ function AdaptPage() {
             >
               <div className="flex items-center justify-between px-5 py-4 text-white">
                 <div>
-                  <div className="text-[10px] tracking-[0.3em] text-white/80">ADAPTATION COMPLETE</div>
+                  <div className="text-[10px] tracking-[0.3em] text-white/80">改编完成</div>
                   <div className="mt-1 text-[16px] font-semibold">查看互动文游</div>
                 </div>
                 <span className="rounded-full bg-white/15 px-4 py-1.5 text-[12px] backdrop-blur-md">
