@@ -71,12 +71,18 @@ function NovelPage() {
             >
               <div className="relative px-5 py-4 text-neutral-900">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-neutral-500" />
+                  <Sparkles
+                    className="h-4 w-4"
+                    style={{ color: "transparent", background: "var(--gradient-rouge)", WebkitBackgroundClip: "text", backgroundClip: "text", fill: "url(#rougeGrad)" }}
+                  />
                   <span className="text-[10px] tracking-[0.3em] text-neutral-500">AI · INTERACTIVE</span>
                 </div>
                 <div className="mt-2 flex items-end justify-between">
                   <div>
-                    <div className="text-[17px] font-semibold leading-tight text-neutral-900">改编为互动文游</div>
+                    <div
+                      className="text-[17px] font-semibold leading-tight bg-clip-text text-transparent"
+                      style={{ backgroundImage: "var(--gradient-rouge)" }}
+                    >改编为互动文游</div>
                     <p className="mt-1 text-[11px] leading-5 text-neutral-500">让 AI 把这本小说变成你能代入主角的故事</p>
                   </div>
                   <span
