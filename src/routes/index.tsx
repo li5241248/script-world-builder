@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { Search, Bell, Sparkles, Flame, Lock, ChevronRight, Users, Clock } from "lucide-react";
 import heroHuatang from "@/assets/hero-huatangchun.jpg";
 import coverJiu from "@/assets/cover-jiuchongxue.jpg";
@@ -8,6 +8,12 @@ import coverXing from "@/assets/cover-xinghai.jpg";
 import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/")({
+  validateSearch: (s: Record<string, unknown>) => ({ entered: s.entered === "1" ? "1" : undefined }),
+  beforeLoad: ({ search }) => {
+    if (!search.entered) {
+      throw redirect({ to: "/novel" });
+    }
+  },
   component: HomePage,
   head: () => ({
     meta: [
