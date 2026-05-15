@@ -13,7 +13,7 @@
  */
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, Send, Sparkles, Mic, Asterisk, Clock, BookOpen } from "lucide-react";
+import { ChevronLeft, Send, Sparkles, Mic, Asterisk, Clock, BookOpen, Volume2 } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/scene-huatang.jpg";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
