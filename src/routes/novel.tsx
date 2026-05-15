@@ -71,10 +71,7 @@ function NovelPage() {
             >
               <div className="relative px-5 py-4 text-neutral-900">
                 <div className="flex items-center gap-2">
-                  <Sparkles
-                    className="h-4 w-4"
-                    style={{ color: "transparent", background: "var(--gradient-rouge)", WebkitBackgroundClip: "text", backgroundClip: "text", fill: "url(#rougeGrad)" }}
-                  />
+                  <Sparkles className="h-4 w-4" style={{ color: "#e86b5a" }} />
                   <span className="text-[10px] tracking-[0.3em] text-neutral-500">AI · INTERACTIVE</span>
                 </div>
                 <div className="mt-2 flex items-end justify-between">
