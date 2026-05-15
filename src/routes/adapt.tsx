@@ -46,7 +46,7 @@ function AdaptPage() {
           >
             <ChevronLeft className="h-4 w-4 text-white" />
           </button>
-          <div className="text-[10px] tracking-[0.3em] text-white/60">AI 改编工作台</div>
+          <div className="text-[14px] tracking-[0.3em] text-white/80">AI 改编工作台</div>
           <div className="h-9 w-9" />
         </header>
 
