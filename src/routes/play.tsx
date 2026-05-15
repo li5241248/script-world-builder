@@ -13,7 +13,7 @@
  */
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, Send, Sparkles, Mic, Asterisk, Clock, BookOpen } from "lucide-react";
+import { ChevronLeft, Send, Sparkles, Mic, Asterisk, Clock, BookOpen, Volume2 } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 import sceneBg from "@/assets/scene-huatang.jpg";
 import { CHARACTERS, getCharacter } from "@/lib/characters";
@@ -63,6 +63,7 @@ function Play() {
   } = useGame(myRole, gameMode);
 
   const [input, setInput] = useState("");
+  const [showImmersiveModal, setShowImmersiveModal] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const initRef = useRef(false);
@@ -216,6 +217,37 @@ function Play() {
           </button>
         </div>
       </div>
+
+      {/* Immersive experience modal */}
+      {showImmersiveModal && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-8">
+          <div className="w-full max-w-[300px] rounded-2xl bg-gradient-to-b from-[#2a1a1a] to-[#1a1014] border border-white/10 p-6 text-center shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#7a2a2a]/30 border border-[#7a2a2a]/50">
+              <Volume2 size={22} className="text-[#e8b88a]" />
+            </div>
+            <div className="font-brush text-[20px] tracking-[0.15em] text-white mb-2">
+              开启沉浸体验
+            </div>
+            <p className="text-[12px] leading-relaxed text-white/70 mb-5">
+              建议开启声音，配合环境音效与角色配音，<br />让你更深入这场画堂春的故事。
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowImmersiveModal(false)}
+                className="flex-1 rounded-full bg-white/10 px-4 py-2.5 text-[12px] text-white/70 active:scale-95"
+              >
+                稍后
+              </button>
+              <button
+                onClick={() => setShowImmersiveModal(false)}
+                className="flex-1 rounded-full bg-[#7a2a2a] px-4 py-2.5 text-[12px] text-white shadow-[0_2px_10px_rgba(122,42,42,0.5)] active:scale-95"
+              >
+                开启声音
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
