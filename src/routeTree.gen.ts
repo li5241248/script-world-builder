@@ -13,12 +13,14 @@ import { Route as SceneRouteImport } from './routes/scene'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as PlayEndingRouteImport } from './routes/play-ending'
 import { Route as PlayRouteImport } from './routes/play'
+import { Route as NovelRouteImport } from './routes/novel'
 import { Route as MatchingRouteImport } from './routes/matching'
 import { Route as LobbyRouteImport } from './routes/lobby'
 import { Route as InviteRouteImport } from './routes/invite'
 import { Route as HuatangchunRouteImport } from './routes/huatangchun'
 import { Route as EndingRouteImport } from './routes/ending'
 import { Route as ConfirmRouteImport } from './routes/confirm'
+import { Route as AdaptRouteImport } from './routes/adapt'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CharacterIdRouteImport } from './routes/character.$id'
 
@@ -40,6 +42,11 @@ const PlayEndingRoute = PlayEndingRouteImport.update({
 const PlayRoute = PlayRouteImport.update({
   id: '/play',
   path: '/play',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovelRoute = NovelRouteImport.update({
+  id: '/novel',
+  path: '/novel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MatchingRoute = MatchingRouteImport.update({
@@ -72,6 +79,11 @@ const ConfirmRoute = ConfirmRouteImport.update({
   path: '/confirm',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdaptRoute = AdaptRouteImport.update({
+  id: '/adapt',
+  path: '/adapt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -85,12 +97,14 @@ const CharacterIdRoute = CharacterIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/adapt': typeof AdaptRoute
   '/confirm': typeof ConfirmRoute
   '/ending': typeof EndingRoute
   '/huatangchun': typeof HuatangchunRoute
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/novel': typeof NovelRoute
   '/play': typeof PlayRoute
   '/play-ending': typeof PlayEndingRoute
   '/report': typeof ReportRoute
@@ -99,12 +113,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/adapt': typeof AdaptRoute
   '/confirm': typeof ConfirmRoute
   '/ending': typeof EndingRoute
   '/huatangchun': typeof HuatangchunRoute
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/novel': typeof NovelRoute
   '/play': typeof PlayRoute
   '/play-ending': typeof PlayEndingRoute
   '/report': typeof ReportRoute
@@ -114,12 +130,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/adapt': typeof AdaptRoute
   '/confirm': typeof ConfirmRoute
   '/ending': typeof EndingRoute
   '/huatangchun': typeof HuatangchunRoute
   '/invite': typeof InviteRoute
   '/lobby': typeof LobbyRoute
   '/matching': typeof MatchingRoute
+  '/novel': typeof NovelRoute
   '/play': typeof PlayRoute
   '/play-ending': typeof PlayEndingRoute
   '/report': typeof ReportRoute
@@ -130,12 +148,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/adapt'
     | '/confirm'
     | '/ending'
     | '/huatangchun'
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/novel'
     | '/play'
     | '/play-ending'
     | '/report'
@@ -144,12 +164,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/adapt'
     | '/confirm'
     | '/ending'
     | '/huatangchun'
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/novel'
     | '/play'
     | '/play-ending'
     | '/report'
@@ -158,12 +180,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/adapt'
     | '/confirm'
     | '/ending'
     | '/huatangchun'
     | '/invite'
     | '/lobby'
     | '/matching'
+    | '/novel'
     | '/play'
     | '/play-ending'
     | '/report'
@@ -173,12 +197,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdaptRoute: typeof AdaptRoute
   ConfirmRoute: typeof ConfirmRoute
   EndingRoute: typeof EndingRoute
   HuatangchunRoute: typeof HuatangchunRoute
   InviteRoute: typeof InviteRoute
   LobbyRoute: typeof LobbyRoute
   MatchingRoute: typeof MatchingRoute
+  NovelRoute: typeof NovelRoute
   PlayRoute: typeof PlayRoute
   PlayEndingRoute: typeof PlayEndingRoute
   ReportRoute: typeof ReportRoute
@@ -214,6 +240,13 @@ declare module '@tanstack/react-router' {
       path: '/play'
       fullPath: '/play'
       preLoaderRoute: typeof PlayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/novel': {
+      id: '/novel'
+      path: '/novel'
+      fullPath: '/novel'
+      preLoaderRoute: typeof NovelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/matching': {
@@ -258,6 +291,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfirmRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/adapt': {
+      id: '/adapt'
+      path: '/adapt'
+      fullPath: '/adapt'
+      preLoaderRoute: typeof AdaptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -277,12 +317,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdaptRoute: AdaptRoute,
   ConfirmRoute: ConfirmRoute,
   EndingRoute: EndingRoute,
   HuatangchunRoute: HuatangchunRoute,
   InviteRoute: InviteRoute,
   LobbyRoute: LobbyRoute,
   MatchingRoute: MatchingRoute,
+  NovelRoute: NovelRoute,
   PlayRoute: PlayRoute,
   PlayEndingRoute: PlayEndingRoute,
   ReportRoute: ReportRoute,
