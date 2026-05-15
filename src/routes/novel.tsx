@@ -67,21 +67,19 @@ function NovelPage() {
             {/* CTA — 改编为互动文游 */}
             <button
               onClick={() => navigate({ to: "/adapt" })}
-              className="group mt-10 block w-full overflow-hidden rounded-2xl text-left shadow-[0_18px_40px_-18px_rgba(0,0,0,0.45)] active:scale-[0.99] transition"
-              style={{ background: "var(--gradient-rouge)" }}
+              className="group mt-10 block w-full overflow-hidden rounded-2xl border border-black/5 bg-neutral-100 text-left transition hover:bg-neutral-200/70 active:scale-[0.99]"
             >
-              <div className="relative px-5 py-4 text-white">
-                <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/10 blur-xl" />
+              <div className="relative px-5 py-4 text-neutral-900">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4" />
-                  <span className="text-[10px] tracking-[0.3em] text-white/80">AI · INTERACTIVE</span>
+                  <Sparkles className="h-4 w-4 text-neutral-500" />
+                  <span className="text-[10px] tracking-[0.3em] text-neutral-500">AI · INTERACTIVE</span>
                 </div>
                 <div className="mt-2 flex items-end justify-between">
                   <div>
-                    <div className="text-[17px] font-semibold leading-tight">改编为互动文游</div>
-                    <p className="mt-1 text-[11px] leading-5 text-white/85">让 AI 把这本小说变成你能代入主角的故事</p>
+                    <div className="text-[17px] font-semibold leading-tight text-neutral-900">改编为互动文游</div>
+                    <p className="mt-1 text-[11px] leading-5 text-neutral-500">让 AI 把这本小说变成你能代入主角的故事</p>
                   </div>
-                  <span className="flex shrink-0 items-center gap-1 rounded-full bg-white/15 px-3 py-1.5 text-[11px] backdrop-blur-md">
+                  <span className="flex shrink-0 items-center gap-1 rounded-full bg-neutral-900 px-3 py-1.5 text-[11px] font-medium text-white">
                     立即改编 <ChevronRight className="h-3 w-3" />
                   </span>
                 </div>
