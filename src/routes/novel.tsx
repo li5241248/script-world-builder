@@ -72,7 +72,7 @@ function NovelPage() {
               <div className="relative px-5 py-4 text-neutral-900">
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-neutral-500" />
-                  <span className="text-[10px] tracking-[0.3em] text-neutral-500">AI · INTERACTIVE</span>
+                  <span className="text-[10px] tracking-[0.3em] text-neutral-500">AI · 互动文游</span>
                 </div>
                 <div className="mt-2 flex items-end justify-between">
                   <div>

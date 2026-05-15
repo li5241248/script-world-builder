@@ -54,7 +54,7 @@ function AdaptPreviewPage() {
             <ChevronLeft className="h-4 w-4 text-white" />
           </button>
           <div className="text-center">
-            <div className="text-[10px] tracking-[0.3em] text-white/50">PREVIEW & EDIT</div>
+            <div className="text-[10px] tracking-[0.3em] text-white/50">预览与编辑</div>
             <div className="text-[13px] font-medium text-white">改编预览</div>
           </div>
           <div className="flex items-center gap-1 text-[10px] text-white/60">
@@ -205,7 +205,7 @@ function AdaptPreviewPage() {
                     ) : (
                       <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-white/40">
                         <Loader2 className="h-5 w-5 animate-spin" style={{ color: "var(--gold)" }} />
-                        <div className="text-[10px] tracking-[0.2em]">GENERATING…</div>
+                        <div className="text-[10px] tracking-[0.2em]">生成中…</div>
                       </div>
                     )}
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-2">
