@@ -233,6 +233,7 @@ function AdaptPreviewPage() {
             </div>
           )}
         </section>
+      </div>
 
         {/* Bottom CTA */}
         <div className="absolute bottom-0 left-0 right-0 z-30 bg-gradient-to-t from-[#0d0b14] via-[#0d0b14]/95 to-transparent px-5 pb-6 pt-6">
