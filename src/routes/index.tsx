@@ -1,5 +1,5 @@
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
-import { Search, Bell, Sparkles, Flame, Lock, ChevronRight, Users, Clock } from "lucide-react";
+import { ChevronLeft, Bell, Sparkles, Flame, Lock, ChevronRight, Users, Clock } from "lucide-react";
 import heroHuatang from "@/assets/hero-huatangchun.jpg";
 import coverJiu from "@/assets/cover-jiuchongxue.jpg";
 import coverWu from "@/assets/cover-wugang.jpg";
@@ -75,8 +75,12 @@ function GameHub() {
             <h1 className="font-brush text-2xl text-neutral-900">盐选 · 互动文游</h1>
           </div>
           <div className="flex items-center gap-2">
-            <button className="grid h-9 w-9 place-items-center rounded-full bg-black/[0.05]" aria-label="搜索">
-              <Search className="h-4 w-4 text-neutral-700" />
+            <button
+              onClick={() => navigate({ to: "/novel" })}
+              className="grid h-9 w-9 place-items-center rounded-full bg-black/[0.05]"
+              aria-label="返回画堂春"
+            >
+              <ChevronLeft className="h-4 w-4 text-neutral-700" />
             </button>
             <button className="grid h-9 w-9 place-items-center rounded-full bg-black/[0.05]" aria-label="通知">
               <Bell className="h-4 w-4 text-neutral-700" />
