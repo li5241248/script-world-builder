@@ -63,6 +63,7 @@ function Play() {
   } = useGame(myRole, gameMode);
 
   const [input, setInput] = useState("");
+  const [showImmersiveModal, setShowImmersiveModal] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const initRef = useRef(false);
