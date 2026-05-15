@@ -137,9 +137,19 @@ function AdaptPreviewPage() {
             chars.map((c) => {
               const editing = editingId === c.id;
               return (
-                <div key={c.id} className="rounded-2xl border border-white/5 bg-white/[0.04] p-3">
+                <div key={c.id} className="group rounded-2xl border border-white/5 bg-white/[0.04] p-3">
                   <div className="flex gap-3">
-                    <img src={c.img} alt={c.name} className="h-16 w-16 rounded-xl object-cover" />
+                    <div className="relative h-16 w-16 shrink-0">
+                      <img src={c.img} alt={c.name} className="h-16 w-16 rounded-xl object-cover" />
+                      <button
+                        type="button"
+                        className="absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-xl bg-black/65 text-[10px] text-white opacity-0 transition group-hover:opacity-100"
+                        aria-label="重新生成头像"
+                      >
+                        <RefreshCw className="h-3.5 w-3.5" style={{ color: "var(--gold)" }} />
+                        重新生成
+                      </button>
+                    </div>
                     <div className="flex-1 min-w-0">
                       {editing ? (
                         <>
