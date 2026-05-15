@@ -8,6 +8,12 @@ import coverXing from "@/assets/cover-xinghai.jpg";
 import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/")({
+  validateSearch: (s: Record<string, unknown>) => ({ entered: s.entered === "1" ? "1" : undefined }),
+  beforeLoad: ({ search }) => {
+    if (!search.entered) {
+      throw redirect({ to: "/novel" });
+    }
+  },
   component: HomePage,
   head: () => ({
     meta: [
