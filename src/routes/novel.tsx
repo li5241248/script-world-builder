@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Heart, Accessibility, ThumbsUp, ThumbsDown, MessageCircle, Sparkles, ChevronRight } from "lucide-react";
+import { ThumbsUp, ThumbsDown, MessageCircle, Sparkles, ChevronRight } from "lucide-react";
 import { PhoneMockup } from "@/components/PhoneMockup";
 
 export const Route = createFileRoute("/novel")({
@@ -33,15 +33,15 @@ function NovelPage() {
         {/* Top bar */}
         <header className="z-20 flex shrink-0 items-center justify-between border-b border-black/5 bg-white px-4 pb-3 pt-12">
           <div className="text-[22px] font-bold leading-none text-[#0084FF]">知乎</div>
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-1 text-[12px] text-neutral-500" aria-label="收藏">
-              <Heart className="h-3.5 w-3.5" />
-              <span>无障碍</span>
-            </button>
-            <div className="h-7 w-7 overflow-hidden rounded-full bg-neutral-200">
-              <div className="h-full w-full bg-gradient-to-br from-neutral-300 to-neutral-500" />
-            </div>
-          </div>
+          <button
+            onClick={() => navigate({ to: "/", search: { entered: "1" } })}
+            className="flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-medium text-white shadow-[0_8px_20px_-8px_rgba(232,107,90,0.6)] active:scale-[0.98] transition"
+            style={{ background: "var(--gradient-rouge)" }}
+          >
+            <Sparkles className="h-3 w-3" />
+            <span>进入严选 · 互动文游</span>
+            <ChevronRight className="h-3 w-3" />
+          </button>
         </header>
 
         {/* Scrollable content */}
