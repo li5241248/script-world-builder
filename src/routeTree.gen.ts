@@ -20,6 +20,7 @@ import { Route as InviteRouteImport } from './routes/invite'
 import { Route as HuatangchunRouteImport } from './routes/huatangchun'
 import { Route as EndingRouteImport } from './routes/ending'
 import { Route as ConfirmRouteImport } from './routes/confirm'
+import { Route as AdaptPreviewRouteImport } from './routes/adapt-preview'
 import { Route as AdaptRouteImport } from './routes/adapt'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CharacterIdRouteImport } from './routes/character.$id'
@@ -79,6 +80,11 @@ const ConfirmRoute = ConfirmRouteImport.update({
   path: '/confirm',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdaptPreviewRoute = AdaptPreviewRouteImport.update({
+  id: '/adapt-preview',
+  path: '/adapt-preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdaptRoute = AdaptRouteImport.update({
   id: '/adapt',
   path: '/adapt',
@@ -98,6 +104,7 @@ const CharacterIdRoute = CharacterIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/adapt': typeof AdaptRoute
+  '/adapt-preview': typeof AdaptPreviewRoute
   '/confirm': typeof ConfirmRoute
   '/ending': typeof EndingRoute
   '/huatangchun': typeof HuatangchunRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/adapt': typeof AdaptRoute
+  '/adapt-preview': typeof AdaptPreviewRoute
   '/confirm': typeof ConfirmRoute
   '/ending': typeof EndingRoute
   '/huatangchun': typeof HuatangchunRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/adapt': typeof AdaptRoute
+  '/adapt-preview': typeof AdaptPreviewRoute
   '/confirm': typeof ConfirmRoute
   '/ending': typeof EndingRoute
   '/huatangchun': typeof HuatangchunRoute
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/adapt'
+    | '/adapt-preview'
     | '/confirm'
     | '/ending'
     | '/huatangchun'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/adapt'
+    | '/adapt-preview'
     | '/confirm'
     | '/ending'
     | '/huatangchun'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/adapt'
+    | '/adapt-preview'
     | '/confirm'
     | '/ending'
     | '/huatangchun'
@@ -198,6 +210,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdaptRoute: typeof AdaptRoute
+  AdaptPreviewRoute: typeof AdaptPreviewRoute
   ConfirmRoute: typeof ConfirmRoute
   EndingRoute: typeof EndingRoute
   HuatangchunRoute: typeof HuatangchunRoute
@@ -291,6 +304,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfirmRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/adapt-preview': {
+      id: '/adapt-preview'
+      path: '/adapt-preview'
+      fullPath: '/adapt-preview'
+      preLoaderRoute: typeof AdaptPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/adapt': {
       id: '/adapt'
       path: '/adapt'
@@ -318,6 +338,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdaptRoute: AdaptRoute,
+  AdaptPreviewRoute: AdaptPreviewRoute,
   ConfirmRoute: ConfirmRoute,
   EndingRoute: EndingRoute,
   HuatangchunRoute: HuatangchunRoute,
