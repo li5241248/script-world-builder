@@ -54,8 +54,7 @@ function AdaptPreviewPage() {
             <ChevronLeft className="h-4 w-4 text-white" />
           </button>
           <div className="text-center">
-            <div className="text-[10px] tracking-[0.3em] text-white/50">预览与编辑</div>
-            <div className="text-[13px] font-medium text-white">改编预览</div>
+            <div className="text-[14px] font-medium text-white">改编预览</div>
           </div>
           <div className="flex items-center gap-1 text-[10px] text-white/60">
             <Sparkles className="h-3 w-3" style={{ color: "var(--gold)" }} />
